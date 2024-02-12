@@ -2,6 +2,9 @@
 #include "SceneBase.h"
 #include "../Object/Player.h" /*../Object/Player.h*/
 #include "../Object/Enemy.h"  /*../Object/Enemy.h*/
+#include "../Object/Bullet.h"
+
+#define MAX_BULLET_NUM 256
 
 class GameMainScene:public SceneBase
 {
@@ -14,6 +17,7 @@ private:
 	int enemy_count[3];		// ’Ê‚è‰ß‚¬‚½“G‚ÌƒJƒEƒ“ƒg
 	Player* player;			// ƒvƒŒƒCƒ„[
 	Enemy** enemy;			// “G
+	Bullet** bullet;
 public:
 	GameMainScene();
 	~GameMainScene();
@@ -30,5 +34,9 @@ private:
 	void ReadHighScore();
 	// ‚ ‚½‚è”»’è
 	bool IsHitCheck(Player* p, Enemy* e);
+
+public:	//’eŠÖŒWˆ—
+	bool SpawnBullet();
+	void BulletManager();
 };
 

@@ -7,6 +7,7 @@
 #include "HelpScene.h"
 #include "RankingDispScene.h"
 #include "RankingInputScene.h"
+#include "KH_TestScene.h"
 
 SceneManager::SceneManager() : current_scene(nullptr)
 {
@@ -168,6 +169,8 @@ SceneBase* SceneManager::CreateScene(eSceneType scene_type)
 		return new RankingDispScene;
 	case eSceneType::E_RANKING_INPUT:
 		return new RankingInputScene;
+	case eSceneType::E_TEST:
+		return new KH_TestScene;
 	default:
 		return nullptr;
 	}

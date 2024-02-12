@@ -1,0 +1,3 @@
+Location(X),location(Y),radius,Enemy_Speed,Bullet_Speed,Score,HP,Spown_Time
+828,-50,20,2,10,250,125,5
+528,-50,20,2,10,250,125,5

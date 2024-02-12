@@ -39,13 +39,16 @@ void GameMainScene::Initialize()
 
 	// オブジェクトの生成
 	player = new Player;
-	enemy = new Enemy * [10];
+
+	// コンストラクタでcsv読込も行う
+	e_spawn = new E_Spawn();
+	enemy = new Enemy * [e_spawn->GetMaxEnemy()]; E_num = 0;
 	bullet = new Bullet * [MAX_BULLET_NUM];
 
 	// オブジェクトの初期化
 	player->Initialize();
 
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i <= e_spawn->GetMaxEnemy(); i++) {
 		enemy[i] = nullptr;
 	}
 	for (int i = 0; i < MAX_BULLET_NUM; i++)
@@ -56,6 +59,7 @@ void GameMainScene::Initialize()
 
 eSceneType GameMainScene::Update()
 {
+	
 	// プレイヤーの更新
 	player->Update();
 
@@ -64,20 +68,32 @@ eSceneType GameMainScene::Update()
 
 	// 敵生成処理
 
-	if (mileage / 20 % 100 == 0) {
-		for (int i = 0; i < 10; i++) {
-			// 値がnullなら
-			if (enemy[i] == nullptr) {
-				int type = GetRand(3) % 3;
-				enemy[i] = new Enemy(type, enemy_image[type]);
-				enemy[i]->Initialize();
-				break;
+	if (enemy[E_num] == nullptr) {
+		// エネミーの出現時間に到達したら
+		if (++e_spownCnt > e_spawn->LoadEnemy(E_num).time * 60) {
+
+			//出現したエネミーの情報を全て送信
+		 enemy[E_num] = new Enemy(
+			 e_spawn->LoadEnemy(E_num).location_x		// X座標取得
+			,e_spawn->LoadEnemy(E_num).location_y		// Y座標取得
+			,e_spawn->LoadEnemy(E_num).radius			// 半径取得
+			,e_spawn->LoadEnemy(E_num).speed			// スピード取得
+			,e_spawn->LoadEnemy(E_num).bullet_speed		// 球のスピード取得
+			,e_spawn->LoadEnemy(E_num).score			// 撃破時のスコア数取得
+			, e_spawn->LoadEnemy(E_num).hp				// HP取得
+			, E_num									// 今何体目なのか
+			,1
+			,1
+		 );
+			// エネミーの数がマックス値でないなら
+			if (E_num <= e_spawn->GetMaxEnemy()) {
+				E_num = E_num + 1;
 			}
 		}
 	}
 
 	// 敵の更新と当たり判定チェック
-	for (int i = 0; i < 10; i++) 
+	for (int i = 0; i <= e_spawn->GetMaxEnemy(); i++)
 	{
 		// 値がnullでないなら
 		if (enemy[i] != nullptr) 
@@ -104,7 +120,7 @@ eSceneType GameMainScene::Update()
 			}
 		}
 	}
-
+	
 	// プレイヤーの燃料か体力が０未満なら、リザルトに遷移する
 	if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
 	{
@@ -120,8 +136,8 @@ void GameMainScene::Draw() const
 	DrawGraph(0, mileage % 480 - 480, back_ground, TRUE);
 	DrawGraph(0, mileage % 480, back_ground, TRUE);
 
-	// 敵の描画
-	for (int i = 0; i < 10; i++)
+	// 敵の描画 csvにある敵の数以下なら
+	for (int i = 0; i <= e_spawn->GetMaxEnemy(); i++)
 	{
 		if (enemy[i] != nullptr)
 		{
@@ -207,7 +223,7 @@ void GameMainScene::Finalize()
 	player->Finalize();
 	delete player;
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i <= e_spawn->GetMaxEnemy(); i++)
 	{
 		if (enemy[i] != nullptr)
 		{

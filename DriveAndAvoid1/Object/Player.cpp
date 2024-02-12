@@ -167,7 +167,6 @@ void Player::Movement()
 {
 	Vector2D move = Vector2D(0.0f);
 	angle = 0.0f;
-
 	//\šˆÚ“®ˆ—
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT))
 	{

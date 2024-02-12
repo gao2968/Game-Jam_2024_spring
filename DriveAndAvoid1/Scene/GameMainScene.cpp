@@ -81,11 +81,11 @@ eSceneType GameMainScene::Update()
 			,e_spawn->LoadEnemy(E_num).bullet_speed		// 球のスピード取得
 			,e_spawn->LoadEnemy(E_num).score			// 撃破時のスコア数取得
 			, e_spawn->LoadEnemy(E_num).hp				// HP取得
-			, E_num									// 今何体目なのか
-			,1
-			,1
+			, E_num										// 今何体目なのか
+			,1											// エネミーのタイプ（消すかも）
+			,enemy_image[1]								// エネミーの画像
 		 );
-			// エネミーの数がマックス値でないなら
+			// エネミーの数がマックス値を超えていないなら
 			if (E_num <= e_spawn->GetMaxEnemy()) {
 				E_num = E_num + 1;
 			}
@@ -135,7 +135,6 @@ void GameMainScene::Draw() const
 	// 背景画像の描画
 	DrawGraph(0, mileage % 480 - 480, back_ground, TRUE);
 	DrawGraph(0, mileage % 480, back_ground, TRUE);
-
 	// 敵の描画 csvにある敵の数以下なら
 	for (int i = 0; i <= e_spawn->GetMaxEnemy(); i++)
 	{

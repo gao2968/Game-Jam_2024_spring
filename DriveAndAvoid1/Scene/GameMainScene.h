@@ -4,7 +4,7 @@
 #include "../Object/Player.h" /*../Object/Player.h*/
 #include "../Object/Enemy.h"  /*../Object/Enemy.h*/
 #include "../Object/Bullet.h"
-#include "../EnemySpawn.h"
+#include "../Enemy_Spawn.h"
 
 #define MAX_BULLET_NUM 256
 

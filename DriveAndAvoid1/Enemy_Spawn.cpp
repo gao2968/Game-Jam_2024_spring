@@ -1,4 +1,4 @@
-#include "EnemySpawn.h"
+#include "Enemy_Spawn.h"
 #include "DxLib.h"
 
 // 配列情報を持った敵
@@ -129,6 +129,6 @@ E_NUM E_Spawn::LoadEnemy(int i)
 int E_Spawn::GetMaxEnemy()
 {
 	// 行数を返すことで判断 文字が書かれた行もカウントしているので-1
-	return row-1;
+	return row - 1;
 }
 

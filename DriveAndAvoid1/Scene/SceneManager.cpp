@@ -41,6 +41,8 @@ void SceneManager::Initialize()
 		throw("指定先の指定ができませんでした\n");
 	}
 
+	SetWindowSize(1280, 720);
+
 	//タイトルシーンから始める
 	ChangeScene(eSceneType::E_TITLE);
 }

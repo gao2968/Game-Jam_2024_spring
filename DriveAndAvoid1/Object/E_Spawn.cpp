@@ -1,4 +1,4 @@
-#include "EnemySpawn.h"
+#include "E_Spawn.h"
 #include "DxLib.h"
 
 // 配列情報を持った敵
@@ -19,7 +19,8 @@ EnemySpawn::EnemySpawn()
 	memset(buf, 0, sizeof(buf));
 
 	// ファイルのロード
-	fp = FileRead_open("../Resource/dat/Enemys_Data.csv");
+	if(fp = FileRead_open("../Resource/dat/Enemys_Data.csv"));
+
 
 	// 1行目を無視する ファイルから１文字取得するための変数
 	while (FileRead_getc(fp) != '\n');

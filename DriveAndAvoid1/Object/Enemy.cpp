@@ -6,7 +6,7 @@ Enemy::Enemy(int type, int handle):type(type),image(handle),speed(0.0f),location
 
 }
 
-Enemy::Enemy(float _x, float _y, float _r, float _speed, float b_speed, int score, int _hp, int _E_num)
+Enemy::Enemy(float _x, float _y, float _r, float _speed, float b_speed, int score, int _hp, int _E_num, int type, int handle) :type(type), image(handle)
 {
 	point = score;
 	WaitTime = 0;
@@ -18,15 +18,18 @@ Enemy::Enemy(float _x, float _y, float _r, float _speed, float b_speed, int scor
 	location.x = _x;
 	location.y = _y;
 	radius = _r;
-	color = 0xff0000;
 }
+// GameMainで使用
 
-// new Enemy(e_spawn->LoadEnemy(E_num).location_x
-//			,e_spawn->LoadEnemy(E_num).location_y
-//			,e_spawn->LoadEnemy(E_num).radius
-//			,e_spawn->LoadEnemy(E_num).speed
-//			,e_spawn->LoadEnemy(E_num).bullet_speed
-//			,e_spawn->LoadEnemy(E_num).score, e_spawn->LoadEnemy(E_num).hp, E_num);
+// new Enemy(e_spawn->LoadEnemy(E_num).location_x		// X座標取得
+//			,e_spawn->LoadEnemy(E_num).location_y		// Y座標取得
+//			,e_spawn->LoadEnemy(E_num).radius			// 半径取得
+//			,e_spawn->LoadEnemy(E_num).speed			// スピード取得
+//			,e_spawn->LoadEnemy(E_num).bullet_speed		// 球のスピード取得
+//			,e_spawn->LoadEnemy(E_num).score			// 撃破時のスコア数取得
+//			, e_spawn->LoadEnemy(E_num).hp				// HP取得
+//			, E_num);									// 今何体目なのか
+
 Enemy::~Enemy() 
 {
 

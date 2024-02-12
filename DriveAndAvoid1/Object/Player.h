@@ -42,4 +42,7 @@ private:
 private:
 	void Movement();//移動処理
 	void Acceleration();//加速処理
+
+private:
+	static Vector2D stick[2];  // 左右スティック入力値
 };

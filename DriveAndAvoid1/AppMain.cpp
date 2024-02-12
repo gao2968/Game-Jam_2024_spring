@@ -31,3 +31,4 @@ int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In
 	// ³íI—¹‚ğ’Ê’m
 	return 0;
 }
+

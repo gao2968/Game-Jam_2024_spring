@@ -9,8 +9,8 @@ private:
 	float speed;
 	float radius;
 	float damage;
-	int type;
-private:
+	int type;  //0プレイヤー　1敵
+public:
 	Bullet(); //コンストラクタ
 	~Bullet(); //デストラクタ
 
@@ -19,5 +19,12 @@ private:
 	void Draw();//描画処理
 	void Finalize();//終了処理
 
+
+	Vector2D GetVector() { return vector; }
+	Vector2D GetLocation() { return location; }
+	float GetSpeed() { return speed; }
+	float GetRadius() { return radius; }
+	float GetDamage() { return damage; }
+	int GetType() { return type; }
 };
 

@@ -2,6 +2,7 @@
 #include "../Object/RankingData.h"
 #include "DxLib.h"
 #include <math.h>
+#include "../Utility/Collision.h"
 
 GameMainScene::GameMainScene() :high_score(0), back_ground(NULL), barrier_image(NULL), mileage(0), player(nullptr),
 enemy(nullptr) {
@@ -39,12 +40,17 @@ void GameMainScene::Initialize()
 	// オブジェクトの生成
 	player = new Player;
 	enemy = new Enemy * [10];
+	bullet = new Bullet * [MAX_BULLET_NUM];
 
 	// オブジェクトの初期化
 	player->Initialize();
 
 	for (int i = 0; i < 10; i++) {
 		enemy[i] = nullptr;
+	}
+	for (int i = 0; i < MAX_BULLET_NUM; i++)
+	{
+		bullet[i] = nullptr;
 	}
 }
 
@@ -211,6 +217,17 @@ void GameMainScene::Finalize()
 		}
 	}
 	delete[] enemy;
+	//弾の消去
+	for (int i = 0; i < MAX_BULLET_NUM; i++)
+	{
+		if (bullet[i] != nullptr)
+		{
+			bullet[i]->Finalize();
+			delete bullet[i];
+			bullet[i] = nullptr;
+		}
+	}
+	delete[] bullet;
 }
 
 // 現在のシーン情報取得
@@ -250,4 +267,52 @@ bool GameMainScene::IsHitCheck(Player* p, Enemy* e)
 	Vector2D box_ex = p->GetBoxSize() + e->GetBoxSize();
 	// コリジョンデータより位置情報の差分が小さいなら、ヒット判定
 	return ((fabs(diff_location.x)<box_ex.x)&&(fabsf(diff_location.y)<box_ex.y));
+}
+
+bool GameMainScene::SpawnBullet()
+{
+	for (int i = 0; i < MAX_BULLET_NUM; i++)
+	{
+		if (bullet[i] == nullptr)
+		{
+			bullet[i] = new Bullet();
+			//弾のベクトルとか座標とかを引数として渡す
+			//bullet[i]->Initialize()
+
+			return true;
+		}
+	}
+	return false;
+}
+
+void GameMainScene::BulletManager()
+{
+	for (int i = 0; i < MAX_BULLET_NUM; i++)
+	{
+		if (bullet[i] != nullptr)
+		{
+			//弾を発射したのがプレイヤーだったら
+			if (bullet[i]->GetType() == 0)	
+			{
+				for (int j = 0; j < 10; j++)
+				{
+					//敵と弾の当たり判定　弾の座標、半径と敵の座標、半径を引数とする
+					//CheckCollision(bullet[i]->GetLocation(),bullet[i]->GetRadius(),)
+				}
+			}
+			//弾を発射したのがエネミーだったら
+			else if (bullet[i]->GetType() == 1)	
+			{
+				//プレイヤーと弾の当たり判定　弾の座標、半径とプレイヤーの座標、半径を引数とする
+				//CheckCollision(bullet[i]->GetLocation(),bullet[i]->GetRadius(),)	
+			}
+
+			//弾が範囲外に行った時の処理
+			if (bullet[i]->GetLocation().x < 0 || bullet[i]->GetLocation().x > 1280 ||
+				bullet[i]->GetLocation().y < 0 || bullet[i]->GetLocation().y > 720)
+			{
+				bullet[i] = nullptr;
+			}
+		}
+	}
 }

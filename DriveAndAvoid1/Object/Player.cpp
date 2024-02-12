@@ -182,6 +182,19 @@ void Player::Movement()
 	}
 	location += move;
 
+	// 左スティック入力値の更新（に範囲を制限する）
+	if (InputControl::GetLeftStick().x > 0.3f)
+	{
+		move += Vector2D(1.0f, 0.0f);
+		angle = DX_PI_F / 18;
+	}
+	if (InputControl::GetLeftStick().x < -0.3f)
+	{
+		move += Vector2D(-1.0f, 0.0f);
+		angle = -DX_PI_F / 18;
+	}
+	location += move;
+
 	
 
 	//画面外に行かないように制限する

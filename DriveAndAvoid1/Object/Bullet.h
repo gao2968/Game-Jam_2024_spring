@@ -14,7 +14,7 @@ private:
 	Bullet(); //コンストラクタ
 	~Bullet(); //デストラクタ
 
-	void Initialize(Vector2D vec,Vector2D loc,); //初期化処理
+	void Initialize(Vector2D vec, Vector2D loc, float s, float r, float d, int t); //初期化処理
 	void Update(); //更新処理
 	void Draw();//描画処理
 	void Finalize();//終了処理

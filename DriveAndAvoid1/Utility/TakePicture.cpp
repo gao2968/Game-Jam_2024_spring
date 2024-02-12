@@ -42,7 +42,7 @@ void TakePicture::Update()
 		detection_frame = frame(roi);
 
 		//検出範囲をピンク枠で囲う
-		//rectangle(frame, Point(x - 50, y - 50), Point(x_end + 50, y_end + 50), Scalar(200, 0, 255), 3);
+		rectangle(frame, Point(x - 50, y - 50), Point(x_end + 50, y_end + 50), Scalar(200, 0, 255), 3);
 
 		//連続検索フラグを1(2連続以上の)
 		basic_flag = 1;
@@ -85,10 +85,11 @@ void TakePicture::Update()
 		x_basic = x;
 		y_basic = y;
 
-		//rectangle(frame, Point(x, y), Point(x_end, y_end), Scalar(0, 0, 255), 3);
+		rectangle(frame, Point(x, y), Point(x_end, y_end), Scalar(0, 0, 255), 3);
 		//printf("(%d,%d) (%d,%d)\n", x, y, x_end, y_end);
 	}
 
+	//imshow("window", frame);//画像を表示．
 
 	/*int key = waitKey(1);
 	
@@ -102,7 +103,10 @@ void TakePicture::Update()
 
 void TakePicture::Draw() const
 {
-	//imshow("window", frame);//画像を表示．
+	imshow("window", frame);//画像を表示．
+	//rectangle(frame, Point(x - 50, y - 50), Point(x_end + 50, y_end + 50), Scalar(200, 0, 255), 3);
+	//rectangle(frame, Point(x, y), Point(x_end, y_end), Scalar(0, 0, 255), 3);
+	//waitKey();
 }
 
 void TakePicture::Finalize()

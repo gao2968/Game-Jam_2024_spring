@@ -44,6 +44,8 @@ void SceneManager::Initialize()
 
 	SetWindowSize(1280, 720);
 
+	SetAlwaysRunFlag(true);
+
 	//タイトルシーンから始める
 	ChangeScene(eSceneType::E_TITLE);
 }

@@ -1,8 +1,10 @@
 #pragma once
 #include "SceneBase.h"
+
 #include "../Object/Player.h" /*../Object/Player.h*/
 #include "../Object/Enemy.h"  /*../Object/Enemy.h*/
 #include "../Object/Bullet.h"
+#include "../EnemySpawn.h"
 
 #define MAX_BULLET_NUM 256
 
@@ -15,9 +17,14 @@ private:
 	int mileage;			// 走行距離
 	int enemy_image[3];		// 敵画像
 	int enemy_count[3];		// 通り過ぎた敵のカウント
+	int E_num;
+	int e_spownCnt;
+
 	Player* player;			// プレイヤー
-	Enemy** enemy;			// 敵
+	 Enemy** enemy;			// 敵
 	Bullet** bullet;
+
+	E_Spawn* e_spawn;
 public:
 	GameMainScene();
 	~GameMainScene();

@@ -1,12 +1,12 @@
-#include "E_Spawn.h"
+#include "EnemySpawn.h"
 #include "DxLib.h"
 
 // 配列情報を持った敵
-E_NUM EnemySpawn::data[63];
-int EnemySpawn::row;
+E_NUM E_Spawn::data[63];
+int E_Spawn::row;
 
 // コンストラクタ
-EnemySpawn::EnemySpawn()
+E_Spawn::E_Spawn()
 {
 	int fp;
 	char buf[100];	// 文字列読み取り用
@@ -19,7 +19,7 @@ EnemySpawn::EnemySpawn()
 	memset(buf, 0, sizeof(buf));
 
 	// ファイルのロード
-	if(fp = FileRead_open("../Resource/dat/Enemys_Data.csv"));
+	if (fp = FileRead_open("Resource/dat/Enemys_Data.csv"));
 
 
 	// 1行目を無視する ファイルから１文字取得するための変数
@@ -114,21 +114,21 @@ out:
 }
 
 
-EnemySpawn::~EnemySpawn()
+E_Spawn::~E_Spawn()
 {
 
 }
 
 // 敵情報の読み込み
-E_NUM EnemySpawn::LoadEnemy(int i)
+E_NUM E_Spawn::LoadEnemy(int i)
 {
 	return data[i];
 }
 
 // 読み込まれた敵の量の取得
-int EnemySpawn::GetMaxEnemy()
+int E_Spawn::GetMaxEnemy()
 {
-	// 行数を返すことで判断できる
-	return row;
+	// 行数を返すことで判断 文字が書かれた行もカウントしているので-1
+	return row-1;
 }
 

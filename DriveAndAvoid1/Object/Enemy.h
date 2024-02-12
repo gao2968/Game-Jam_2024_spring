@@ -30,8 +30,6 @@ private:
 	int radius;			// 円の大きさ
 public:
 
-	Enemy(int type, int handle);
-
 	// csvから取得する用のコンストラクタ
 	Enemy(float _x, float _y, float _r, float _speed, float b_speed, int score, int hp, int E_num, int type, int handle);
 	~Enemy();

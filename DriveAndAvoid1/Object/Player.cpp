@@ -17,9 +17,6 @@ Player::~Player()
 //初期化処理
 void Player::Initialize()
 {
-	Aim.x = 0;
-	Aim.y = 0;
-
 	is_active = true;
 	location = Vector2D(320.0f, 380.0f);
 	box_size = Vector2D(31.0f, 60.0f);
@@ -28,7 +25,7 @@ void Player::Initialize()
 	hp = 1000;
 	fuel = 20000;
 	barrier_count = 3;
-	
+
 	//画像の読み込み
 	image = LoadGraph("Resource/images/car1pol.bmp");
 
@@ -42,13 +39,9 @@ void Player::Initialize()
 //更新処理
 void Player::Update()
 {
-
-	// 追加（後で消す）
-	Aim.x = location.x + InputControl::GetRightStick().x * 150;
-	Aim.y = location.y + InputControl::GetRightStick().y * 150;
-
-
-	// 追加（後で消す）
+	AimLocation.x =location.x+ InputControl::GetRightStick().x * 200;
+	AimLocation.y = location.y + InputControl::GetRightStick().y * -200;
+	
 	//操作不可状態であれば、自身を回転させる
 	if (!is_active)
 	{
@@ -100,8 +93,7 @@ void Player::Update()
 //描画処理
 void Player::Draw()
 {
-
-	 DrawCircle(Aim.x, Aim.y,5, 0xff0000, true);
+	DrawCircle(AimLocation.x, AimLocation.y, 3, 0xffff00, true);
 	//プレイヤー画像の描画
 	DrawRotaGraphF(location.x, location.y, 1.0f, angle, image, TRUE);
 
@@ -174,6 +166,11 @@ bool Player::IsBarrier() const
 	return (barrier != nullptr);
 }
 
+Vector2D Player::GetAim() 
+{
+	return AimLocation - location;
+}
+
 //移動処理
 void Player::Movement()
 {
@@ -228,9 +225,4 @@ void Player::Acceleration()
 	{
 		speed += 1.0f;
 	}
-}
-
-Vector2D Player::Get_AimLocation()
-{
-	return Aim;
 }

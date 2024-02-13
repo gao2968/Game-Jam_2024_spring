@@ -1,4 +1,8 @@
 #pragma once
+#include<string>		//文字列操作
+#include<sstream>		//文字列変換
+#include<fstream>		//ファイル操作
+#include "DxLib.h"
 #include "opencv2/opencv.hpp"
 #include "opencv2/highgui.hpp"
 #include <vector>
@@ -31,6 +35,8 @@ private:
 	//ここからお試し
 	Mat face;
 
+	std::string path; //画像の最新パス
+	int num; //画像が何枚保存されているか
 
 public:
 	TakePicture();
@@ -41,6 +47,12 @@ public:
 	void Draw() const;//描画処理
 	void Finalize();//終了処理
 
+	bool Take();
+	void SeekNum();
+
+	std::string GetPath() { return path; }
+	int GetNum() { return num; }
+	
 };
 
 //#include "opencv2/opencv.hpp"

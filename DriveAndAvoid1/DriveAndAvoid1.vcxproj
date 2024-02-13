@@ -171,6 +171,7 @@
     <ClCompile Include="Scene\ResultScene.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
+    <ClCompile Include="Scene\TakePictureScene.cpp" />
     <ClCompile Include="Utility\TakePicture.cpp" />
     <ClCompile Include="Utility\InputControl.cpp" />
   </ItemGroup>
@@ -190,6 +191,7 @@
     <ClInclude Include="Scene\SceneBase.h" />
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\TitleScene.h" />
+    <ClInclude Include="Scene\TakePictureScene.h" />
     <ClInclude Include="Utility\TakePicture.h" />
     <ClInclude Include="Utility\Collision.h" />
     <ClInclude Include="Utility\InputControl.h" />

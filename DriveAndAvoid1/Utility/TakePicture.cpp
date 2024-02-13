@@ -1,4 +1,6 @@
 #include "TakePicture.h"
+#include "InputControl.h"
+
 
 TakePicture::TakePicture()
 {
@@ -36,6 +38,20 @@ void TakePicture::Update()
 
 	}
 	else {//直前のフレームで顔が検出された場合
+
+		//画面端に映るとエラーになる対策
+		if (x - 50 < 1) {
+			x = 51;
+		}
+		if (y - 50 < 1) {
+			y = 51;
+		}
+		if (x_end + 50 > frame.cols - 1) {
+			x_end = frame.cols - 51;
+		}
+		if (y_end + 50 > frame.rows - 1) {
+			y_end = frame.rows - 51;
+		}
 
 		//検出範囲として、直前のフレームの顔検出の範囲より一回り(上下左右50pixel)大きい範囲とする
 		Rect roi(Point(x - 50, y - 50), Point(x_end + 50, y_end + 50));
@@ -99,6 +115,8 @@ void TakePicture::Update()
 		face = frame(tmp);
 		imwrite("img1.png", face);
 	}*/
+
+	
 }
 
 void TakePicture::Draw() const
@@ -111,4 +129,49 @@ void TakePicture::Draw() const
 
 void TakePicture::Finalize()
 {
+}
+
+bool TakePicture::Take()
+{
+	int key = waitKey(1);
+
+	if ((InputControl::GetButtonDown(XINPUT_BUTTON_B) || key == 'e') && faces.size() > 0) {
+		Rect tmp(Point(x, y), Point(x_end, y_end));
+		face = frame(tmp);
+		
+		int handle;
+
+		for (int i = 0; i < 128; i++)
+		{
+			path = "Resource/images/img" + std::to_string(i) + ".png";
+			if (handle = LoadGraph(path.c_str()) == -1) {
+				num = i;
+				break;
+			}
+			DeleteGraph(handle);
+		}
+		resize(face, face, cv::Size(), 100.0 / face.cols, 100.0 / face.rows);
+		imwrite(path, face);
+		destroyAllWindows();
+
+		return true;
+	}
+
+	return false;
+}
+
+void TakePicture::SeekNum()
+{
+	int handle;
+	std::string path_tmp;
+	for (int i = 0; i < 128; i++)
+	{
+		path_tmp = "Resource/images/faceimg" + std::to_string(i) + ".png";
+		if (handle = LoadGraph(path_tmp.c_str()) == -1) {
+			num = i - 1;
+			DeleteGraph(handle);
+			break;
+		}
+		DeleteGraph(handle);
+	}
 }

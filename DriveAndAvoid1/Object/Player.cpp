@@ -39,6 +39,9 @@ void Player::Initialize()
 //更新処理
 void Player::Update()
 {
+	AimLocation.x =location.x+ InputControl::GetRightStick().x * 200;
+	AimLocation.y = location.y + InputControl::GetRightStick().y * -200;
+	
 	//操作不可状態であれば、自身を回転させる
 	if (!is_active)
 	{
@@ -90,6 +93,7 @@ void Player::Update()
 //描画処理
 void Player::Draw()
 {
+	DrawCircle(AimLocation.x, AimLocation.y, 3, 0xffff00, true);
 	//プレイヤー画像の描画
 	DrawRotaGraphF(location.x, location.y, 1.0f, angle, image, TRUE);
 
@@ -160,6 +164,11 @@ int Player::GetBarriarCount() const
 bool Player::IsBarrier() const
 {
 	return (barrier != nullptr);
+}
+
+Vector2D Player::GetAim() const
+{
+	return Vector2D();
 }
 
 //移動処理

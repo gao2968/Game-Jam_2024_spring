@@ -24,6 +24,7 @@ public:
 	float GetHp() const;//体力取得処理
 	int GetBarriarCount() const;//バリアの枚数取得
 	bool IsBarrier() const;//バリアは有効か？を取得
+	Vector2D GetAim() const;//球に渡すベクトル
 
 private:
 	bool is_active; //有効常態か？
@@ -31,7 +32,7 @@ private:
 
 	Vector2D location;//位置座標
 	Vector2D box_size;//当たり判定の大きさ
-	
+	Vector2D AimLocation;//エイムの位置座標
 	float angle;//角度
 	float speed;//速さ
 	float hp;//体力
@@ -45,4 +46,6 @@ private:
 
 private:
 	static Vector2D stick[2];  // 左右スティック入力値
+
+
 };

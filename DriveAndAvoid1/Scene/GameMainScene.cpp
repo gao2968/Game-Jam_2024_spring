@@ -59,61 +59,21 @@ void GameMainScene::Initialize()
 
 eSceneType GameMainScene::Update()
 {
-	if (InputControl::GetButton(XINPUT_BUTTON_RIGHT_SHOULDER)) {
-		SpawnBullet();
-	}
-	
-	for (int i = 0; i < MAX_BULLET_NUM; i++)
-	{
-		if (bullet[i] != nullptr) {
-			bullet[i]->Update();
-		}
-		
-	}
-	BulletManager();
-	
 	// プレイヤーの更新
 	player->Update();
-
-	// 移動量距離の更新 playerスピードを取得して+５した値をmileageに+する（毎フレーム）
-	mileage += (int)player->GetSpeed() + 5;
-
 	// 敵生成処理
-
-	if (enemy[E_num] == nullptr) {
-		// エネミーの出現時間に到達したら
-		if (++e_spownCnt > e_spawn->LoadEnemy(E_num).time * 60) {
-
-			//出現したエネミーの情報を全て送信
-		 enemy[E_num] = new Enemy(
-			 e_spawn->LoadEnemy(E_num).location_x		// X座標取得
-			,e_spawn->LoadEnemy(E_num).location_y		// Y座標取得
-			,e_spawn->LoadEnemy(E_num).radius			// 半径取得
-			,e_spawn->LoadEnemy(E_num).speed			// スピード取得
-			,e_spawn->LoadEnemy(E_num).bullet_speed		// 球のスピード取得
-			,e_spawn->LoadEnemy(E_num).score			// 撃破時のスコア数取得
-			, e_spawn->LoadEnemy(E_num).hp				// HP取得
-			, E_num										// 今何体目なのか
-			,1											// エネミーのタイプ（消すかも）
-			,enemy_image[1]								// エネミーの画像
-		 );
-			// エネミーの数がマックス値を超えていないなら
-			if (E_num <= e_spawn->GetMaxEnemy()) {
-				E_num = E_num + 1;
-			}
-		}
-	}
+	spawn_Enemys();
 
 	// 敵の更新と当たり判定チェック
 	for (int i = 0; i <= e_spawn->GetMaxEnemy(); i++)
 	{
 		// 値がnullでないなら
-		if (enemy[i] != nullptr) 
+		if (enemy[i] != nullptr)
 		{
 			enemy[i]->Update(player->GetSpeed());
 
 			// 画面外に行ったら、敵を消去してスコア加算
-			if (enemy[i]->GetLocation().y >= 640.0f) 
+			if (enemy[i]->GetLocation().y >= 640.0f)
 			{
 				enemy_count[enemy[i]->GetType()]++;
 				enemy[i]->Finalize();
@@ -132,6 +92,22 @@ eSceneType GameMainScene::Update()
 			}
 		}
 	}
+
+	if (InputControl::GetButton(XINPUT_BUTTON_RIGHT_SHOULDER)) {
+		SpawnBullet();
+	}
+	
+	for (int i = 0; i < MAX_BULLET_NUM; i++)
+	{
+		if (bullet[i] != nullptr) {
+			bullet[i]->Update();
+		}
+		
+	}
+	BulletManager();
+
+	// 移動量距離の更新 playerスピードを取得して+５した値をmileageに+する（毎フレーム）
+	mileage += (int)player->GetSpeed() + 5;
 	
 	// プレイヤーの燃料か体力が０未満なら、リザルトに遷移する
 	if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
@@ -319,6 +295,22 @@ bool GameMainScene::SpawnBullet()
 	return false;
 }
 
+bool GameMainScene::Enemy_SpawnBullet()
+{
+	for (int i = 0; i < MAX_BULLET_NUM; i++)
+	{
+		if (bullet[i] == nullptr)
+		{
+			bullet[i] = new Bullet();
+			//弾のベクトルとか座標とかを引数として渡す
+			bullet[i]->Initialize(-10, player->GetLocation(), 5.0f, 10, 1, 1);
+
+			return true;
+		}
+	}
+	return false;
+}
+
 void GameMainScene::BulletManager()
 {
 	for (int i = 0; i < MAX_BULLET_NUM; i++)
@@ -346,6 +338,33 @@ void GameMainScene::BulletManager()
 				bullet[i]->GetLocation().y < 0 || bullet[i]->GetLocation().y > 720)
 			{
 				bullet[i] = nullptr;
+			}
+		}
+	}
+}
+
+void GameMainScene::spawn_Enemys()
+{
+	if (enemy[E_num] == nullptr) {
+		// エネミーの出現時間に到達したら
+		if (++e_spownCnt > e_spawn->LoadEnemy(E_num).time * 60) {
+
+			//出現したエネミーの情報を全て送信
+			enemy[E_num] = new Enemy(
+				e_spawn->LoadEnemy(E_num).location_x		// X座標取得
+				, e_spawn->LoadEnemy(E_num).location_y		// Y座標取得
+				, e_spawn->LoadEnemy(E_num).radius			// 半径取得
+				, e_spawn->LoadEnemy(E_num).speed			// スピード取得
+				, e_spawn->LoadEnemy(E_num).bullet_speed		// 球のスピード取得
+				, e_spawn->LoadEnemy(E_num).score			// 撃破時のスコア数取得
+				, e_spawn->LoadEnemy(E_num).hp				// HP取得
+				, E_num										// 今何体目なのか
+				, 1											// エネミーのタイプ（消すかも）
+				, enemy_image[1]								// エネミーの画像
+			);
+			// エネミーの数がマックス値を超えていないなら
+			if (E_num <= e_spawn->GetMaxEnemy()) {
+				E_num = E_num + 1;
 			}
 		}
 	}

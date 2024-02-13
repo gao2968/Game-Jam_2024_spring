@@ -4,11 +4,11 @@
 #include "../Utility/TakePicture.h"
 
 Player::Player() : is_active(false), image(NULL), location(0.0f), box_size(0.0f),
-angle(0.0f), speed(0.0f), hp(0.0f), fuel(0.0f), barrier_count(0),
+angle(0.0f), speed(0.0f), hp(0.0f), fuel(0.0f), barrier_count(0),radius(0.0f),
 
 barrier(nullptr)
 {
-
+	
 }
 Player::~Player()
 {
@@ -24,8 +24,9 @@ void Player::Initialize()
 	angle = 0.0f;
 	speed = 3.0f;
 	hp = 1000;
-	fuel = 20000;
+	fuel = 2000;
 	barrier_count = 3;
+	radius = 50.0f;
 
 	//画像の読み込み
 	TakePicture p;
@@ -100,8 +101,11 @@ void Player::Update()
 void Player::Draw()
 {
 	DrawCircle(AimLocation.x, AimLocation.y, 3, 0xffff00, true);
+	
 	//プレイヤー画像の描画
 	DrawRotaGraphF(location.x, location.y, 1.0f, angle, image, TRUE);
+
+	//DrawCircle(location.x, location.y, radius, 0xffff00, false);
 
 	//バリアが生成されていたら、描画を行う
 	if (barrier != nullptr)
@@ -175,6 +179,11 @@ bool Player::IsBarrier() const
 Vector2D Player::GetAim() 
 {
 	return AimLocation - location;
+}
+
+float Player::GetRadius()
+{
+	return radius;
 }
 
 //移動処理

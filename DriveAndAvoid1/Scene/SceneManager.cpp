@@ -51,7 +51,7 @@ void SceneManager::Initialize()
 	FontManager::Initialize();
 
 	//タイトルシーンから始める
-	ChangeScene(eSceneType::E_TAKE_PICTURE);
+	ChangeScene(eSceneType::E_MAIN);
 }
 
 //シーンマネージャー機能：更新処理

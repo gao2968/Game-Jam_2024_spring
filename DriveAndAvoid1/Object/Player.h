@@ -26,6 +26,8 @@ public:
 	bool IsBarrier() const;//バリアは有効か？を取得
 	Vector2D GetAim() ;//球に渡すベクトル
 
+	float GetRadius();
+
 private:
 	bool is_active; //有効常態か？
 	int image;		//画像データ
@@ -39,6 +41,7 @@ private:
 	float fuel;//燃料
 	int barrier_count;//バリアの枚数
 	Barrier* barrier;//バリア
+	float radius;
 
 private:
 	void Movement();//移動処理

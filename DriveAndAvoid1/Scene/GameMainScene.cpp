@@ -4,6 +4,7 @@
 #include <math.h>
 #include "../Utility/Collision.h"
 #include"../Utility/InputControl.h"
+#include "../Utility/TakePicture.h"
 
 GameMainScene::GameMainScene() :high_score(0), back_ground(NULL), barrier_image(NULL), mileage(0), player(nullptr),
 enemy(nullptr) {
@@ -12,6 +13,8 @@ enemy(nullptr) {
 		enemy_image[i] = NULL;
 		enemy_count[i] = NULL;
 	}
+
+	enemy_image_num = 0;
 }
 
 GameMainScene::~GameMainScene()
@@ -27,6 +30,19 @@ void GameMainScene::Initialize()
 	back_ground = LoadGraph("Resource/images/back.bmp");
 	barrier_image = LoadGraph("Resource/images/barrier.png");
 	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
+
+	TakePicture tmp;
+	std::string path;
+	tmp.SeekNum();
+	for (int i = 0; i < tmp.GetNum(); i++)
+	{
+		path = "Resource/images/img" + std::to_string(i) + ".png";
+		enemy_image[i] = LoadGraph(path.c_str());
+		if (enemy_image[i] != -1) {
+			enemy_image_num++;
+		}
+	}
+
 	// エラーチェック
 	if (back_ground == -1) {
 		throw("画像back.bmpがありません\n");
@@ -289,7 +305,7 @@ bool GameMainScene::SpawnBullet()
 		{
 			bullet[i] = new Bullet();
 			//弾のベクトルとか座標とかを引数として渡す
-			bullet[i]->Initialize(player->GetAim(), player->GetLocation(), 5.0f, 10, 1, 1);
+			bullet[i]->Initialize(player->GetAim(), player->GetLocation(), 5.0f, 10, 1, 0);
 
 			return true;
 		}
@@ -324,8 +340,13 @@ void GameMainScene::BulletManager()
 			{
 				for (int j = 0; j < 10; j++)//敵の最大数
 				{
-					//敵と弾の当たり判定　弾の座標、半径と敵の座標、半径を引数とする
-					//CheckCollision(bullet[i]->GetLocation(),bullet[i]->GetRadius(),)
+					if (enemy[j] != nullptr) {
+						//敵と弾の当たり判定　弾の座標、半径と敵の座標、半径を引数とする
+						if (CheckCollision(bullet[i]->GetLocation(), bullet[i]->GetRadius(), enemy[j]->GetLocation(), 50.0f))
+						{
+							//enemy[j] = nullptr;
+						}
+					}
 				}
 			}
 			//弾を発射したのがエネミーだったら
@@ -336,7 +357,7 @@ void GameMainScene::BulletManager()
 			}
 
 			//弾が範囲外に行った時の処理
-			if (bullet[i]->GetLocation().x < 0 || bullet[i]->GetLocation().x > 1280 ||
+			if (bullet[i]->GetLocation().x < 0 || bullet[i]->GetLocation().x > 1000 ||
 				bullet[i]->GetLocation().y < 0 || bullet[i]->GetLocation().y > 720)
 			{
 				bullet[i] = nullptr;
@@ -362,7 +383,7 @@ void GameMainScene::spawn_Enemys()
 				, e_spawn->LoadEnemy(E_num).hp				// HP取得
 				, E_num										// 今何体目なのか
 				, 1											// エネミーのタイプ（消すかも）
-				, enemy_image[1]								// エネミーの画像
+				, enemy_image[GetRand(enemy_image_num)]								// エネミーの画像
 			);
 			// エネミーの数がマックス値を超えていないなら
 			if (E_num <= e_spawn->GetMaxEnemy()) {

@@ -237,14 +237,15 @@ void GameMainScene::Finalize()
 
 	for (int i = 0; i <= e_spawn->GetMaxEnemy(); i++)
 	{
-		if (enemy[i] != nullptr)
+		/*if (enemy[i] != nullptr)
 		{
 			enemy[i]->Finalize();
 			delete enemy[i];
 			enemy[i] = nullptr;
-		}
+		}*/
+		delete enemy[i];
 	}
-	delete[] enemy;
+	//delete[] enemy;
 	//’e‚ÌÁ‹
 	for (int i = 0; i < MAX_BULLET_NUM; i++)
 	{

@@ -1,5 +1,7 @@
 #include "Enemy.h"
 #include"DxLib.h"
+// ヘッダーではなくcppでインクルードする
+#include"../Scene/GameMainScene.h"
 
 Enemy::Enemy(float _x, float _y, float _r, float _speed, float b_speed, int score, int _hp, int _E_num, int type, int handle) :type(type), image(handle)
 {
@@ -13,6 +15,7 @@ Enemy::Enemy(float _x, float _y, float _r, float _speed, float b_speed, int scor
 	location.x = _x;
 	location.y = _y;
 	radius = _r;
+	bullet_Timing = 120;
 }
 
 Enemy::~Enemy() 
@@ -27,8 +30,15 @@ void Enemy::Initialize()
 	box_size = Vector2D(31.0f, 60.0f);
 }
 
-void Enemy::Update(float speed) 
+void Enemy::Update(float speed,GameMainScene* game)// ポインタなのでGameMainSceneのアドレスにアクセスできる
 {
+
+	LateTime++;
+
+	if (LateTime % bullet_Timing == 0) {
+		game->Enemy_SpawnBullet(location);
+	}
+	
 	// 位置情報に移動量を加算する Yのみプラスしていく感じ
 	location += Vector2D(this->speed - speed - 6, 0.0f);
 }
@@ -61,4 +71,9 @@ Vector2D Enemy::GetBoxSize()
 int Enemy::Get_Radius()
 {
 	return radius;
+}
+
+bool Enemy::firing()
+{
+	return shot;
 }

@@ -24,7 +24,7 @@ void Player::Initialize()
 	angle = 0.0f;
 	speed = 3.0f;
 	hp = 1000;
-	fuel = 2000;
+	fuel = 20000;
 	barrier_count = 3;
 	radius = 50.0f;
 

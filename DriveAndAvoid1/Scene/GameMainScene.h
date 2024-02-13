@@ -45,7 +45,7 @@ private:
 
 public:	//’eŠÖŒWˆ—
 	bool SpawnBullet();
-	bool Enemy_SpawnBullet();
+	bool Enemy_SpawnBullet(Vector2D e_location);
 	void BulletManager();
 
 private:	// “G‚Ìˆ—ŠÖ”

@@ -87,7 +87,7 @@ eSceneType GameMainScene::Update()
 		// 値がnullでないなら
 		if (enemy[i] != nullptr)
 		{
-			enemy[i]->Update(player->GetSpeed());
+			enemy[i]->Update(player->GetSpeed(),this);
 
 			// 画面外に行ったら、敵を消去してスコア加算
 			if (enemy[i]->GetLocation().y >= 640.0f)
@@ -113,7 +113,9 @@ eSceneType GameMainScene::Update()
 	if (InputControl::GetButton(XINPUT_BUTTON_RIGHT_SHOULDER)) {
 		SpawnBullet();
 	}
-	
+
+		// Enemy_SpawnBullet();
+
 	for (int i = 0; i < MAX_BULLET_NUM; i++)
 	{
 		if (bullet[i] != nullptr) {
@@ -314,7 +316,9 @@ bool GameMainScene::SpawnBullet()
 	return false;
 }
 
-bool GameMainScene::Enemy_SpawnBullet()
+
+// ゲームメインにあるが、処理として使っているのはエネミー側
+bool GameMainScene::Enemy_SpawnBullet(Vector2D e_location)
 {
 	for (int i = 0; i < MAX_BULLET_NUM; i++)
 	{
@@ -322,7 +326,7 @@ bool GameMainScene::Enemy_SpawnBullet()
 		{
 			bullet[i] = new Bullet();
 			//弾のベクトルとか座標とかを引数として渡す
-			bullet[i]->Initialize(-10, player->GetLocation(), 5.0f, 10, 1, 1);
+			bullet[i]->Initialize(-10, e_location, 5.0f, 10, 1, 1);
 
 			return true;
 		}

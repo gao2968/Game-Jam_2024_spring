@@ -15,8 +15,8 @@ private:
 	int back_ground;		// ”wŒi‰æ‘œ
 	int barrier_image;		// ƒoƒŠƒA‰æ‘œ
 	int mileage;			// ‘–s‹——£
-	int enemy_image[10];		// “G‰æ‘œ
-	int enemy_image_num;		//“G‚Ì‰æ‘œ–‡”
+	int enemy_image[10];	// “G‰æ‘œ
+	int enemy_image_num;	// “G‚Ì‰æ‘œ–‡”
 	int enemy_count[3];		// ’Ê‚è‰ß‚¬‚½“G‚ÌƒJƒEƒ“ƒg
 	int E_num;
 	int e_spownCnt;

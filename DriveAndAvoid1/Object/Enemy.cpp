@@ -33,9 +33,17 @@ void Enemy::Initialize()
 
 void Enemy::Update(float speed,GameMainScene* game)// ポインタなのでGameMainSceneのアドレスにアクセスできる
 {
-	if (E_num == 12) {
+	// E_numが任意の数ならボスの処理
+	if (E_num == 11) 
+	{
+		if (location.x <= 1000) 
+		{
+			location.x = 1000;
+		}
 
 	}else {
+	// ボス以外の処理
+
 		b_vector.y = location.y;
 		LateTime++;
 

@@ -22,7 +22,7 @@ void Player::Initialize()
 	location = Vector2D(100.0f, 360.0f);
 	box_size = Vector2D(31.0f, 60.0f);
 	angle = 0.0f;
-	speed = 3.0f;
+	speed = 6.0f;
 	hp = 1000;
 	fuel = 20000;
 	barrier_count = 3;
@@ -231,13 +231,13 @@ void Player::Movement()
 void Player::Acceleration()
 {
 	//LBボタンが押されたら、減速する
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER) && speed > 1.0f)
-	{
-		speed -= 1.0f;
-	}
-	//RBボタンが押されたら、加速する
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_RIGHT_SHOULDER) && speed < 10.0f)
-	{
-		speed += 1.0f;
-	}
+	//if (InputControl::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER) && speed > 1.0f)
+	//{
+	//	speed -= 1.0f;
+	//}
+	////RBボタンが押されたら、加速する
+	//if (InputControl::GetButtonDown(XINPUT_BUTTON_RIGHT_SHOULDER) && speed < 10.0f)
+	//{
+	//	speed += 1.0f;
+	//}
 }

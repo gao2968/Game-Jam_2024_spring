@@ -9,6 +9,7 @@
 #include "RankingInputScene.h"
 #include "KH_TestScene.h"
 #include "TakePictureScene.h"
+#include "../Resource/FontManager.h"
 
 SceneManager::SceneManager() : current_scene(nullptr)
 {
@@ -46,6 +47,8 @@ void SceneManager::Initialize()
 	//SetWindowSize(1280, 720);
 	SetGraphMode(1280, 720, 32);
 	SetAlwaysRunFlag(true);
+
+	FontManager::Initialize();
 
 	//タイトルシーンから始める
 	ChangeScene(eSceneType::E_MAIN);
@@ -110,6 +113,9 @@ void SceneManager::Finalize()
 		delete current_scene;
 		current_scene = nullptr;
 	}
+
+	//フォント削除
+	FontManager::Finalize();
 
 	//DXライブラリの使用を終了する
 	DxLib_End();

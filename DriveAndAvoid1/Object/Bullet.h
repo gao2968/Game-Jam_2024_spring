@@ -14,6 +14,7 @@ public:
 	Bullet(); //コンストラクタ
 	~Bullet(); //デストラクタ
 
+	//引数:ベクトル、座標、スピード、半径、ダメージ、敵かプレイヤー(プレイヤーなら0、敵なら1)かの順番で入れる
 	void Initialize(Vector2D vec, Vector2D loc, float s, float r, float d, int t); //初期化処理
 	void Update(); //更新処理
 	void Draw();//描画処理

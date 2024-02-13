@@ -72,7 +72,10 @@
     <ClCompile Include="Scene\KH_TestScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="EnemySpawn.cpp">
+    <ClCompile Include="Object\EnemySpawn.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\TakePictureScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -131,7 +134,10 @@
     <ClInclude Include="Scene\KH_TestScene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="EnemySpawn.h">
+    <ClInclude Include="Object\EnemySpawn.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\TakePictureScene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

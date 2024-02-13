@@ -166,8 +166,9 @@ void TakePicture::SeekNum()
 	std::string path_tmp;
 	for (int i = 0; i < 128; i++)
 	{
-		path_tmp = "Resource/images/faceimg" + std::to_string(i) + ".png";
-		if (handle = LoadGraph(path_tmp.c_str()) == -1) {
+		path_tmp = "Resource/images/img" + std::to_string(i) + ".png";
+		handle = LoadGraph(path_tmp.c_str());
+		if (handle == -1) {
 			num = i - 1;
 			DeleteGraph(handle);
 			break;

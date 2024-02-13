@@ -157,6 +157,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AppMain.cpp" />
+    <ClCompile Include="Resource\FontManager.cpp" />
     <ClCompile Include="Object\EnemySpawn.cpp" />
     <ClCompile Include="Scene\KH_TestScene.cpp" />
     <ClCompile Include="Object\Bullet.cpp" />
@@ -176,6 +177,7 @@
     <ClCompile Include="Utility\InputControl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Resource\FontManager.h" />
     <ClInclude Include="Object\EnemySpawn.h" />
     <ClInclude Include="Scene\KH_TestScene.h" />
     <ClInclude Include="Object\Bullet.h" />

@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
+#include "../Utility/TakePicture.h"
 
 Player::Player() : is_active(false), image(NULL), location(0.0f), box_size(0.0f),
 angle(0.0f), speed(0.0f), hp(0.0f), fuel(0.0f), barrier_count(0),
@@ -18,7 +19,7 @@ Player::~Player()
 void Player::Initialize()
 {
 	is_active = true;
-	location = Vector2D(320.0f, 380.0f);
+	location = Vector2D(100.0f, 360.0f);
 	box_size = Vector2D(31.0f, 60.0f);
 	angle = 0.0f;
 	speed = 3.0f;
@@ -27,7 +28,12 @@ void Player::Initialize()
 	barrier_count = 3;
 
 	//画像の読み込み
-	image = LoadGraph("Resource/images/car1pol.bmp");
+	TakePicture p;
+	p.SeekNum();
+	std::string path;
+	path = "Resource/images/img" + std::to_string(p.GetNum()) + ".png";
+	//image = LoadGraph("Resource/images/car1pol.bmp");
+	image = LoadGraph(path.c_str());
 
 	//エラーチェック
 	if (image == -1)
@@ -39,7 +45,7 @@ void Player::Initialize()
 //更新処理
 void Player::Update()
 {
-	AimLocation.x =location.x+ InputControl::GetRightStick().x * 200;
+	AimLocation.x = location.x + InputControl::GetRightStick().x * 200;
 	AimLocation.y = location.y + InputControl::GetRightStick().y * -200;
 	
 	//操作不可状態であれば、自身を回転させる
@@ -177,27 +183,27 @@ void Player::Movement()
 	Vector2D move = Vector2D(0.0f);
 	angle = 0.0f;
 	//十字移動処理
-	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT))
+	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_DOWN))
 	{
-		move += Vector2D(-1.0f, 0.0f);
+		move += Vector2D(0.0f, 5.0f);
 		angle = -DX_PI_F / 18;
 	}
-	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT))
+	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_UP))
 	{
-		move += Vector2D(1.0f, 0.0f);
+		move += Vector2D(0.0f, -5.0f);
 		angle = DX_PI_F / 18;
 	}
-	location += move;
+	//location += move;
 
 	// 左スティック入力値の更新（に範囲を制限する）
-	if (InputControl::GetLeftStick().x > 0.3f)
+	if (InputControl::GetLeftStick().y < -0.3f)
 	{
-		move += Vector2D(1.0f, 0.0f);
+		move += Vector2D(0.0f, 5.0f);
 		angle = DX_PI_F / 18;
 	}
-	if (InputControl::GetLeftStick().x < -0.3f)
+	if (InputControl::GetLeftStick().y > 0.3f)
 	{
-		move += Vector2D(-1.0f, 0.0f);
+		move += Vector2D(0.0f, -5.0f);
 		angle = -DX_PI_F / 18;
 	}
 	location += move;
@@ -205,8 +211,8 @@ void Player::Movement()
 	
 
 	//画面外に行かないように制限する
-	if ((location.x < box_size.x) || (location.x >= 640.0f - 180.0f) ||
-		(location.y < box_size.y) || (location.y >= 480.0f - box_size.y))
+	if ((location.x < box_size.x) || (location.x >= 1000.0f - 180.0f) ||
+		(location.y < box_size.y) || (location.y >= 720.0f - box_size.y))
 	{
 		location -= move;
 	}

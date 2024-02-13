@@ -116,25 +116,7 @@ void TakePicture::Update()
 		imwrite("img1.png", face);
 	}*/
 
-	int key = waitKey(1);
-
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_B) || key == 'e') {
-		Rect tmp(Point(x, y), Point(x_end, y_end));
-		face = frame(tmp);
-		std::string path;
-		//int handle;
-
-		for (int i = 0; i < 128; i++)
-		{
-			path = "Resource/images/img" + std::to_string(i);
-			if (LoadGraph(path.c_str()) == -1) {
-				break;
-			}
-			//DeleteGraph(handle);
-		}
-		//resize(face, face, cv::Size(), 100.0 / face.cols, 100.0 / face.rows);
-		imwrite("img", face);
-	}
+	
 }
 
 void TakePicture::Draw() const
@@ -147,4 +129,49 @@ void TakePicture::Draw() const
 
 void TakePicture::Finalize()
 {
+}
+
+bool TakePicture::Take()
+{
+	int key = waitKey(1);
+
+	if ((InputControl::GetButtonDown(XINPUT_BUTTON_B) || key == 'e') && faces.size() > 0) {
+		Rect tmp(Point(x, y), Point(x_end, y_end));
+		face = frame(tmp);
+		
+		int handle;
+
+		for (int i = 0; i < 128; i++)
+		{
+			path = "Resource/images/img" + std::to_string(i) + ".png";
+			if (handle = LoadGraph(path.c_str()) == -1) {
+				num = i;
+				break;
+			}
+			DeleteGraph(handle);
+		}
+		resize(face, face, cv::Size(), 100.0 / face.cols, 100.0 / face.rows);
+		imwrite(path, face);
+		destroyAllWindows();
+
+		return true;
+	}
+
+	return false;
+}
+
+void TakePicture::SeekNum()
+{
+	int handle;
+	std::string path_tmp;
+	for (int i = 0; i < 128; i++)
+	{
+		path_tmp = "Resource/images/faceimg" + std::to_string(i) + ".png";
+		if (handle = LoadGraph(path_tmp.c_str()) == -1) {
+			num = i - 1;
+			DeleteGraph(handle);
+			break;
+		}
+		DeleteGraph(handle);
+	}
 }

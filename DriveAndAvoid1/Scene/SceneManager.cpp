@@ -43,12 +43,12 @@ void SceneManager::Initialize()
 		throw("指定先の指定ができませんでした\n");
 	}
 
-	SetWindowSize(1280, 720);
-
+	//SetWindowSize(1280, 720);
+	SetGraphMode(1280, 720, 32);
 	SetAlwaysRunFlag(true);
 
 	//タイトルシーンから始める
-	ChangeScene(eSceneType::E_TEST);
+	ChangeScene(eSceneType::E_TAKE_PICTURE);
 }
 
 //シーンマネージャー機能：更新処理

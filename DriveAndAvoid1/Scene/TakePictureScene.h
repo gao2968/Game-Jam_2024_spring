@@ -6,6 +6,9 @@ class TakePictureScene : public SceneBase
 private:
 	TakePicture picture;
 	int img[128];
+	int took_flg;
+	int state; //0、今から写真取りますよー　1、写真撮りまーす　2、この写真でいいですか？ 
+	int num;
 public:
 	TakePictureScene();
 	~TakePictureScene();

@@ -25,5 +25,3 @@ public:
 	static E_NUM LoadEnemy(int i);		// “Gî•ñ‚Ì“Ç‚İ‚İ
 	static int GetMaxEnemy();			// “Ç‚İ‚Ü‚ê‚½“G‚Ì—Ê‚Ìæ“¾
 };
-
-

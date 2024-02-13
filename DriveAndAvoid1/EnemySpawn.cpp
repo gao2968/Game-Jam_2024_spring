@@ -1,4 +1,4 @@
-#include "Enemy_Spawn.h"
+#include "EnemySpawn.h"
 #include "DxLib.h"
 
 // ”z—ñî•ñ‚ğ‚Á‚½“G

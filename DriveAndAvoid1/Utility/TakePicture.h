@@ -1,8 +1,8 @@
 #pragma once
-//#include<string>		//文字列操作
-//#include<sstream>		//文字列変換
-//#include<fstream>		//ファイル操作
-
+#include<string>		//文字列操作
+#include<sstream>		//文字列変換
+#include<fstream>		//ファイル操作
+#include "DxLib.h"
 #include "opencv2/opencv.hpp"
 #include "opencv2/highgui.hpp"
 #include <vector>

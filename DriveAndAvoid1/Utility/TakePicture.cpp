@@ -1,6 +1,6 @@
 #include "TakePicture.h"
 #include "InputControl.h"
-#include "DxLib.h"
+
 
 TakePicture::TakePicture()
 {
@@ -122,14 +122,18 @@ void TakePicture::Update()
 		Rect tmp(Point(x, y), Point(x_end, y_end));
 		face = frame(tmp);
 		std::string path;
+		//int handle;
+
 		for (int i = 0; i < 128; i++)
 		{
-			path = "Resource/images/img" + i;
+			path = "Resource/images/img" + std::to_string(i);
 			if (LoadGraph(path.c_str()) == -1) {
 				break;
 			}
+			//DeleteGraph(handle);
 		}
-		imwrite("img1.png", face);
+		//resize(face, face, cv::Size(), 100.0 / face.cols, 100.0 / face.rows);
+		imwrite("img", face);
 	}
 }
 

@@ -33,15 +33,19 @@ void Enemy::Initialize()
 
 void Enemy::Update(float speed,GameMainScene* game)// ポインタなのでGameMainSceneのアドレスにアクセスできる
 {
-	b_vector.y = location.y;
-	LateTime++;
+	if (E_num == 12) {
 
-	if (LateTime % bullet_Timing == 0) {
-		game->Enemy_SpawnBullet(b_vector - location,location);
+	}else {
+		b_vector.y = location.y;
+		LateTime++;
+
+		if (LateTime % bullet_Timing == 0)
+		{
+			game->Enemy_SpawnBullet(b_vector - location, location);
+		}
 	}
-	
 	// 位置情報に移動量を加算する Yのみプラスしていく感じ
-	location += Vector2D(this->speed - speed - 6, 0.0f);
+	 location += Vector2D(this->speed - speed - 6, 0.0f);
 }
 
 void Enemy::Draw()const

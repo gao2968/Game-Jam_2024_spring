@@ -4,6 +4,7 @@
 #include <math.h>
 #include "../Utility/Collision.h"
 #include"../Utility/InputControl.h"
+
 GameMainScene::GameMainScene() :high_score(0), back_ground(NULL), barrier_image(NULL), mileage(0), player(nullptr),
 enemy(nullptr) {
 	for (int i = 0; i < 3; i++)
@@ -145,8 +146,9 @@ eSceneType GameMainScene::Update()
 void GameMainScene::Draw() const
 {
 	// ”wŒi‰æ‘œ‚Ì•`‰æ
-	DrawGraph(0, mileage % 480 - 480, back_ground, TRUE);
-	DrawGraph(0, mileage % 480, back_ground, TRUE);
+	//DrawGraph(0, mileage % 480 - 480, back_ground, TRUE);
+	//DrawGraph(0, mileage % 480, back_ground, TRUE);
+	
 	// “G‚Ì•`‰æ csv‚É‚ ‚é“G‚Ì”ˆÈ‰º‚È‚ç
 	for (int i = 0; i <= e_spawn->GetMaxEnemy(); i++)
 	{
@@ -328,7 +330,7 @@ void GameMainScene::BulletManager()
 			//’e‚ð”­ŽË‚µ‚½‚Ì‚ªƒvƒŒƒCƒ„[‚¾‚Á‚½‚ç
 			if (bullet[i]->GetType() == 0)	
 			{
-				for (int j = 0; j < 10; j++)
+				for (int j = 0; j < 10; j++)//“G‚ÌÅ‘å”
 				{
 					//“G‚Æ’e‚Ì“–‚½‚è”»’è@’e‚ÌÀ•WA”¼Œa‚Æ“G‚ÌÀ•WA”¼Œa‚ðˆø”‚Æ‚·‚é
 					//CheckCollision(bullet[i]->GetLocation(),bullet[i]->GetRadius(),)

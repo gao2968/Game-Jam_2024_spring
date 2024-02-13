@@ -166,9 +166,9 @@ bool Player::IsBarrier() const
 	return (barrier != nullptr);
 }
 
-Vector2D Player::GetAim() const
+Vector2D Player::GetAim() 
 {
-	return Vector2D();
+	return AimLocation - location;
 }
 
 //ˆÚ“®ˆ—

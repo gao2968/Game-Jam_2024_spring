@@ -28,7 +28,7 @@ void Bullet::Update()
 	float distance;
 
 	distance = sqrtf(powf(vector.x, 2) + powf(vector.y, 2));
-	unitVector /= vector / distance;
+	unitVector = vector / distance;
 
 	location += unitVector * speed;
 }

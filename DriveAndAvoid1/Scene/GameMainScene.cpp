@@ -3,7 +3,7 @@
 #include "DxLib.h"
 #include <math.h>
 #include "../Utility/Collision.h"
-
+#include"../Utility/InputControl.h"
 GameMainScene::GameMainScene() :high_score(0), back_ground(NULL), barrier_image(NULL), mileage(0), player(nullptr),
 enemy(nullptr) {
 	for (int i = 0; i < 3; i++)
@@ -59,6 +59,18 @@ void GameMainScene::Initialize()
 
 eSceneType GameMainScene::Update()
 {
+	if (InputControl::GetButton(XINPUT_BUTTON_RIGHT_SHOULDER)) {
+		SpawnBullet();
+	}
+	
+	for (int i = 0; i < MAX_BULLET_NUM; i++)
+	{
+		if (bullet[i] != nullptr) {
+			bullet[i]->Update();
+		}
+		
+	}
+	BulletManager();
 	
 	// プレイヤーの更新
 	player->Update();
@@ -142,6 +154,13 @@ void GameMainScene::Draw() const
 		{
 			enemy[i]->Draw();
 		}
+	}
+	for (int i = 0; i < MAX_BULLET_NUM; i++)
+	{
+		if (bullet[i] != nullptr) {
+			bullet[i]->Draw();
+		}
+
 	}
 
 	// プレイヤーの描画
@@ -292,7 +311,7 @@ bool GameMainScene::SpawnBullet()
 		{
 			bullet[i] = new Bullet();
 			//弾のベクトルとか座標とかを引数として渡す
-			//bullet[i]->Initialize()
+			bullet[i]->Initialize(player->GetAim(), player->GetLocation(), 5.0f, 10, 1, 1);
 
 			return true;
 		}

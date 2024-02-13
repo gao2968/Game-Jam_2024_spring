@@ -24,7 +24,7 @@ public:
 	float GetHp() const;//体力取得処理
 	int GetBarriarCount() const;//バリアの枚数取得
 	bool IsBarrier() const;//バリアは有効か？を取得
-	Vector2D GetAim() const;//球に渡すベクトル
+	Vector2D GetAim() ;//球に渡すベクトル
 
 private:
 	bool is_active; //有効常態か？

@@ -318,7 +318,7 @@ bool GameMainScene::SpawnBullet()
 
 
 // ゲームメインにあるが、処理として使っているのはエネミー側
-bool GameMainScene::Enemy_SpawnBullet(Vector2D e_location)
+bool GameMainScene::Enemy_SpawnBullet(Vector2D e_vec,Vector2D e_location)
 {
 	for (int i = 0; i < MAX_BULLET_NUM; i++)
 	{
@@ -326,7 +326,7 @@ bool GameMainScene::Enemy_SpawnBullet(Vector2D e_location)
 		{
 			bullet[i] = new Bullet();
 			//弾のベクトルとか座標とかを引数として渡す
-			bullet[i]->Initialize(-10, e_location, 5.0f, 10, 1, 1);
+			bullet[i]->Initialize(e_vec, e_location, 5.0f, 10, 1, 1);
 
 			return true;
 		}

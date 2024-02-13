@@ -17,7 +17,7 @@ private:
 
 	Vector2D location;	// ˆÊ’uî•ñ
 	Vector2D box_size;	// “–‚½‚è”»’è‚Ì‘å‚«‚³
-	Vector2D a;
+	Vector2D b_vector;	// ”ò‚Î‚·•ûŒüw’è—p
 
 	Bullet** e_bullet;
 

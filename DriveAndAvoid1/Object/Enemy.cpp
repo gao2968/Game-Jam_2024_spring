@@ -28,15 +28,16 @@ void Enemy::Initialize()
 {
 	// あたり判定の設定
 	box_size = Vector2D(31.0f, 60.0f);
+	b_vector.x = 0;
 }
 
 void Enemy::Update(float speed,GameMainScene* game)// ポインタなのでGameMainSceneのアドレスにアクセスできる
 {
-
+	b_vector.y = location.y;
 	LateTime++;
 
 	if (LateTime % bullet_Timing == 0) {
-		game->Enemy_SpawnBullet(location);
+		game->Enemy_SpawnBullet(b_vector - location,location);
 	}
 	
 	// 位置情報に移動量を加算する Yのみプラスしていく感じ

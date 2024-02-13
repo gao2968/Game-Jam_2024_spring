@@ -1,4 +1,8 @@
 #pragma once
+//#include<string>		//•¶š—ñ‘€ì
+//#include<sstream>		//•¶š—ñ•ÏŠ·
+//#include<fstream>		//ƒtƒ@ƒCƒ‹‘€ì
+
 #include "opencv2/opencv.hpp"
 #include "opencv2/highgui.hpp"
 #include <vector>

@@ -8,6 +8,7 @@
 #include "RankingDispScene.h"
 #include "RankingInputScene.h"
 #include "KH_TestScene.h"
+#include "TakePictureScene.h"
 
 SceneManager::SceneManager() : current_scene(nullptr)
 {
@@ -47,7 +48,7 @@ void SceneManager::Initialize()
 	SetAlwaysRunFlag(true);
 
 	//タイトルシーンから始める
-	ChangeScene(eSceneType::E_TITLE);
+	ChangeScene(eSceneType::E_TEST);
 }
 
 //シーンマネージャー機能：更新処理
@@ -171,6 +172,8 @@ SceneBase* SceneManager::CreateScene(eSceneType scene_type)
 		return new RankingDispScene;
 	case eSceneType::E_RANKING_INPUT:
 		return new RankingInputScene;
+	case eSceneType::E_TAKE_PICTURE:
+		return new TakePictureScene;
 	case eSceneType::E_TEST:
 		return new KH_TestScene;
 	default:

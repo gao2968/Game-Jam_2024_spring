@@ -5,6 +5,7 @@
 #include "../Utility/Collision.h"
 #include"../Utility/InputControl.h"
 #include "../Utility/TakePicture.h"
+#include "../Resource/FontManager.h"
 
 GameMainScene::GameMainScene() :high_score(0), back_ground(NULL), barrier_image(NULL), mileage(0), player(nullptr),
 enemy(nullptr) {
@@ -161,43 +162,60 @@ void GameMainScene::Draw() const
 	player->Draw();
 
 	// UIの描画
-	DrawBox(500, 0, 640, 480, GetColor(0, 153, 0), TRUE);
-	SetFontSize(16);
-	DrawFormatString(510, 20, GetColor(0, 0, 0), "ハイスコア");
-	DrawFormatString(560, 40, GetColor(255, 255, 255), "%08d", high_score);
-	DrawFormatString(510, 80, GetColor(0, 0, 0), "避けた数");
+	//DrawBox(500, 0, 640, 480, GetColor(0, 153, 0), TRUE);
+	//SetFontSize(16);
+	//DrawFormatString(510, 20, GetColor(0, 0, 0), "ハイスコア");
+	//DrawFormatString(560, 40, GetColor(255, 255, 255), "%08d", high_score);
+	//DrawFormatString(510, 80, GetColor(0, 0, 0), "避けた数");
 
-	for (int i = 0; i < 3; i++) 
-	{
-		DrawRotaGraph(523 + (i * 50), 120, 0.3, 0, enemy_image[i], TRUE, FALSE);
-		DrawFormatString(510 + (i*50),140,GetColor(255, 255, 255), "%03d",enemy_count[i]);
-	}
+	//for (int i = 0; i < 3; i++) 
+	//{
+	//	DrawRotaGraph(523 + (i * 50), 120, 0.3, 0, enemy_image[i], TRUE, FALSE);
+	//	DrawFormatString(510 + (i*50),140,GetColor(255, 255, 255), "%03d",enemy_count[i]);
+	//}
 
-	DrawFormatString(510, 200, GetColor(0, 0, 0), "走行距離");
-	DrawFormatString(555, 220, GetColor(255, 255, 255), "%08d", mileage / 10);
-	DrawFormatString(510, 240, GetColor(0, 0, 0), "スピード");
-	DrawFormatString(555, 260, GetColor(255, 255, 255), "%08.1f",player->GetSpeed());
+	//DrawFormatString(510, 200, GetColor(0, 0, 0), "走行距離");
+	//DrawFormatString(555, 220, GetColor(255, 255, 255), "%08d", mileage / 10);
+	//DrawFormatString(510, 240, GetColor(0, 0, 0), "スピード");
+	//DrawFormatString(555, 260, GetColor(255, 255, 255), "%08.1f",player->GetSpeed());
 
-	// バリア枚数描画
-	for (int i = 0; i < player->GetBarriarCount(); i++)
-	{
-		DrawRotaGraph(520 + i * 25, 340, 0.2f, 0, barrier_image, TRUE, FALSE);
-	}
+	//// バリア枚数描画
+	//for (int i = 0; i < player->GetBarriarCount(); i++)
+	//{
+	//	DrawRotaGraph(520 + i * 25, 340, 0.2f, 0, barrier_image, TRUE, FALSE);
+	//}
 
-	// 燃料ゲージの描画
-	float fx = 510.0f;
-	float fy = 390.0f;
-	DrawFormatStringF(fx, fy, GetColor(0, 0, 0), "FUEL METER");
-	DrawBoxAA(fx, fy + 20.0f, fx + (player->GetFuel() * 100 / 20000), fy +
-		40.0f, GetColor(0, 102, 204), TRUE);
-	DrawBoxAA(fx, fy + 20.0f, fx + 100.0f, fy + 40.0f, GetColor(0, 0, 0), FALSE);
-	// 体力ゲージの描画
-	fx = 510.0f;
-	fy = 430.0f;
-	DrawFormatStringF(fx, fy, GetColor(0, 0, 0), "PLAYER HP");
-	DrawBoxAA(fx, fy + 20.0f, fx + (player->GetHp() * 100 / 1000), fy +
-		40.0f, GetColor(255, 0, 0), TRUE);
-	DrawBoxAA(fx, fy + 20.0f, fx + 100.0f, fy + 40.0f, GetColor(0, 0, 0), FALSE);
+	//// 燃料ゲージの描画
+	//float fx = 510.0f;
+	//float fy = 390.0f;
+	//DrawFormatStringF(fx, fy, GetColor(0, 0, 0), "FUEL METER");
+	//DrawBoxAA(fx, fy + 20.0f, fx + (player->GetFuel() * 100 / 20000), fy +
+	//	40.0f, GetColor(0, 102, 204), TRUE);
+	//DrawBoxAA(fx, fy + 20.0f, fx + 100.0f, fy + 40.0f, GetColor(0, 0, 0), FALSE);
+	//// 体力ゲージの描画
+	//fx = 510.0f;
+	//fy = 430.0f;
+	//DrawFormatStringF(fx, fy, GetColor(0, 0, 0), "PLAYER HP");
+	//DrawBoxAA(fx, fy + 20.0f, fx + (player->GetHp() * 100 / 1000), fy +
+	//	40.0f, GetColor(255, 0, 0), TRUE);
+	//DrawBoxAA(fx, fy + 20.0f, fx + 100.0f, fy + 40.0f, GetColor(0, 0, 0), FALSE);
+
+
+	//DrawBox(1000, 0, 1280, 720, GetColor(0, 153, 0), TRUE);
+	float fx = 30.0f;
+	float fy = 30.0f;
+	//DrawFormatStringF(fx, fy, GetColor(255, 255, 255), "PLAYER HP");
+	//DrawOval(230, 95 , 230, 25, GetColor(255, 255, 255), TRUE);
+	DrawStringToHandle(fx, fy, "PLAYER HP", GetColor(255, 255, 255), FontManager::GetFont1());
+	DrawBoxAA(fx, fy + 50.0f, fx + (player->GetHp() * 400 / 1000), fy +
+		80.0f, GetColor(255, 0, 0), TRUE);
+	DrawBoxAA(fx, fy + 50.0f, fx + 400.0f, fy + 80.0f, GetColor(255, 255, 255), FALSE);
+
+
+	//DrawFormatString(510, 30, GetColor(255, 255, 255), "SCORE (仮)");
+	DrawStringToHandle(550, 30, "SCORE", GetColor(255, 255, 255), FontManager::GetFont1());
+	//DrawFormatString(555, 60, GetColor(255, 255, 255), "%08d", mileage / 10);
+	DrawFormatStringToHandle(550, 90, GetColor(255, 255, 255), FontManager::GetFont2(), "%d", mileage / 10);
 }
 
 void GameMainScene::Finalize()
@@ -358,7 +376,7 @@ void GameMainScene::BulletManager()
 			}
 
 			//弾が範囲外に行った時の処理
-			if (bullet[i]->GetLocation().x < 0 || bullet[i]->GetLocation().x > 1000 ||
+			if (bullet[i]->GetLocation().x < 0 || bullet[i]->GetLocation().x > 1280 ||
 				bullet[i]->GetLocation().y < 0 || bullet[i]->GetLocation().y > 720)
 			{
 				bullet[i] = nullptr;
@@ -384,7 +402,7 @@ void GameMainScene::spawn_Enemys()
 				, e_spawn->LoadEnemy(E_num).hp				// HP取得
 				, E_num										// 今何体目なのか
 				, 1											// エネミーのタイプ（消すかも）
-				, enemy_image[GetRand(enemy_image_num)]								// エネミーの画像
+				, enemy_image[GetRand(enemy_image_num - 1)]								// エネミーの画像
 			);
 			// エネミーの数がマックス値を超えていないなら
 			if (E_num <= e_spawn->GetMaxEnemy()) {

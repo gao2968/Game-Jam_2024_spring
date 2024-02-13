@@ -57,3 +57,8 @@ Vector2D Enemy::GetBoxSize()
 {
 	return box_size;
 }
+
+int Enemy::Get_Radius()
+{
+	return radius;
+}

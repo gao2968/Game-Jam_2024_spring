@@ -42,5 +42,8 @@ public:
 	int GetType()const;			// タイプの取得
 	Vector2D GetLocation();		// 位置情報の取得
 	Vector2D GetBoxSize();		// 当たり判定の大きさを取得
+
+	int Get_Radius();
+
 };
 

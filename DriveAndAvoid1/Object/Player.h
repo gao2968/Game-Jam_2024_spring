@@ -45,4 +45,9 @@ private:
 
 private:
 	static Vector2D stick[2];  // 左右スティック入力値
+
+public:// 後で消す
+	Vector2D Aim;
+
+	Vector2D Get_AimLocation();
 };

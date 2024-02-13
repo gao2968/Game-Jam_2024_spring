@@ -59,68 +59,33 @@ void GameMainScene::Initialize()
 
 eSceneType GameMainScene::Update()
 {
-	
+	static int a = 0;
+	a++;
+	if (a > 60) {
+		if (bullet[0] == nullptr) {
+			bullet[0] = new Bullet();
+			bullet[0]->Initialize( player->Get_AimLocation(), player->GetLocation(), 5.0f, 10, 1, 1);
+		}
+	}
+
+	BulletManager();
+
+	if (bullet[0] != nullptr) {
+		bullet[0]->Update();
+	}
 	// プレイヤーの更新
 	player->Update();
 
 	// 移動量距離の更新 playerスピードを取得して+５した値をmileageに+する（毎フレーム）
 	mileage += (int)player->GetSpeed() + 5;
 
-	// 敵生成処理
+/* 敵の処理 */
 
-	if (enemy[E_num] == nullptr) {
-		// エネミーの出現時間に到達したら
-		if (++e_spownCnt > e_spawn->LoadEnemy(E_num).time * 60) {
-
-			//出現したエネミーの情報を全て送信
-		 enemy[E_num] = new Enemy(
-			 e_spawn->LoadEnemy(E_num).location_x		// X座標取得
-			,e_spawn->LoadEnemy(E_num).location_y		// Y座標取得
-			,e_spawn->LoadEnemy(E_num).radius			// 半径取得
-			,e_spawn->LoadEnemy(E_num).speed			// スピード取得
-			,e_spawn->LoadEnemy(E_num).bullet_speed		// 球のスピード取得
-			,e_spawn->LoadEnemy(E_num).score			// 撃破時のスコア数取得
-			, e_spawn->LoadEnemy(E_num).hp				// HP取得
-			, E_num										// 今何体目なのか
-			,1											// エネミーのタイプ（消すかも）
-			,enemy_image[1]								// エネミーの画像
-		 );
-			// エネミーの数がマックス値を超えていないなら
-			if (E_num <= e_spawn->GetMaxEnemy()) {
-				E_num = E_num + 1;
-			}
-		}
-	}
-
-	// 敵の更新と当たり判定チェック
-	for (int i = 0; i <= e_spawn->GetMaxEnemy(); i++)
-	{
-		// 値がnullでないなら
-		if (enemy[i] != nullptr) 
-		{
-			enemy[i]->Update(player->GetSpeed());
-
-			// 画面外に行ったら、敵を消去してスコア加算
-			if (enemy[i]->GetLocation().y >= 640.0f) 
-			{
-				enemy_count[enemy[i]->GetType()]++;
-				enemy[i]->Finalize();
-				delete enemy[i];	// メモリ開放
-				enemy[i] = nullptr;// nullにする
-			}
-
-			//当たり判定の確認
-			if (IsHitCheck(player, enemy[i]))
-			{
-				player->SetActive(false);
-				player->DecreaseHp(-50.0f);
-				enemy[i]->Finalize();
-				delete enemy[i];
-				enemy[i] = nullptr;
-			}
-		}
-	}
+	spawn_Enemys();			// // 敵生成処理
+	hit_Enemys();			// 敵の更新と当たり判定チェック
 	
+/* 敵の処理ここまで */
+
 	// プレイヤーの燃料か体力が０未満なら、リザルトに遷移する
 	if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
 	{
@@ -142,6 +107,9 @@ void GameMainScene::Draw() const
 		{
 			enemy[i]->Draw();
 		}
+	}
+	if (bullet[0] != nullptr) {
+		bullet[0]->Draw();
 	}
 
 	// プレイヤーの描画
@@ -311,8 +279,12 @@ void GameMainScene::BulletManager()
 			{
 				for (int j = 0; j < 10; j++)
 				{
-					//敵と弾の当たり判定　弾の座標、半径と敵の座標、半径を引数とする
-					//CheckCollision(bullet[i]->GetLocation(),bullet[i]->GetRadius(),)
+					for (int e_num = 0; e_num < e_spawn->GetMaxEnemy(); e_num++) {
+						if (enemy[e_num] != nullptr) {
+							//敵と弾の当たり判定　弾の座標、半径と敵の座標、半径を引数とする
+							 CheckCollision(bullet[i]->GetLocation(), bullet[i]->GetRadius(), enemy[e_num]->GetLocation(),enemy[e_num]->Get_Radius());
+						}
+					}
 				}
 			}
 			//弾を発射したのがエネミーだったら
@@ -327,6 +299,64 @@ void GameMainScene::BulletManager()
 				bullet[i]->GetLocation().y < 0 || bullet[i]->GetLocation().y > 720)
 			{
 				bullet[i] = nullptr;
+			}
+		}
+	}
+}
+
+void GameMainScene::spawn_Enemys()
+{
+	if (enemy[E_num] == nullptr) {
+		// エネミーの出現時間に到達したら
+		if (++e_spownCnt > e_spawn->LoadEnemy(E_num).time * 60) {
+
+			//出現したエネミーの情報を全て送信
+			enemy[E_num] = new Enemy(
+				e_spawn->LoadEnemy(E_num).location_x		// X座標取得
+				, e_spawn->LoadEnemy(E_num).location_y		// Y座標取得
+				, e_spawn->LoadEnemy(E_num).radius			// 半径取得
+				, e_spawn->LoadEnemy(E_num).speed			// スピード取得
+				, e_spawn->LoadEnemy(E_num).bullet_speed		// 球のスピード取得
+				, e_spawn->LoadEnemy(E_num).score			// 撃破時のスコア数取得
+				, e_spawn->LoadEnemy(E_num).hp				// HP取得
+				, E_num										// 今何体目なのか
+				, 1											// エネミーのタイプ（消すかも）
+				, enemy_image[1]								// エネミーの画像
+			);
+			// エネミーの数がマックス値を超えていないなら
+			if (E_num <= e_spawn->GetMaxEnemy()) {
+				E_num = E_num + 1;
+			}
+		}
+	}
+}
+
+void GameMainScene::hit_Enemys()
+{
+	for (int i = 0; i <= e_spawn->GetMaxEnemy(); i++)
+	{
+		// 値がnullでないなら
+		if (enemy[i] != nullptr)
+		{
+			enemy[i]->Update(player->GetSpeed());
+
+			// 画面外に行ったら、敵を消去してスコア加算
+			if (enemy[i]->GetLocation().y >= 640.0f)
+			{
+				enemy_count[enemy[i]->GetType()]++;
+				enemy[i]->Finalize();
+				delete enemy[i];	// メモリ開放
+				enemy[i] = nullptr;// nullにする
+			}
+
+			//当たり判定の確認
+			if (IsHitCheck(player, enemy[i]))
+			{
+				player->SetActive(false);
+				player->DecreaseHp(-50.0f);
+				enemy[i]->Finalize();
+				delete enemy[i];
+				enemy[i] = nullptr;
 			}
 		}
 	}

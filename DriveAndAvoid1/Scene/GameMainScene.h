@@ -45,5 +45,9 @@ private:
 public:	//’eŠÖŒWˆ—
 	bool SpawnBullet();
 	void BulletManager();
+
+private:	// “G‚Ìˆ—ŠÖ”
+	void spawn_Enemys();			// “G‚ÌƒXƒ|[ƒ“ˆ—
+	void hit_Enemys();				// “G‚Ì“–‚½‚è”»’è
 };
 

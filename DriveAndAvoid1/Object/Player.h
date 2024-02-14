@@ -31,7 +31,7 @@ public:
 private:
 	bool is_active; //有効常態か？
 	int image;		//画像データ
-
+	int yuusya;     //勇者のイラスト
 	Vector2D location;//位置座標
 	Vector2D box_size;//当たり判定の大きさ
 	Vector2D AimLocation;//エイムの位置座標

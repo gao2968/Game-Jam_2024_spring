@@ -6,6 +6,7 @@
 #include"../Utility/InputControl.h"
 #include "../Utility/TakePicture.h"
 #include "../Resource/FontManager.h"
+#include "../Object/RankingData.h"
 
 GameMainScene::GameMainScene() :high_score(0), back_ground(NULL), barrier_image(NULL), Score(0), player(nullptr),
 enemy(nullptr) {
@@ -239,6 +240,10 @@ void GameMainScene::Draw() const
 	DrawStringToHandle(550, 30, "SCORE", GetColor(255, 255, 255), FontManager::GetFont(1));
 	//DrawFormatString(555, 60, GetColor(255, 255, 255), "%08d", mileage / 10);
 	DrawFormatStringToHandle(550, 90, GetColor(255, 255, 255), FontManager::GetFont(2), "%d", Score);
+
+	DrawStringToHandle(1000, 30, "1ST SCORE", GetColor(255, 255, 255), FontManager::GetFont(1));
+	DrawFormatStringToHandle(1000, 90, GetColor(255, 255, 255), FontManager::GetFont(2), "%d", RankingData::GetScore(0));
+
 
 	if (state == 1) {
 		DrawStringToHandle(150, 300, "GAME OVER", GetColor(255, 255, 255), FontManager::GetFont(4));

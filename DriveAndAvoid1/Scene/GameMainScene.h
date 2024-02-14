@@ -6,6 +6,7 @@
 #include "../Object/Bullet.h"
 #include "../Object/EnemySpawn.h"
 
+
 #define MAX_BULLET_NUM 256
 #define SCROLL_SPEED 5
 

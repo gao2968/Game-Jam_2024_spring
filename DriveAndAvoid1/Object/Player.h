@@ -42,6 +42,7 @@ private:
 	int barrier_count;//バリアの枚数
 	Barrier* barrier;//バリア
 	float radius;
+	int aimingImg;
 
 private:
 	void Movement();//移動処理

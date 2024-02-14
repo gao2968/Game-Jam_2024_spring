@@ -22,7 +22,7 @@ void TitleScene::Initialize()
 
 	menu_image = LoadGraph("Resource/images/menu.bmp");
 
-	cursor_image = LoadGraph("Resource/images/cone.bmp");
+	cursor_image = LoadGraph("Resource/images/aiming.png");
 
 	//エラーチェック
 	if (background_image == -1)
@@ -94,9 +94,9 @@ void TitleScene::Draw() const
 	//DrawGraph(120, 200, menu_image, TRUE);
 
 	////カーソル画像の描画
-	//DrawRotaGraph(90, 220 + menu_cursor * 40, 0.7, DX_PI / 2.0, cursor_image, TRUE);
+	DrawRotaGraph(450, 280 + menu_cursor * 100, 0.1, DX_PI / 2.0, cursor_image, TRUE);
 
-	DrawCircle(450, 250 + menu_cursor * 100, 30, 0x00ff00, TRUE);
+	//DrawCircle(450, 280 + menu_cursor * 100, 3, 0x00ff00, TRUE);
 
 	DrawStringToHandle(200, 50, "kokonititle", 0xffffff, FontManager::GetFont(4));
 	DrawStringToHandle(500, 250, "START", 0xffffff, FontManager::GetFont(5));

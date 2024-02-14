@@ -36,7 +36,7 @@ void Player::Initialize()
 	path = "Resource/images/img" + std::to_string(p.GetNum()) + ".png";
 	//image = LoadGraph("Resource/images/car1pol.bmp");
 	image = LoadGraph(path.c_str());
-
+	aimingImg = LoadGraph("Resource/images/aiming.png");
 	//エラーチェック
 	if (image == -1)
 	{
@@ -101,8 +101,8 @@ void Player::Update()
 //描画処理
 void Player::Draw()
 {
-	DrawCircle(AimLocation.x, AimLocation.y, 3, 0xffff00, true);
-	
+	DrawCircle(AimLocation.x, AimLocation.y, 3, 0xff0000, true);
+	DrawRotaGraph(AimLocation.x, AimLocation.y, 0.1, DX_PI / 2.0, aimingImg, TRUE);
 	//プレイヤー画像の描画
 	DrawRotaGraphF(location.x, location.y, 1.0f, angle, image, TRUE);
 	DrawRotaGraphF(location.x, location.y+57, 2.0f, angle, yuusya, TRUE);

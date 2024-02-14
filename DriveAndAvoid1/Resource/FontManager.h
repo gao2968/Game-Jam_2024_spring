@@ -2,9 +2,7 @@
 class FontManager
 {
 private:
-	static int font0;
-	static int font1;
-	static int font2;
+	static int font[16];
 
 public:
 	FontManager();
@@ -13,8 +11,6 @@ public:
 	static void Initialize();
 	static void Finalize();
 
-	static int GetFont0() { return font0; }
-	static int GetFont1() { return font1; }
-	static int GetFont2() { return font2; }
+	static int GetFont(int n) { return font[n]; }
 };
 

@@ -78,7 +78,7 @@ void TakePictureScene::Draw() const
 		DrawString(0, 30, "顔が認識されてからBボタンを押してください。", 0xffffff);
 		DrawString(0, 60, "顔が認識されているときは、顔が赤い四角で囲まれています。", 0xffffff);
 
-		DrawStringToHandle(0, 90, "写真を撮ります", 0xffffff, FontManager::GetFont0());
+		DrawStringToHandle(0, 90, "写真を撮ります", 0xffffff, FontManager::GetFont(0));
 		break;
 
 	case 1://特に説明とかは必要ない。別のウィンドウが出るから

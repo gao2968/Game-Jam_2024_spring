@@ -206,16 +206,16 @@ void GameMainScene::Draw() const
 	float fy = 30.0f;
 	//DrawFormatStringF(fx, fy, GetColor(255, 255, 255), "PLAYER HP");
 	//DrawOval(230, 95 , 230, 25, GetColor(255, 255, 255), TRUE);
-	DrawStringToHandle(fx, fy, "PLAYER HP", GetColor(255, 255, 255), FontManager::GetFont1());
+	DrawStringToHandle(fx, fy, "PLAYER HP", GetColor(255, 255, 255), FontManager::GetFont(1));
 	DrawBoxAA(fx, fy + 50.0f, fx + (player->GetHp() * 400 / 1000), fy +
 		80.0f, GetColor(255, 0, 0), TRUE);
 	DrawBoxAA(fx, fy + 50.0f, fx + 400.0f, fy + 80.0f, GetColor(255, 255, 255), FALSE);
 
 
 	//DrawFormatString(510, 30, GetColor(255, 255, 255), "SCORE (仮)");
-	DrawStringToHandle(550, 30, "SCORE", GetColor(255, 255, 255), FontManager::GetFont1());
+	DrawStringToHandle(550, 30, "SCORE", GetColor(255, 255, 255), FontManager::GetFont(1));
 	//DrawFormatString(555, 60, GetColor(255, 255, 255), "%08d", mileage / 10);
-	DrawFormatStringToHandle(550, 90, GetColor(255, 255, 255), FontManager::GetFont2(), "%d", mileage / 10);
+	DrawFormatStringToHandle(550, 90, GetColor(255, 255, 255), FontManager::GetFont(2), "%d", mileage / 10);
 }
 
 void GameMainScene::Finalize()
@@ -286,12 +286,14 @@ eSceneType GameMainScene::GetNowScene() const
 // ハイスコア読込
 void GameMainScene::ReadHighScore()
 {
-	RankingData data;
-	data.Initialize();
+	//RankingData data;
+	//data.Initialize();
 
-	high_score = data.GetScore(0);
+	//high_score = data.GetScore(0);
 
-	data.Finalize();
+	//data.Finalize();
+
+	high_score = RankingData::GetScore(0);
 }
 
 // あたり判定処理（プレイヤーと敵）

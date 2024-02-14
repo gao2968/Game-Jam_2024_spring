@@ -1,8 +1,9 @@
 #include "RankingDispScene.h"
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
+#include "../Resource/FontManager.h"
 
-RankingDispScene::RankingDispScene() : background_image(NULL), ranking(nullptr)
+RankingDispScene::RankingDispScene() : background_image(NULL)
 {
 
 }
@@ -24,8 +25,8 @@ void RankingDispScene::Initialize()
     }
 
     //ランキング情報を取得
-    ranking = new RankingData;
-    ranking->Initialize();
+    /*ranking = new RankingData;
+    ranking->Initialize();*/
 }
 
 eSceneType RankingDispScene::Update()
@@ -47,8 +48,15 @@ void RankingDispScene::Draw() const
     //取得したランキングデータを描画する
     for (int i = 0; i < 5; i++)
     {
-        DrawFormatString(50, 170 + i * 25, 0xffffff, "%2d %-15s %6d",
-            ranking->GetRank(i), ranking->GetName(i), ranking->GetScore(i));
+       /* DrawFormatString(50, 170 + i * 25, 0xffffff, "%2d %-15s %6d",
+            ranking->GetRank(i), ranking->GetName(i), ranking->GetScore(i));*/
+        //DrawFormatString(50, 170 + i * 25, 0xffffff, "%2d %-15s %6d",RankingData::GetRank(i), RankingData::GetName(i), RankingData::GetScore(i));
+
+        DrawFormatStringToHandle(300, 300 + i * 60, GetColor(255, 255, 255), FontManager::GetFont(3), 
+            "%2d %-15s", RankingData::GetRank(i), RankingData::GetName(i));
+
+        DrawFormatStringToHandle(800, 300 + i * 60, GetColor(255, 255, 255), FontManager::GetFont(3),
+            "%6d", RankingData::GetScore(i));
     }
 }
 
@@ -58,9 +66,9 @@ void RankingDispScene::Finalize()
     DeleteGraph(background_image);
 
     //動的メモリの解放
-    ranking->Finalize();
+    //ranking->Finalize();
 
-    delete ranking;
+    //delete ranking;
 }
 
 eSceneType RankingDispScene::GetNowScene() const

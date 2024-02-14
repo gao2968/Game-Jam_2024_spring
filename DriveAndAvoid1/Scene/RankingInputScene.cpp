@@ -1,9 +1,10 @@
 #include "RankingInputScene.h"
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
+#include "../Resource/FontManager.h"
 
 RankingInputScene::RankingInputScene() : background_image(NULL),
-ranking(nullptr), score(0), name_num(0), cursor_x(0), cursor_y(0)
+ score(0), name_num(0), cursor_x(0), cursor_y(0)
 {
 	memset(name, NULL, (sizeof(char) * 15));
 }
@@ -24,8 +25,8 @@ void RankingInputScene::Initialize()
 	}
 
 	// メモリの動的確保
-	ranking = new RankingData;
-	ranking->Initialize();
+	/*ranking = new RankingData;
+	ranking->Initialize();*/
 
 	// リザルトデータを取得する
 	FILE* fp = nullptr;
@@ -71,21 +72,28 @@ void RankingInputScene::Draw() const
 	// 背景の描画
 	DrawGraph(0, 0, background_image, TRUE);
 
-	DrawString(150, 100, "ランキングに登録します", 0xFFFFFF);
-	DrawFormatString(100, 220, GetColor(255, 255, 255), ">%s", name);
+	//DrawString(150, 100, "ランキングに登録します", 0xFFFFFF);
+	DrawStringToHandle(150, 100, "ランキングに登録します", GetColor(255, 255, 255), FontManager::GetFont(0));
+	//DrawFormatString(100, 220, GetColor(255, 255, 255), ">%s", name);
+	DrawFormatStringToHandle(100, 220, GetColor(255, 255, 255), FontManager::GetFont(1), ">%s", name);
+	DrawLine(100, 260, 800, 260, 0xffffff);
 
 	// 選択用文字を描画
-	const int font_size = 25;
+	const int font_size = 95;
 	for (int i = 0; i < 26; i++) 
 	{
 		int x = (i % 13) * font_size + 15;
 		int y = (i / 13) * font_size + 300;
-		DrawFormatString(x, y, GetColor(255, 255, 255), "%-3c", 'a' + i);
+		//DrawFormatString(x, y, GetColor(255, 255, 255), "%-3c", 'a' + i);
+		DrawFormatStringToHandle(x, y, GetColor(255, 255, 255), FontManager::GetFont(1), "%-3c", 'a' + i);
 		y = ((i / 13) + 2) * font_size + 300;
-		DrawFormatString(x, y, GetColor(255, 255, 255), "%-3c", 'A' + i);
+		//DrawFormatString(x, y, GetColor(255, 255, 255), "%-3c", 'A' + i);
+		DrawFormatStringToHandle(x, y, GetColor(255, 255, 255), FontManager::GetFont(1), "%-3c", 'A' + i);
 	}
-		DrawString(40, 405, "決定", GetColor(255, 255, 255));
-		DrawString(40 + font_size * 2, 405, "消す", GetColor(255, 255, 255));
+		//DrawString(40, 680, "決定", GetColor(255, 255, 255));
+		//DrawString(40 + font_size * 2, 680, "消す", GetColor(255, 255, 255));
+		DrawStringToHandle(40, 680, "PASS", GetColor(255, 255, 255), FontManager::GetFont(1));
+		DrawStringToHandle(40 + font_size * 2, 680, "DELETE", GetColor(255, 255, 255), FontManager::GetFont(1));
 
 	// 選択をフォーカス
 	if (cursor_y < 4)
@@ -98,13 +106,11 @@ void RankingInputScene::Draw() const
 	{
 		if (cursor_x == 0)
 		{
-			DrawBox(35, 400, 35 + font_size * 2, 400 + font_size, 
-			GetColor(255, 255, 255), FALSE);
+			DrawBox(40, 650, 40 + font_size * 2, 650 + font_size, GetColor(255, 255, 255), FALSE);
 		}
 		else
 		{
-			DrawBox(0, 0, font_size, font_size, GetColor(255, 255, 255), 
-			FALSE);
+			DrawBox(40 + font_size * 2, 650, 40 + font_size * 2 + (40 + font_size * 2), 650 + font_size, GetColor(255, 255, 255), FALSE);
 		}
 	}
 }
@@ -113,13 +119,14 @@ void RankingInputScene::Draw() const
 void RankingInputScene::Finalize()
 {
 	// ランキングにデータを格納
-	ranking->SetRankingData(score, name);
+	//ranking->SetRankingData(score, name);
+	RankingData::SetRankingData(score, name);
 
 	// 読み込んだ画像を削除
 	DeleteGraph(background_image);
 
 	// 動的メモリの開放
-	delete ranking;
+	//delete ranking;
 }
 
 eSceneType RankingInputScene::GetNowScene() const
@@ -178,34 +185,36 @@ bool RankingInputScene::InputName()
 	// カーソル位置の文字を決定する
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
-		if (cursor_y < 2)
-		{
-			name[name_num++] = 'a' + cursor_x + (cursor_y * 13);
-			if (name_num == 14)
+		if (name_num < 15) {
+			if (cursor_y < 2)
 			{
-				cursor_x = 0;
-				cursor_y = 4;
+				name[name_num++] = 'a' + cursor_x + (cursor_y * 13);
+				if (name_num == 14)
+				{
+					cursor_x = 0;
+					cursor_y = 4;
+				}
 			}
-		}
-		else if (cursor_y < 4)
-		{
-			name[name_num++] = 'a' + cursor_x + ((cursor_y - 2) * 13);
-			if (name_num == 14)
+			else if (cursor_y < 4)
 			{
-				cursor_x = 0;
-				cursor_y = 4;
-			}
-		}
-		else
-		{
-			if (cursor_x == 0)
-			{
-				name[name_num] = '\0';
-				return true;
+				name[name_num++] = 'a' + cursor_x + ((cursor_y - 2) * 13);
+				if (name_num == 14)
+				{
+					cursor_x = 0;
+					cursor_y = 4;
+				}
 			}
 			else
 			{
-				name[name_num--] = NULL;
+				if (cursor_x == 0)
+				{
+					name[name_num] = '\0';
+					return true;
+				}
+				else
+				{
+					name[name_num--] = NULL;
+				}
 			}
 		}
 	}

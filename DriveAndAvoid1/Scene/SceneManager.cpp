@@ -10,6 +10,7 @@
 #include "KH_TestScene.h"
 #include "TakePictureScene.h"
 #include "../Resource/FontManager.h"
+#include "../Object/RankingData.h"
 
 SceneManager::SceneManager() : current_scene(nullptr)
 {
@@ -25,6 +26,8 @@ void SceneManager::Initialize()
 {
 	//ウィンドウのタイトルを設定
 	SetMainWindowText("Drive&Avoid");
+
+	SetGraphMode(1280, 720, 32);
 
 	//ウィンドウモードで起動
 	if (ChangeWindowMode(TRUE) != DX_CHANGESCREEN_OK)
@@ -45,13 +48,14 @@ void SceneManager::Initialize()
 	}
 
 	//SetWindowSize(1280, 720);
-	SetGraphMode(1280, 720, 32);
+	
 	SetAlwaysRunFlag(true);
 
 	FontManager::Initialize();
+	RankingData::Initialize();
 
 	//タイトルシーンから始める
-	ChangeScene(eSceneType::E_TITLE);
+	ChangeScene(eSceneType::E_RANKING_DISP);
 }
 
 //シーンマネージャー機能：更新処理
@@ -116,6 +120,7 @@ void SceneManager::Finalize()
 
 	//フォント削除
 	FontManager::Finalize();
+	RankingData::Finalize();
 
 	//DXライブラリの使用を終了する
 	DxLib_End();

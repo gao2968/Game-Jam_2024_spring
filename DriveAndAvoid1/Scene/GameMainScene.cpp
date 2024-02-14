@@ -44,6 +44,10 @@ void GameMainScene::Initialize()
 		}
 	}
 
+	enemy_headImages[0] = LoadGraph("Resource/images/mob.png");
+	enemy_headImages[1] = LoadGraph("Resource/images/mob2.png");
+	boss_headimage = LoadGraph("Resource/images/ボス.png");
+
 	// エラーチェック
 	if (back_ground == -1) {
 		throw("画像back.bmpがありません\n");
@@ -427,6 +431,14 @@ void GameMainScene::BulletManager()
 
 void GameMainScene::spawn_Enemys()
 {
+	int image = 0;
+
+	if (E_num <= Boss_Num) {
+		image = enemy_headImages[GetRand(1)];
+	}else {
+		image = boss_headimage;
+	}
+
 	if (enemy[E_num] == nullptr) {
 		// エネミーの出現時間に到達したら
 		if (++e_spownCnt > e_spawn->LoadEnemy(E_num).time * 60) {
@@ -443,6 +455,7 @@ void GameMainScene::spawn_Enemys()
 				, E_num										// 今何体目なのか
 				, 1											// エネミーのタイプ（消すかも）
 				, enemy_image[GetRand(enemy_image_num - 1)]								// エネミーの画像
+				,image
 			);
 			// エネミーの数がマックス値を超えていないなら
 			if (E_num <= e_spawn->GetMaxEnemy()) {

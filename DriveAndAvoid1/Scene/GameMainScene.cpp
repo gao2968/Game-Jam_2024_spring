@@ -7,7 +7,7 @@
 #include "../Utility/TakePicture.h"
 #include "../Resource/FontManager.h"
 
-GameMainScene::GameMainScene() :high_score(0), back_ground(NULL), barrier_image(NULL), mileage(0), player(nullptr),
+GameMainScene::GameMainScene() :high_score(0), back_ground(NULL), barrier_image(NULL), Score(0), player(nullptr),
 enemy(nullptr) {
 	for (int i = 0; i < 3; i++)
 	{
@@ -74,6 +74,8 @@ void GameMainScene::Initialize()
 	for (int i = 0; i <= e_spawn->GetMaxEnemy(); i++) {
 		enemy[i] = nullptr;
 	}
+	Boss_Num = e_spawn->GetMaxEnemy();
+
 	for (int i = 0; i < MAX_BULLET_NUM; i++)
 	{
 		bullet[i] = nullptr;
@@ -114,6 +116,17 @@ eSceneType GameMainScene::Update()
 				enemy[i] = nullptr;
 			}
 		}
+		// HPが0なら
+		if (enemy[i] != nullptr)
+		{
+			if (enemy[i]->Get_HP() <= 0)
+			{
+				Score += enemy[i]->Get_Score();
+				enemy[i]->Finalize();
+				delete enemy[i];
+				enemy[i] = nullptr;
+			}
+		}
 	}
 
 	if (InputControl::GetButton(XINPUT_BUTTON_RIGHT_SHOULDER) && coolTime > 10) {
@@ -132,11 +145,13 @@ eSceneType GameMainScene::Update()
 	}
 	BulletManager();
 
-	// 移動量距離の更新 playerスピードを取得して+５した値をmileageに+する（毎フレーム）
-	mileage += (int)player->GetSpeed() + 5;
-	
-	// プレイヤーの燃料か体力が０未満なら、リザルトに遷移する
-	if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
+	// 任意の敵を倒したならリザルトへ（今は最後に出てくる敵）
+	if (enemy[Boss_Num] != nullptr) {
+		if (enemy[Boss_Num]->Get_HP() <= 0) {
+			return eSceneType::E_RESULT;
+		}
+	}
+	if (player->GetHp() < 0.0f)
 	{
 		return eSceneType::E_RESULT;
 	}
@@ -233,16 +248,27 @@ void GameMainScene::Draw() const
 		80.0f, GetColor(255, 0, 0), TRUE);
 	DrawBoxAA(fx, fy + 50.0f, fx + 400.0f, fy + 80.0f, GetColor(255, 255, 255), FALSE);
 
+	// ボスの体力表示
+	if (enemy[Boss_Num] != nullptr) {
+		float Efx = 850.0f;
+		float Efy = 600.0f;
+		DrawStringToHandle(Efx, Efy, "BOSS_HP", GetColor(255, 255, 255), FontManager::GetFont(1));
+		DrawBoxAA(Efx, Efy + 50.0f, Efx + (enemy[Boss_Num]->Get_HP() * 400 / e_spawn->LoadEnemy(Boss_Num).hp), Efy +
+			80.0f, GetColor(255, 0, 0), TRUE);
+		DrawBoxAA(Efx, Efy + 50.0f, Efx + 400.0f, Efy + 80.0f, GetColor(255, 255, 255), FALSE);
+	}
+
+
 	//DrawFormatString(510, 30, GetColor(255, 255, 255), "SCORE (仮)");
 	DrawStringToHandle(550, 30, "SCORE", GetColor(255, 255, 255), FontManager::GetFont(1));
 	//DrawFormatString(555, 60, GetColor(255, 255, 255), "%08d", mileage / 10);
-	DrawFormatStringToHandle(550, 90, GetColor(255, 255, 255), FontManager::GetFont(2), "%d", mileage / 10);
+	DrawFormatStringToHandle(550, 90, GetColor(255, 255, 255), FontManager::GetFont(2), "%d", Score);
 }
 
 void GameMainScene::Finalize()
 {
 	// スコア加算する
-	int score = (mileage / 10 * 10);
+	int score = (Score / 10 * 10);
 	for (int i = 0; i < 3; i++)
 	{
 		score += (i + 1) * 50 * enemy_count[i];
@@ -391,7 +417,7 @@ void GameMainScene::BulletManager()
 						if (CheckCollision(bullet[i]->GetLocation(), bullet[i]->GetRadius(), enemy[j]->GetLocation(),enemy[j]->Get_Radius()))
 						{
 							hit = true;
-							enemy[j] = nullptr;
+							enemy[j]->Set_HP(bullet[i]->GetDamage());
 						}
 					}
 				}

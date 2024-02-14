@@ -18,6 +18,7 @@ Player::~Player()
 //‰Šú‰»ˆ—
 void Player::Initialize()
 {
+    yuusya = LoadGraph("Resource/images/6 (1).png");
 	is_active = true;
 	location = Vector2D(100.0f, 360.0f);
 	box_size = Vector2D(31.0f, 60.0f);
@@ -104,6 +105,8 @@ void Player::Draw()
 	
 	//ƒvƒŒƒCƒ„[‰æ‘œ‚Ì•`‰æ
 	DrawRotaGraphF(location.x, location.y, 1.0f, angle, image, TRUE);
+	DrawRotaGraphF(location.x, location.y+57, 2.0f, angle, yuusya, TRUE);
+
 
 	//DrawCircle(location.x, location.y, radius, 0xffff00, false);
 

@@ -17,7 +17,7 @@ RankingInputScene::~RankingInputScene()
 void RankingInputScene::Initialize()
 {
 	// 画像の読み込み
-	background_image = LoadGraph("Resource/images/Ranking.bmp");
+	background_image = LoadGraph("Resource/images/background.jpg");
 
 	// エラーチェック
 	if (background_image == -1) {

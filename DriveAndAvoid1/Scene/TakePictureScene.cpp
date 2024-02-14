@@ -14,6 +14,7 @@ TakePictureScene::TakePictureScene()
 	img_face[0] = LoadGraph("Resource/images/kao.png");
 	img_face[1] = LoadGraph("Resource/images/kao1.png");
 	cursor = 0;
+	background_img = LoadGraph("Resource/images/background.jpg");
 }
 
 TakePictureScene::~TakePictureScene()
@@ -86,7 +87,7 @@ eSceneType TakePictureScene::Update()
 
 void TakePictureScene::Draw() const
 {
-	//DrawGraph(100, 0, img[num], TRUE);
+	DrawGraph(0, 0, background_img, TRUE);
 	switch (state)
 	{
 	case 0://写真撮りますよーとかこの写真はプレイヤー画像になりますよーみたいな説明を書く
@@ -104,7 +105,7 @@ void TakePictureScene::Draw() const
 		DrawStringToHandle(150, 50, "これから写真を撮ります", 0xffffff,FontManager::GetFont(6));
 		DrawStringToHandle(150, 150, "顔が赤い四角で囲われているときに", 0xffffff,FontManager::GetFont(7));
 		DrawStringToHandle(150, 200, "Bボタンを押してください", 0xffffff,FontManager::GetFont(7));
-		DrawStringToHandle(1050, 680, "Bボタンで次へ", 0xffffff,FontManager::GetFont(8));
+		DrawStringToHandle(1050, 680, "Bボタンで次へ", 0x000000,FontManager::GetFont(8));
 		break;
 
 	case 1://特に説明とかは必要ない。別のウィンドウが出るから

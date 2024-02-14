@@ -18,7 +18,7 @@ TitleScene::~TitleScene()
 void TitleScene::Initialize()
 {
 	//画像の読み込み
-	background_image = LoadGraph("Resource/images/Title.bmp");
+	background_image = LoadGraph("Resource/images/background.jpg");
 
 	menu_image = LoadGraph("Resource/images/menu.bmp");
 
@@ -88,7 +88,7 @@ eSceneType TitleScene::Update()
 void TitleScene::Draw() const
 {
 	////タイトル画像の描画
-	//DrawGraph(0, 0, background_image, FALSE);
+	DrawGraph(0, 0, background_image, FALSE);
 
 	////メニュー画像の描画
 	//DrawGraph(120, 200, menu_image, TRUE);

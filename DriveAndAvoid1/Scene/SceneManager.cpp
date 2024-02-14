@@ -55,7 +55,7 @@ void SceneManager::Initialize()
 	RankingData::Initialize();
 
 	//タイトルシーンから始める
-	ChangeScene(eSceneType::E_TAKE_PICTURE);
+	ChangeScene(eSceneType::E_RANKING_DISP);
 }
 
 //シーンマネージャー機能：更新処理

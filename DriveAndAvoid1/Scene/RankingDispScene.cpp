@@ -16,7 +16,7 @@ RankingDispScene::~RankingDispScene()
 void RankingDispScene::Initialize()
 {
     //画像の読み込み
-    background_image = LoadGraph("Resource/images/Ranking.bmp");
+    background_image = LoadGraph("Resource/images/background.jpg");
 
     //エラーチェック
     if (background_image == -1)
@@ -53,12 +53,15 @@ void RankingDispScene::Draw() const
         //DrawFormatString(50, 170 + i * 25, 0xffffff, "%2d %-15s %6d",RankingData::GetRank(i), RankingData::GetName(i), RankingData::GetScore(i));
         DrawStringToHandle(300, 100, "RANKING", 0x0000aa, FontManager::GetFont(4));
 
-        DrawFormatStringToHandle(300, 300 + i * 70, GetColor(255, 255, 255), FontManager::GetFont(3), 
+        DrawFormatStringToHandle(300, 300 + i * 70, GetColor(0, 0, 0), FontManager::GetFont(3), 
             "%2d %-15s", RankingData::GetRank(i), RankingData::GetName(i));
 
-        DrawFormatStringToHandle(800, 300 + i * 70, GetColor(255, 255, 255), FontManager::GetFont(3),
+        DrawFormatStringToHandle(800, 300 + i * 70, GetColor(0, 0, 0), FontManager::GetFont(3),
             "%6d", RankingData::GetScore(i));
     }
+
+    DrawStringToHandle(500, 680, "Bボタンでタイトルへ", 0x000000, FontManager::GetFont(8));
+
 }
 
 void RankingDispScene::Finalize()

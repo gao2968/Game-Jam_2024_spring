@@ -12,6 +12,7 @@
 #include "../Resource/FontManager.h"
 #include "../Object/RankingData.h"
 #include "EndScene.h"
+#include "RuleScene.h"
 
 SceneManager::SceneManager() : current_scene(nullptr)
 {
@@ -56,7 +57,7 @@ void SceneManager::Initialize()
 	RankingData::Initialize();
 
 	//タイトルシーンから始める
-	ChangeScene(eSceneType::E_TITLE);
+	ChangeScene(eSceneType::E_RULE);
 }
 
 //シーンマネージャー機能：更新処理
@@ -188,6 +189,8 @@ SceneBase* SceneManager::CreateScene(eSceneType scene_type)
 		return new TakePictureScene;
 	case eSceneType::E_END1:
 		return new EndScene;
+	case eSceneType::E_RULE:
+		return new RuleScene;
 	case eSceneType::E_TEST:
 		return new KH_TestScene;
 	default:

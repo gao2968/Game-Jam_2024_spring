@@ -12,6 +12,7 @@ enum eSceneType
 	E_END,
 	E_END1,
 	E_TAKE_PICTURE,
+	E_RULE,
 	E_TEST = 99
 };
 

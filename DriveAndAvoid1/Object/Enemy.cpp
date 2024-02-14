@@ -97,11 +97,6 @@ void Enemy::Boss_System(GameMainScene *game, Vector2D player)
 	
 }
 
-bool Enemy::Boss_Down()
-{
-	return End;
-}
-
 int Enemy::GetType() const
 {
 	return type;

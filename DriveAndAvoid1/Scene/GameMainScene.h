@@ -33,6 +33,9 @@ private:
 	int img_Background;
 
 	int coolTime;
+	int fps;
+	bool stopFlg;
+	int state;	//0プレイヤー中 1ゲームオーバー 2ゲームクリアー
 public:
 	GameMainScene();
 	~GameMainScene();

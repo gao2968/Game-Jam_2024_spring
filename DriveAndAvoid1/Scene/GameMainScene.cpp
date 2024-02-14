@@ -19,6 +19,9 @@ enemy(nullptr) {
 	backgroundX = 0;
 	backgroundY = 0;
 	coolTime = 0;
+	fps = 0;
+	stopFlg = false;
+	state = 0;
 }
 
 GameMainScene::~GameMainScene()
@@ -84,79 +87,87 @@ void GameMainScene::Initialize()
 
 eSceneType GameMainScene::Update()
 {
-	// プレイヤーの更新
-	player->Update();
-	// 敵生成処理
-	spawn_Enemys();
+	if (stopFlg == false) {
+		// プレイヤーの更新
+		player->Update();
+		// 敵生成処理
+		spawn_Enemys();
 
-	// 敵の更新と当たり判定チェック
-	for (int i = 0; i <= e_spawn->GetMaxEnemy(); i++)
-	{
-		// 値がnullでないなら
-		if (enemy[i] != nullptr)
+		// 敵の更新と当たり判定チェック
+		for (int i = 0; i <= e_spawn->GetMaxEnemy(); i++)
 		{
-			enemy[i]->Update(player->GetSpeed(),this,player->GetLocation());
-
-			// 画面外に行ったら、敵を消去してスコア加算
-			if (enemy[i]->GetLocation().y >= 640.0f)
+			// 値がnullでないなら
+			if (enemy[i] != nullptr)
 			{
-				enemy_count[enemy[i]->GetType()]++;
-				enemy[i]->Finalize();
-				delete enemy[i];	// メモリ開放
-				enemy[i] = nullptr;// nullにする
+				enemy[i]->Update(player->GetSpeed(), this, player->GetLocation());
+
+				// 画面外に行ったら、敵を消去してスコア加算
+				if (enemy[i]->GetLocation().y >= 640.0f)
+				{
+					enemy_count[enemy[i]->GetType()]++;
+					enemy[i]->Finalize();
+					delete enemy[i];	// メモリ開放
+					enemy[i] = nullptr;// nullにする
+				}
+
+				//当たり判定の確認
+				if (IsHitCheck(player, enemy[i]))
+				{
+					player->SetActive(false);
+					player->DecreaseHp(50.0f);
+					enemy[i]->Finalize();
+					delete enemy[i];
+					enemy[i] = nullptr;
+				}
 			}
-
-			//当たり判定の確認
-			if (IsHitCheck(player, enemy[i]))
+			// HPが0なら
+			if (enemy[i] != nullptr)
 			{
-				player->SetActive(false);
-				player->DecreaseHp(-50.0f);
-				enemy[i]->Finalize();
-				delete enemy[i];
-				enemy[i] = nullptr;
+				if (enemy[i]->Get_HP() <= 0)
+				{
+					Score += enemy[i]->Get_Score();
+					enemy[i]->Finalize();
+					delete enemy[i];
+					enemy[i] = nullptr;
+				}
 			}
 		}
-		// HPが0なら
-		if (enemy[i] != nullptr)
-		{
-			if (enemy[i]->Get_HP() <= 0)
-			{
-				Score += enemy[i]->Get_Score();
-				enemy[i]->Finalize();
-				delete enemy[i];
-				enemy[i] = nullptr;
-			}
-		}
-	}
 
-	if (InputControl::GetButton(XINPUT_BUTTON_RIGHT_SHOULDER) && coolTime > 10) {
-		SpawnBullet();
-		coolTime = 0;
-	}
+		if (InputControl::GetButton(XINPUT_BUTTON_RIGHT_SHOULDER) && coolTime > 10) {
+			SpawnBullet();
+			coolTime = 0;
+		}
 
 		// Enemy_SpawnBullet();
 
-	for (int i = 0; i < MAX_BULLET_NUM; i++)
-	{
-		if (bullet[i] != nullptr) {
-			bullet[i]->Update();
-		}
-		
-	}
-	BulletManager();
+		for (int i = 0; i < MAX_BULLET_NUM; i++)
+		{
+			if (bullet[i] != nullptr) {
+				bullet[i]->Update();
+			}
 
+		}
+		BulletManager();
+	}
 	// 任意の敵を倒したならリザルトへ（今は最後に出てくる敵）
 	if (enemy[Boss_Num] != nullptr) {
 		if (enemy[Boss_Num]->Get_HP() <= 0) {
-			return eSceneType::E_RESULT;
+			stopFlg = true;
+			state = 2;
+			if (fps++ > 240) {
+				return eSceneType::E_RESULT;
+			}
 		}
 	}
 	if (player->GetHp() < 0.0f)
 	{
-		return eSceneType::E_RESULT;
+		stopFlg = true;
+		state = 1;
+		if (fps++ > 240) {
+			return eSceneType::E_RESULT;
+		}
 	}
-	printfDx("%f\n", player->GetHp());
-
+	
 	//背景
 	backgroundX -= SCROLL_SPEED;
 	if (backgroundX <= -2048) {
@@ -198,53 +209,18 @@ void GameMainScene::Draw() const
 	// プレイヤーの描画
 	player->Draw();
 
-	// UIの描画
-	//DrawBox(500, 0, 640, 480, GetColor(0, 153, 0), TRUE);
-	//SetFontSize(16);
-	//DrawFormatString(510, 20, GetColor(0, 0, 0), "ハイスコア");
-	//DrawFormatString(560, 40, GetColor(255, 255, 255), "%08d", high_score);
-	//DrawFormatString(510, 80, GetColor(0, 0, 0), "避けた数");
-
-	//for (int i = 0; i < 3; i++) 
-	//{
-	//	DrawRotaGraph(523 + (i * 50), 120, 0.3, 0, enemy_image[i], TRUE, FALSE);
-	//	DrawFormatString(510 + (i*50),140,GetColor(255, 255, 255), "%03d",enemy_count[i]);
-	//}
-
-	//DrawFormatString(510, 200, GetColor(0, 0, 0), "走行距離");
-	//DrawFormatString(555, 220, GetColor(255, 255, 255), "%08d", mileage / 10);
-	//DrawFormatString(510, 240, GetColor(0, 0, 0), "スピード");
-	//DrawFormatString(555, 260, GetColor(255, 255, 255), "%08.1f",player->GetSpeed());
-
-	//// バリア枚数描画
-	//for (int i = 0; i < player->GetBarriarCount(); i++)
-	//{
-	//	DrawRotaGraph(520 + i * 25, 340, 0.2f, 0, barrier_image, TRUE, FALSE);
-	//}
-
-	//// 燃料ゲージの描画
-	//float fx = 510.0f;
-	//float fy = 390.0f;
-	//DrawFormatStringF(fx, fy, GetColor(0, 0, 0), "FUEL METER");
-	//DrawBoxAA(fx, fy + 20.0f, fx + (player->GetFuel() * 100 / 20000), fy +
-	//	40.0f, GetColor(0, 102, 204), TRUE);
-	//DrawBoxAA(fx, fy + 20.0f, fx + 100.0f, fy + 40.0f, GetColor(0, 0, 0), FALSE);
-	//// 体力ゲージの描画
-	//fx = 510.0f;
-	//fy = 430.0f;
-	//DrawFormatStringF(fx, fy, GetColor(0, 0, 0), "PLAYER HP");
-	//DrawBoxAA(fx, fy + 20.0f, fx + (player->GetHp() * 100 / 1000), fy +
-	//	40.0f, GetColor(255, 0, 0), TRUE);
-	//DrawBoxAA(fx, fy + 20.0f, fx + 100.0f, fy + 40.0f, GetColor(0, 0, 0), FALSE);
-
-
 	//DrawBox(1000, 0, 1280, 720, GetColor(0, 153, 0), TRUE);
 	float fx = 30.0f;
 	float fy = 30.0f;
 	//DrawFormatStringF(fx, fy, GetColor(255, 255, 255), "PLAYER HP");
 	//DrawOval(230, 95 , 230, 25, GetColor(255, 255, 255), TRUE);
 	DrawStringToHandle(fx, fy, "PLAYER HP", GetColor(255, 255, 255), FontManager::GetFont(1));
-	DrawBoxAA(fx, fy + 50.0f, fx + (player->GetHp() * 400 / 1000), fy +
+	int tmp;
+	tmp = player->GetHp();
+	if (tmp < 0) {
+		tmp = 0;
+	}
+	DrawBoxAA(fx, fy + 50.0f, fx + (tmp * 400 / 1000), fy +
 		80.0f, GetColor(255, 0, 0), TRUE);
 	DrawBoxAA(fx, fy + 50.0f, fx + 400.0f, fy + 80.0f, GetColor(255, 255, 255), FALSE);
 
@@ -263,6 +239,13 @@ void GameMainScene::Draw() const
 	DrawStringToHandle(550, 30, "SCORE", GetColor(255, 255, 255), FontManager::GetFont(1));
 	//DrawFormatString(555, 60, GetColor(255, 255, 255), "%08d", mileage / 10);
 	DrawFormatStringToHandle(550, 90, GetColor(255, 255, 255), FontManager::GetFont(2), "%d", Score);
+
+	if (state == 1) {
+		DrawStringToHandle(150, 300, "GAME OVER", GetColor(255, 255, 255), FontManager::GetFont(4));
+	}
+	else if (state == 2) {
+		DrawStringToHandle(140, 300, "GAME CLEAR", GetColor(255, 255, 255), FontManager::GetFont(4));
+	}
 }
 
 void GameMainScene::Finalize()
@@ -373,7 +356,7 @@ bool GameMainScene::SpawnBullet()
 		{
 			bullet[i] = new Bullet();
 			//弾のベクトルとか座標とかを引数として渡す
-			bullet[i]->Initialize(player->GetAim(), player->GetLocation(), 5.0f, 10, 1, 0);
+			bullet[i]->Initialize(player->GetAim(), player->GetLocation(), 5.0f, 10, 10, 0);
 
 			return true;
 		}

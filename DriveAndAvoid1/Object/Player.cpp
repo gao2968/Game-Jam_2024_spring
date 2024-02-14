@@ -63,7 +63,7 @@ void Player::Update()
 	}
 
 	//”R—¿‚ÌÁ”ï
-	fuel -= speed;
+	//fuel -= speed;
 
 	//ˆÚ“®ˆ—
 	Movement();

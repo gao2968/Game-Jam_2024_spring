@@ -19,7 +19,7 @@ private:
 
 	Vector2D location;	// 位置情報
 	Vector2D box_size;	// 当たり判定の大きさ
-	Vector2D b_vector[5];	// 飛ばす方向指定用
+	Vector2D b_vector[3];	// 飛ばす方向指定用
 
 	Bullet** e_bullet;
 
@@ -31,7 +31,7 @@ private:// csvファイル読み込みで使う変数
 	int WaitTime;
 	int Type;
 	int radius;			// 円の大きさ
-
+	int image_num;		// 敵画像の番号を認識する為の変数
 private:
 
 	int LateTime;		// 球の発射速度を管理する為の変数
@@ -43,7 +43,7 @@ private:
 public:
 
 	// １.x座標　２.Y座標　３.半径　４.スピード　５.弾のスピード　６.倒した時のスコア数　７.HP　８.何番目の敵か見る用　９.画像ハンドル
-	Enemy(float _x, float _y, float _r, float _speed, float b_speed, int score, int hp, int E_num, int type, int handle,int hed_handle);
+	Enemy(float _x, float _y, float _r, float _speed, float b_speed, int score, int hp, int E_num, int type, int handle,int hed_handle,int img_num);
 	~Enemy();
 
 	void Initialize();			// 初期化処理用

@@ -73,7 +73,7 @@ void RankingInputScene::Draw() const
 	DrawGraph(0, 0, background_image, TRUE);
 
 	//DrawString(150, 100, "ランキングに登録します", 0xFFFFFF);
-	DrawStringToHandle(150, 100, "ランキングに登録します", GetColor(255, 255, 255), FontManager::GetFont(0));
+	DrawStringToHandle(150, 100, "ランキングに登録します", GetColor(255, 255, 255), FontManager::GetFont(6));
 	//DrawFormatString(100, 220, GetColor(255, 255, 255), ">%s", name);
 	DrawFormatStringToHandle(100, 220, GetColor(255, 255, 255), FontManager::GetFont(1), ">%s", name);
 	DrawLine(100, 260, 800, 260, 0xffffff);
@@ -85,32 +85,36 @@ void RankingInputScene::Draw() const
 		int x = (i % 13) * font_size + 15;
 		int y = (i / 13) * font_size + 300;
 		//DrawFormatString(x, y, GetColor(255, 255, 255), "%-3c", 'a' + i);
-		DrawFormatStringToHandle(x, y, GetColor(255, 255, 255), FontManager::GetFont(1), "%-3c", 'a' + i);
+		DrawFormatStringToHandle(x, y, GetColor(0, 0, 0), FontManager::GetFont(1), "%-3c", 'a' + i);
+		DrawFormatStringToHandle(x+3, y+3, GetColor(255, 255, 255), FontManager::GetFont(1), "%-3c", 'a' + i);
 		y = ((i / 13) + 2) * font_size + 300;
 		//DrawFormatString(x, y, GetColor(255, 255, 255), "%-3c", 'A' + i);
-		DrawFormatStringToHandle(x, y, GetColor(255, 255, 255), FontManager::GetFont(1), "%-3c", 'A' + i);
+		DrawFormatStringToHandle(x, y, GetColor(0, 0, 0), FontManager::GetFont(1), "%-3c", 'A' + i);
+		DrawFormatStringToHandle(x+3, y+3, GetColor(255, 255, 255), FontManager::GetFont(1), "%-3c", 'A' + i);
 	}
 		//DrawString(40, 680, "決定", GetColor(255, 255, 255));
 		//DrawString(40 + font_size * 2, 680, "消す", GetColor(255, 255, 255));
-		DrawStringToHandle(40, 680, "PASS", GetColor(255, 255, 255), FontManager::GetFont(1));
-		DrawStringToHandle(40 + font_size * 2, 680, "DELETE", GetColor(255, 255, 255), FontManager::GetFont(1));
+		DrawStringToHandle(40, 680, "PASS", GetColor(0, 0, 0), FontManager::GetFont(1));
+		DrawStringToHandle(40+3, 680+3, "PASS", GetColor(255, 255, 255), FontManager::GetFont(1));
+		DrawStringToHandle(40 + font_size * 2, 680, "DELETE", GetColor(0, 0, 0), FontManager::GetFont(1));
+		DrawStringToHandle(40 + font_size * 2+3, 680+3, "DELETE", GetColor(255, 255, 255), FontManager::GetFont(1));
 
 	// 選択をフォーカス
 	if (cursor_y < 4)
 	{
 		int x = cursor_x * font_size + 10;
 		int y = cursor_y * font_size + 295;
-		DrawBox(x, y, x + font_size, y + font_size, GetColor(255, 255, 255), FALSE);
+		DrawBox(x, y, x + font_size, y + font_size, GetColor(255, 0, 0), FALSE);
 	}
 	else
 	{
 		if (cursor_x == 0)
 		{
-			DrawBox(40, 650, 40 + font_size * 2, 650 + font_size, GetColor(255, 255, 255), FALSE);
+			DrawBox(40, 650, 40 + font_size * 2, 650 + font_size, GetColor(255, 0, 0), FALSE);
 		}
 		else
 		{
-			DrawBox(40 + font_size * 2, 650, 40 + font_size * 2 + (40 + font_size * 2), 650 + font_size, GetColor(255, 255, 255), FALSE);
+			DrawBox(40 + font_size * 2, 650, 40 + font_size * 2 + (40 + font_size * 2), 650 + font_size, GetColor(255, 0, 0), FALSE);
 		}
 	}
 }

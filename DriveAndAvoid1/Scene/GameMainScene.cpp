@@ -160,7 +160,7 @@ eSceneType GameMainScene::Update()
 			stopFlg = true;
 			state = 2;
 			if (fps++ > 240) {
-				return eSceneType::E_RESULT;
+				return eSceneType::E_RULE;
 			}
 		}
 	}
@@ -169,7 +169,7 @@ eSceneType GameMainScene::Update()
 		stopFlg = true;
 		state = 1;
 		if (fps++ > 240) {
-			return eSceneType::E_RESULT;
+			return eSceneType::E_RULE;
 		}
 	}
 	

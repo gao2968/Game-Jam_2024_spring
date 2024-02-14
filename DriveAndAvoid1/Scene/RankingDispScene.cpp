@@ -53,11 +53,11 @@ void RankingDispScene::Draw() const
         //DrawFormatString(50, 170 + i * 25, 0xffffff, "%2d %-15s %6d",RankingData::GetRank(i), RankingData::GetName(i), RankingData::GetScore(i));
        
 
-        DrawFormatStringToHandle(300, 300 + i * 70, GetColor(0, 0, 0), FontManager::GetFont(3), 
-            "%2d %-15s", RankingData::GetRank(i), RankingData::GetName(i));
+        DrawFormatStringToHandle(300, 300 + i * 70, GetColor(0, 0, 0), FontManager::GetFont(3), "%2d %-15s", RankingData::GetRank(i), RankingData::GetName(i));
+        DrawFormatStringToHandle(303, 303 + i * 70, GetColor(255, 255, 255), FontManager::GetFont(3), "%2d %-15s", RankingData::GetRank(i), RankingData::GetName(i));
 
-        DrawFormatStringToHandle(800, 300 + i * 70, GetColor(0, 0, 0), FontManager::GetFont(3),
-            "%6d", RankingData::GetScore(i));
+        DrawFormatStringToHandle(800, 300 + i * 70, GetColor(0, 0, 0), FontManager::GetFont(3), "%6d", RankingData::GetScore(i));
+        DrawFormatStringToHandle(803, 303 + i * 70, GetColor(255, 255, 255), FontManager::GetFont(3), "%6d", RankingData::GetScore(i));
     }
     DrawStringToHandle(300, 100, "RANKING", 0x0000aa, FontManager::GetFont(4));
 

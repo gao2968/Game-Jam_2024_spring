@@ -98,6 +98,12 @@ void TitleScene::Draw() const
 
 	//DrawCircle(450, 280 + menu_cursor * 100, 3, 0x00ff00, TRUE);
 
+	DrawStringToHandle(206, 56, "kokonititle", 0x000000, FontManager::GetFont(4));
+	DrawStringToHandle(503, 253, "START", 0x000000, FontManager::GetFont(5));
+	DrawStringToHandle(503, 353, "RANKING", 0x000000, FontManager::GetFont(5));
+	DrawStringToHandle(503, 453, "HELP", 0x000000, FontManager::GetFont(5));
+	DrawStringToHandle(503, 553, "END", 0x000000, FontManager::GetFont(5));
+
 	DrawStringToHandle(200, 50, "kokonititle", 0xffffff, FontManager::GetFont(4));
 	DrawStringToHandle(500, 250, "START", 0xffffff, FontManager::GetFont(5));
 	DrawStringToHandle(500, 350, "RANKING", 0xffffff, FontManager::GetFont(5));

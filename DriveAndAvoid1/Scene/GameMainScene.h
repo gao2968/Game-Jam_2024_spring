@@ -14,13 +14,13 @@ private:
 	int high_score;			// ハイスコア
 	int back_ground;		// 背景画像
 	int barrier_image;		// バリア画像
-	int mileage;			// 走行距離
+	int Score;			// 走行距離
 	int enemy_image[10];	// 敵画像
 	int enemy_image_num;	// 敵の画像枚数
 	int enemy_count[3];		// 通り過ぎた敵のカウント
 	int E_num;
 	int e_spownCnt;
-
+	int Boss_Num;
 	Player* player;			// プレイヤー
 	 Enemy** enemy;			// 敵
 	Bullet** bullet;

@@ -136,7 +136,7 @@ bool TakePicture::Take()
 	int key = waitKey(1);
 
 	if ((InputControl::GetButtonDown(XINPUT_BUTTON_B) || key == 'e') && faces.size() > 0) {
-		Rect tmp(Point(x, y), Point(x_end, y_end));
+		Rect tmp(Point(x + 3, y + 3), Point(x_end - 3, y_end - 3));
 		face = frame(tmp);
 		
 		int handle;

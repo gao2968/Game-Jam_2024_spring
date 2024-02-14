@@ -11,6 +11,8 @@ class Enemy
 private:
 	int type;			// タイプ
 	int image;			// 画像
+	int head_images;
+
 	float speed;		// 速さ
 	int hp;				// 体力
 	float bullet_speed; // 球の速さ
@@ -41,7 +43,7 @@ private:
 public:
 
 	// １.x座標　２.Y座標　３.半径　４.スピード　５.弾のスピード　６.倒した時のスコア数　７.HP　８.何番目の敵か見る用　９.画像ハンドル
-	Enemy(float _x, float _y, float _r, float _speed, float b_speed, int score, int hp, int E_num, int type, int handle/*,int hed_handle*/);
+	Enemy(float _x, float _y, float _r, float _speed, float b_speed, int score, int hp, int E_num, int type, int handle,int hed_handle);
 	~Enemy();
 
 	void Initialize();			// 初期化処理用

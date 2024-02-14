@@ -3,8 +3,10 @@
 // ヘッダーではなくcppでインクルードする
 #include"../Scene/GameMainScene.h"
 
-Enemy::Enemy(float _x, float _y, float _r, float _speed, float b_speed, int score, int _hp, int _E_num, int type, int handle/*, int hed_handle*/) :type(type), image(handle)/*h_image(hed_handle)*/
+Enemy::Enemy(float _x, float _y, float _r, float _speed, float b_speed, int score, int _hp, int _E_num, int type, int handle, int hed_handle) :type(type), image(handle)/*h_image(hed_handle)*/
 {
+	head_images = hed_handle;
+
 	point = score;
 	WaitTime = 0;
 	E_num = _E_num;
@@ -65,8 +67,8 @@ void Enemy::Draw()const
 
 	// 敵画像描画
 	DrawRotaGraphF(location.x, location.y, 1.0, 0.0, image, TRUE);
-
-	//DrawBox(location.x-30, location.y-30, location.x + 50, location.y + 50, 0xff0000, true);
+    DrawRotaGraphF(location.x, location.y, 1.0, 0.0, head_images, TRUE);
+	// DrawBox(location.x-30, location.y-30, location.x + 50, location.y + 50, 0xff0000, true);
 }
 
 void Enemy::Finalize()

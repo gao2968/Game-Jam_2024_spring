@@ -2,6 +2,7 @@
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
 #include "../Resource/FontManager.h"
+#include "../Resource/SoundManager.h"
 
 TitleScene::TitleScene() : background_image(NULL), menu_image(NULL),
 cursor_image(NULL), menu_cursor(0)
@@ -37,6 +38,8 @@ void TitleScene::Initialize()
 	{
 		throw("Resource/images/cone.bmp‚ª‚ ‚è‚Ü‚¹‚ñ\n");
 	}
+
+	PlaySoundMem(SoundManager::GetBGM(1), DX_PLAYTYPE_LOOP, TRUE);
 }
 
 eSceneType TitleScene::Update()

@@ -17,7 +17,7 @@ private:
 	int back_ground;		// ”wŒi‰æ‘œ
 	int barrier_image;		// ƒoƒŠƒA‰æ‘œ
 	int Score;				// ‘–s‹——£
-	int enemy_image[10];	// “G‰æ‘œ
+	int enemy_image[128];	// “G‰æ‘œ
 	int enemy_headImages[2];// “G‚ÌƒCƒ[ƒW‰æ‘œ
 	int boss_headimage;
 	int enemy_image_num;	// “G‚Ì‰æ‘œ–‡”

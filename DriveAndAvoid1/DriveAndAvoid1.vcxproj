@@ -157,6 +157,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AppMain.cpp" />
+    <ClCompile Include="Scene\RuleScene.cpp" />
     <ClCompile Include="Scene\EndScene.cpp" />
     <ClCompile Include="Resource\FontManager.cpp" />
     <ClCompile Include="Object\EnemySpawn.cpp" />
@@ -178,6 +179,7 @@
     <ClCompile Include="Utility\InputControl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Scene\RuleScene.h" />
     <ClInclude Include="Scene\EndScene.h" />
     <ClInclude Include="Resource\FontManager.h" />
     <ClInclude Include="Object\EnemySpawn.h" />

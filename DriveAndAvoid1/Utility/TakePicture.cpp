@@ -170,6 +170,7 @@ void TakePicture::SeekNum()
 		handle = LoadGraph(path_tmp.c_str());
 		if (handle == -1) {
 			num = i - 1;
+			path = "Resource/images/img" + std::to_string(num) + ".png";
 			DeleteGraph(handle);
 			break;
 		}

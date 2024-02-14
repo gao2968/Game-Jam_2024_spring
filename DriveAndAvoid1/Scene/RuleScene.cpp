@@ -45,7 +45,7 @@ void RuleScene::Draw() const
 {
 	DrawGraph(0, 0, background_img, TRUE);
 
-	DrawStringToHandle(200, 100, "QUESTION", 0xffffff, FontManager::GetFont(4));
+	DrawStringToHandle(200, 100, "QUESTION", 0xaa0000, FontManager::GetFont(4));
 	
 	DrawStringToHandle(150, 300, "今回使用したあなたの顔面を", 0xffffff, FontManager::GetFont(7));
 	DrawStringToHandle(150, 400, "この先敵として出現させていいですか？", 0xffffff, FontManager::GetFont(7));

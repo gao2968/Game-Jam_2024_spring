@@ -436,11 +436,14 @@ void GameMainScene::BulletManager()
 void GameMainScene::spawn_Enemys()
 {
 	int image = 0;
+	int img_num = 0;	
 
-	if (E_num <= Boss_Num) {
-		image = enemy_headImages[GetRand(1)];
+	if (E_num != Boss_Num) {
+		img_num = GetRand(1);
+		image = enemy_headImages[img_num];
 	}else {
 		image = boss_headimage;
+		img_num = 2;
 	}
 
 	if (enemy[E_num] == nullptr) {
@@ -460,6 +463,7 @@ void GameMainScene::spawn_Enemys()
 				, 1											// エネミーのタイプ（消すかも）
 				, enemy_image[GetRand(enemy_image_num - 1)]								// エネミーの画像
 				,image
+				,img_num
 			);
 			// エネミーの数がマックス値を超えていないなら
 			if (E_num <= e_spawn->GetMaxEnemy()) {

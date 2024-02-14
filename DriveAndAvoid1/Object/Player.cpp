@@ -136,7 +136,7 @@ void Player::SetActive(bool flg)
 //‘Ì—ÍŒ¸­ˆ—
 void Player::DecreaseHp(float value)
 {
-	this->hp += value;
+	this->hp -= value;
 }
 
 //ˆÊ’uî•ñŽæ“¾ˆ—

@@ -17,12 +17,11 @@ private:
 
 	Vector2D location;	// 位置情報
 	Vector2D box_size;	// 当たり判定の大きさ
-	Vector2D b_vector;	// 飛ばす方向指定用
+	Vector2D b_vector[5];	// 飛ばす方向指定用
 
 	Bullet** e_bullet;
 
-private:
-	// csvファイル読み込みで使う変数
+private:// csvファイル読み込みで使う変数
 	int E_num;
 	int point;
 	bool hit;
@@ -32,17 +31,21 @@ private:
 	int radius;			// 円の大きさ
 
 private:
+
 	int LateTime;		// 球の発射速度を管理する為の変数
 	int bullet_Timing;	// 弾の感覚時間（レートの設定.後々エクセルで管理する） 
-	bool shot;
+	bool hanten;		// 移動方向が反転するタイミングを見る変数
+	bool End;			// ボスを倒した判定
+
+	float y_speed;		// ボスがY座標移動するスピード
 public:
 
-	// csvから取得する用のコンストラクタ
+	// １.x座標　２.Y座標　３.半径　４.スピード　５.弾のスピード　６.倒した時のスコア数　７.HP　８.何番目の敵か見る用　９.画像ハンドル
 	Enemy(float _x, float _y, float _r, float _speed, float b_speed, int score, int hp, int E_num, int type, int handle);
 	~Enemy();
 
 	void Initialize();			// 初期化処理用
-	void Update(float speed,GameMainScene *game);	// 更新処理
+	void Update(float speed,GameMainScene *game,Vector2D player);// 更新処理
 	void Draw()const;			// 描画処理
 	void Finalize();			// 終了時の処理
 
@@ -51,6 +54,9 @@ public:
 	Vector2D GetBoxSize();		// 当たり判定の大きさを取得
 
 	int Get_Radius();
-	bool firing();				// レートが割り切れたタイミングでtrueを返す
+	float Set_HP();				// HPセット
+
+private:
+	void Boss_System(GameMainScene* game, Vector2D player);		// ボスの行動パターン
 };
 

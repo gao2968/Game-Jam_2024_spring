@@ -1,6 +1,7 @@
 #include "TitleScene.h"
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
+#include "../Resource/FontManager.h"
 
 TitleScene::TitleScene() : background_image(NULL), menu_image(NULL),
 cursor_image(NULL), menu_cursor(0)
@@ -69,7 +70,7 @@ eSceneType TitleScene::Update()
 		switch (menu_cursor)
 		{
 		case 0:
-			return eSceneType::E_MAIN;
+			return eSceneType::E_TAKE_PICTURE;
 		case 1:
 			return eSceneType::E_RANKING_DISP;
 		case 2:
@@ -86,14 +87,23 @@ eSceneType TitleScene::Update()
 //描画処理
 void TitleScene::Draw() const
 {
-	//タイトル画像の描画
-	DrawGraph(0, 0, background_image, FALSE);
+	////タイトル画像の描画
+	//DrawGraph(0, 0, background_image, FALSE);
 
-	//メニュー画像の描画
-	DrawGraph(120, 200, menu_image, TRUE);
+	////メニュー画像の描画
+	//DrawGraph(120, 200, menu_image, TRUE);
 
-	//カーソル画像の描画
-	DrawRotaGraph(90, 220 + menu_cursor * 40, 0.7, DX_PI / 2.0, cursor_image, TRUE);
+	////カーソル画像の描画
+	//DrawRotaGraph(90, 220 + menu_cursor * 40, 0.7, DX_PI / 2.0, cursor_image, TRUE);
+
+	DrawCircle(450, 250 + menu_cursor * 100, 30, 0x00ff00, TRUE);
+
+	DrawStringToHandle(200, 50, "kokonititle", 0xffffff, FontManager::GetFont(4));
+	DrawStringToHandle(500, 250, "START", 0xffffff, FontManager::GetFont(5));
+	DrawStringToHandle(500, 350, "RANKING", 0xffffff, FontManager::GetFont(5));
+	DrawStringToHandle(500, 450, "HELP", 0xffffff, FontManager::GetFont(5));
+	DrawStringToHandle(500, 550, "END", 0xffffff, FontManager::GetFont(5));
+	//DrawStringToHandle(320, 170, "", GetColor(255, 255, 255), FontManager::GetFont(4));
 
 }
 

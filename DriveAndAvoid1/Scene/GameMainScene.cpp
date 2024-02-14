@@ -16,6 +16,9 @@ enemy(nullptr) {
 	}
 
 	enemy_image_num = 0;
+	backgroundX = 0;
+	backgroundY = 0;
+	coolTime = 0;
 }
 
 GameMainScene::~GameMainScene()
@@ -31,6 +34,8 @@ void GameMainScene::Initialize()
 	back_ground = LoadGraph("Resource/images/back.bmp");
 	barrier_image = LoadGraph("Resource/images/barrier.png");
 	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
+	img_Background = LoadGraph("Resource/images/background.jpg");
+
 
 	TakePicture tmp;
 	std::string path;
@@ -111,8 +116,9 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
-	if (InputControl::GetButton(XINPUT_BUTTON_RIGHT_SHOULDER)) {
+	if (InputControl::GetButton(XINPUT_BUTTON_RIGHT_SHOULDER) && coolTime > 10) {
 		SpawnBullet();
+		coolTime = 0;
 	}
 
 		// Enemy_SpawnBullet();
@@ -136,6 +142,17 @@ eSceneType GameMainScene::Update()
 	}
 	printfDx("%f\n", player->GetHp());
 
+	//îwåi
+	backgroundX -= SCROLL_SPEED;
+	if (backgroundX <= -2048) {
+		backgroundX = 0;
+	}
+
+	
+	if (coolTime++ > 10) {
+		coolTime = 10;
+	}
+
 	return GetNowScene();
 }
 
@@ -144,6 +161,8 @@ void GameMainScene::Draw() const
 	// îwåiâÊëúÇÃï`âÊ
 	//DrawGraph(0, mileage % 480 - 480, back_ground, TRUE);
 	//DrawGraph(0, mileage % 480, back_ground, TRUE);
+	DrawGraph(backgroundX, backgroundY, img_Background, FALSE);
+	DrawGraph(backgroundX + 2048, backgroundY, img_Background, FALSE);
 	
 	// ìGÇÃï`âÊ csvÇ…Ç†ÇÈìGÇÃêîà»â∫Ç»ÇÁ
 	for (int i = 0; i <= e_spawn->GetMaxEnemy(); i++)
@@ -213,7 +232,6 @@ void GameMainScene::Draw() const
 	DrawBoxAA(fx, fy + 50.0f, fx + (player->GetHp() * 400 / 1000), fy +
 		80.0f, GetColor(255, 0, 0), TRUE);
 	DrawBoxAA(fx, fy + 50.0f, fx + 400.0f, fy + 80.0f, GetColor(255, 255, 255), FALSE);
-
 
 	//DrawFormatString(510, 30, GetColor(255, 255, 255), "SCORE (âº)");
 	DrawStringToHandle(550, 30, "SCORE", GetColor(255, 255, 255), FontManager::GetFont(1));

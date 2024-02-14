@@ -7,6 +7,7 @@
 #include "../Object/EnemySpawn.h"
 
 #define MAX_BULLET_NUM 256
+#define SCROLL_SPEED 5
 
 class GameMainScene:public SceneBase
 {
@@ -26,6 +27,12 @@ private:
 	Bullet** bullet;
 
 	E_Spawn* e_spawn;
+
+	int backgroundX;
+	int backgroundY;
+	int img_Background;
+
+	int coolTime;
 public:
 	GameMainScene();
 	~GameMainScene();

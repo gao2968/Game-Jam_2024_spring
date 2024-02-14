@@ -9,6 +9,8 @@ private:
 	int took_flg;
 	int state; //0、今から写真取りますよー　1、写真撮りまーす　2、この写真でいいですか？ 
 	int num;
+	int img_face[2];
+	int cursor;
 public:
 	TakePictureScene();
 	~TakePictureScene();

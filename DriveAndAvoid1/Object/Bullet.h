@@ -10,7 +10,7 @@ private:
 	float radius;
 	float damage;
 	int type;  //0プレイヤー　1敵
-	static int tama;//攻撃(玉)
+    int tama;//攻撃(玉)
 public:
 	Bullet(); //コンストラクタ
 	~Bullet(); //デストラクタ

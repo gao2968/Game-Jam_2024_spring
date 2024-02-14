@@ -2,7 +2,7 @@
 #include "DxLib.h"
 #include <math.h>
 
-int Bullet::tama;
+
 
 Bullet::Bullet() :location(0.0f), vector(0.0f), speed(0.0f), radius(0.0f), damage(0.0f), type(0)
 {
@@ -20,7 +20,7 @@ void Bullet::Initialize(Vector2D vec, Vector2D loc, float s, float r, float d, i
 	}
 	else
 	{
-		tama= LoadGraph("Resource/images/tekinotama.png");
+		tama= LoadGraph("Resource/images/tekinotama .png");
 	}
 
 	vector = vec;
@@ -46,7 +46,8 @@ void Bullet::Update()
 void Bullet::Draw()
 {
 	//DrawCircle(location.x, location.y, radius, 0xff0000, TRUE);
-	DrawRotaGraphF(location.x, location.y, 1.8, 0, 0, tama, TRUE); 
+	int i;
+	i=DrawRotaGraphF(location.x, location.y, 0.2, 0, tama, TRUE); 
 }
 
 void Bullet::Finalize()

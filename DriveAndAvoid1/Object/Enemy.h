@@ -41,11 +41,11 @@ private:
 public:
 
 	// １.x座標　２.Y座標　３.半径　４.スピード　５.弾のスピード　６.倒した時のスコア数　７.HP　８.何番目の敵か見る用　９.画像ハンドル
-	Enemy(float _x, float _y, float _r, float _speed, float b_speed, int score, int hp, int E_num, int type, int handle);
+	Enemy(float _x, float _y, float _r, float _speed, float b_speed, int score, int hp, int E_num, int type, int handle/*,int hed_handle*/);
 	~Enemy();
 
 	void Initialize();			// 初期化処理用
-	void Update(float speed,GameMainScene *game,Vector2D player);// 更新処理
+	void Update(float speed, GameMainScene* game, Vector2D player);// 更新処理
 	void Draw()const;			// 描画処理
 	void Finalize();			// 終了時の処理
 
@@ -54,9 +54,12 @@ public:
 	Vector2D GetBoxSize();		// 当たり判定の大きさを取得
 
 	int Get_Radius();
-	float Set_HP();				// HPセット
+	float Get_HP();
+	bool Get_BossDown();		// ボスの死亡判定を取る
+	int Get_Score();			// スコアを取得する
+
+	void Set_HP(float damege);				// HPセット
 
 private:
 	void Boss_System(GameMainScene* game, Vector2D player);		// ボスの行動パターン
 };
-

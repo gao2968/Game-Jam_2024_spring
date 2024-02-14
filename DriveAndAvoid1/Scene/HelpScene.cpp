@@ -2,7 +2,7 @@
 #include "../utility/InputControl.h"
 #include "DxLib.h"
 
-HelpScene::HelpScene() : background_image(NULL)
+HelpScene::HelpScene() : background_image(NULL),help_img(NULL)
 {
 
 }
@@ -17,7 +17,7 @@ void HelpScene::Initialize()
 {
 	//画像の読み込み
 	background_image = LoadGraph("Resource/images/background.jpg");
-
+	help_img = LoadGraph("Resource/images/help.png");
 	//エラーチェック
 	if (background_image == -1)
 	{
@@ -40,6 +40,7 @@ void HelpScene::Draw() const
 {
 	//背景の描画処理
 	DrawGraph(0, 0, background_image, FALSE);
+	DrawRotaGraph(200, 100, 2.0, 0,help_img,TRUE);
 
 	//ゲームの説明
 	SetFontSize(16);

@@ -15,6 +15,7 @@ TakePictureScene::TakePictureScene()
 	img_face[1] = LoadGraph("Resource/images/kao1.png");
 	cursor = 0;
 	background_img = LoadGraph("Resource/images/background.jpg");
+	aimingImg = LoadGraph("Resource/images/aiming.png");
 }
 
 TakePictureScene::~TakePictureScene()
@@ -121,7 +122,8 @@ void TakePictureScene::Draw() const
 		DrawRotaGraph(640, 360, 2.0f, 0.0f, img[num], TRUE);
 		DrawStringToHandle(400, 650, "‚¢‚¢‚¦", 0xffffff, FontManager::GetFont(6));
 		DrawStringToHandle(800, 650, "‚Í‚¢", 0xffffff, FontManager::GetFont(6));
-		DrawCircle(400 + cursor * 400, 650, 30 ,0xffff00, TRUE);
+		//DrawCircle(400 + cursor * 400, 650, 30 ,0xffff00, TRUE);
+		DrawRotaGraph(350 + cursor * 400, 680, 0.1, DX_PI / 2.0, aimingImg, TRUE);
 		break;
 
 

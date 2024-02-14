@@ -51,7 +51,7 @@ void RankingDispScene::Draw() const
        /* DrawFormatString(50, 170 + i * 25, 0xffffff, "%2d %-15s %6d",
             ranking->GetRank(i), ranking->GetName(i), ranking->GetScore(i));*/
         //DrawFormatString(50, 170 + i * 25, 0xffffff, "%2d %-15s %6d",RankingData::GetRank(i), RankingData::GetName(i), RankingData::GetScore(i));
-        DrawStringToHandle(300, 100, "RANKING", 0x0000aa, FontManager::GetFont(4));
+       
 
         DrawFormatStringToHandle(300, 300 + i * 70, GetColor(0, 0, 0), FontManager::GetFont(3), 
             "%2d %-15s", RankingData::GetRank(i), RankingData::GetName(i));
@@ -59,6 +59,7 @@ void RankingDispScene::Draw() const
         DrawFormatStringToHandle(800, 300 + i * 70, GetColor(0, 0, 0), FontManager::GetFont(3),
             "%6d", RankingData::GetScore(i));
     }
+    DrawStringToHandle(300, 100, "RANKING", 0x0000aa, FontManager::GetFont(4));
 
     DrawStringToHandle(500, 680, "Bボタンでタイトルへ", 0x000000, FontManager::GetFont(8));
 

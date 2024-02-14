@@ -10,6 +10,7 @@ enum eSceneType
 	E_RANKING_INPUT,
 	E_RESULT,
 	E_END,
+	E_END1,
 	E_TAKE_PICTURE,
 	E_TEST = 99
 };

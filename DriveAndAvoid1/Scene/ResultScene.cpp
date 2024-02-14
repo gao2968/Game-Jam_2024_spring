@@ -4,6 +4,7 @@
 #include "DxLib.h"
 #include "../Resource/FontManager.h"
 
+
 ResultScene::ResultScene() : back_ground(NULL), score(0)
 {
 	for (int i = 0; i < 3; i++)
@@ -42,7 +43,12 @@ eSceneType ResultScene::Update()
 	//	Bボタンでランキングに遷移する
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
-		return eSceneType::E_RANKING_INPUT;
+		if (score >= RankingData::GetScore(4)) {
+			return eSceneType::E_RANKING_INPUT;
+		}
+		else {
+			return eSceneType::E_RANKING_DISP;
+		}
 	}
 
 	return GetNowScene();

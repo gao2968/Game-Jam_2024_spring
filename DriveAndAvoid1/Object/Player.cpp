@@ -77,14 +77,14 @@ void Player::Update()
 	}
 
 	//バリア処理
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_B) && barrier_count > 0)
+	/*if (InputControl::GetButtonDown(XINPUT_BUTTON_B) && barrier_count > 0)
 	{
 		if (barrier == nullptr)
 		{
 			barrier_count--;
 			barrier = new Barrier;
 		}
-	}
+	}*/
 
 	//バリアが生成ささていたら、更新を行う
 	if (barrier != nullptr)

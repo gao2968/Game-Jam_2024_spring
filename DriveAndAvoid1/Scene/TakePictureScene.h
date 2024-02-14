@@ -12,6 +12,7 @@ private:
 	int img_face[2];
 	int cursor;
 	int background_img;
+	int aimingImg;
 public:
 	TakePictureScene();
 	~TakePictureScene();

@@ -13,6 +13,7 @@ Bullet::~Bullet()
 
 void Bullet::Initialize(Vector2D vec, Vector2D loc, float s, float r, float d, int t)
 {
+	
 	vector = vec;
 	location = loc;
 	speed = s;

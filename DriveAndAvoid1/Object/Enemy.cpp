@@ -13,12 +13,12 @@ Enemy::Enemy(float _x, float _y, float _r, float _speed, float b_speed, int scor
 	E_num = _E_num;
 	hp = _hp;
 	speed = _speed;
-	bullet_speed = 6.0f;
+	bullet_speed = 10.0f;
 
 	location.x = _x;
 	location.y = _y;
 	radius = _r;
-	bullet_Timing = 120;
+	bullet_Timing = 30;
 	y_speed = 3.0f;
 	enemy_num = max;
 	End = false;

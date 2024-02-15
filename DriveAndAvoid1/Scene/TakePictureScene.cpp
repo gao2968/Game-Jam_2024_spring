@@ -1,6 +1,7 @@
 #include "TakePictureScene.h"
 #include "../Utility/InputControl.h"
 #include "../Resource/FontManager.h"
+#include "../Resource/SoundManager.h"
 
 TakePictureScene::TakePictureScene()
 {
@@ -32,6 +33,7 @@ eSceneType TakePictureScene::Update()
 	{
 	case 0:
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_B)) {
+			PlaySoundMem(SoundManager::GetSE(7), DX_PLAYTYPE_BACK, TRUE);
 			state = 1;
 		}
 		break;
@@ -46,22 +48,28 @@ eSceneType TakePictureScene::Update()
 			took_flg = true;
 			num = picture.GetNum();
 			state = 2;
+			PlaySoundMem(SoundManager::GetSE(8), DX_PLAYTYPE_BACK, TRUE);
+
 		}
 
 		break;
 
 	case 2:
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_LEFT)) {
+			PlaySoundMem(SoundManager::GetSE(6), DX_PLAYTYPE_BACK, TRUE);
 			cursor = 0;
 		}
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_RIGHT)) {
+			PlaySoundMem(SoundManager::GetSE(6), DX_PLAYTYPE_BACK, TRUE);
 			cursor = 1;
 		}
 
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_B) && cursor == 1) {
+			PlaySoundMem(SoundManager::GetSE(7), DX_PLAYTYPE_BACK, TRUE);
 			return eSceneType::E_MAIN;
 		}
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_B) && cursor == 0) {
+			PlaySoundMem(SoundManager::GetSE(7), DX_PLAYTYPE_BACK, TRUE);
 			state = 1;
 			took_flg = false;
 			remove(picture.GetPath().c_str());
@@ -78,10 +86,6 @@ eSceneType TakePictureScene::Update()
 	if (took_flg == false) {
 		picture.Update();
 	}
-	
-	
-
-
 
 	return GetNowScene();
 }

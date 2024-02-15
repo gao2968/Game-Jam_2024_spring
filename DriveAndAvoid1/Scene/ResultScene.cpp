@@ -3,6 +3,7 @@
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
 #include "../Resource/FontManager.h"
+#include "../Resource/SoundManager.h"
 
 
 ResultScene::ResultScene() : back_ground(NULL), score(0)
@@ -43,6 +44,7 @@ eSceneType ResultScene::Update()
 	//	Bボタンでランキングに遷移する
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
+		PlaySoundMem(SoundManager::GetSE(7), DX_PLAYTYPE_BACK, TRUE);
 		if (score >= RankingData::GetScore(4)) {
 			return eSceneType::E_RANKING_INPUT;
 		}
@@ -59,28 +61,13 @@ void ResultScene::Draw() const
 	//背景画像を描画
 	DrawGraph(0, 0, back_ground, TRUE);
 
-	//スコア等表示領域
-	//DrawBox(150, 150, 490, 330, GetColor(0, 153, 0), TRUE);
-	//DrawBox(150, 150, 490, 330, GetColor(0, 0, 0), TRUE);
+	DrawStringToHandle(320, 170, "SCORE", GetColor(0, 0, 0), FontManager::GetFont(4));
+	DrawFormatStringToHandle(320, 350, GetColor(0, 0, 0), FontManager::GetFont(4), "%d", score);
+	DrawStringToHandle(280, 550, "PRESS TO [B]BUTTON", GetColor(0, 0, 0), FontManager::GetFont(3));
 
-	//DrawBox(500, 0, 640, 480, GetColor(0, 153, 0), FALSE);
-
-	//SetFontSize(20);
-	//DrawString(220, 170, "ゲームオーバー", GetColor(204, 0, 0));
-	//SetFontSize(16);
-	//DrawString(180, 200, "走行処理		", GetColor(0, 0, 0));
-	//for (int i = 0; i < 3; i++) 
-	//{
-	//	DrawRotaGraph(230, 230 + (i * 20), 0.3f, DX_PI_F / 2, enemy_image[i], TRUE);
-	//	DrawFormatString(260, 222 + (i * 21), GetColor(255, 255, 255), "%6d x %4d = %6d", enemy_count[i], (i + 1) * 50, (i + 1) * 50 * enemy_count[i]);
-	//}
-	//DrawString(180, 290, "スコア", GetColor(0, 0, 0));
-	//DrawFormatString(180, 290, 0xffffff, "		=%6d", score);
-
-
-	DrawStringToHandle(320, 170, "SCORE", GetColor(255, 255, 255), FontManager::GetFont(4));
-	DrawFormatStringToHandle(320, 350, GetColor(255, 255, 255), FontManager::GetFont(4), "%d", score);
-	DrawStringToHandle(280, 550, "PRESS TO [B]BUTTON", GetColor(255, 255, 255), FontManager::GetFont(3));
+	DrawStringToHandle(328, 178, "SCORE", GetColor(255, 255, 255), FontManager::GetFont(4));
+	DrawFormatStringToHandle(328, 358, GetColor(255, 255, 255), FontManager::GetFont(4), "%d", score);
+	DrawStringToHandle(284, 554, "PRESS TO [B]BUTTON", GetColor(255, 255, 255), FontManager::GetFont(3));
 }
 
 void ResultScene::Finalize()

@@ -89,7 +89,9 @@ void GameMainScene::Initialize()
 	{
 		bullet[i] = nullptr;
 	}
-
+	if (CheckSoundMem(SoundManager::GetBGM(1)) == 1) {
+		StopSoundMem(SoundManager::GetBGM(1));
+	}
 	PlaySoundMem(SoundManager::GetBGM(4), DX_PLAYTYPE_LOOP, TRUE);
 }
 
@@ -385,6 +387,7 @@ bool GameMainScene::SpawnBullet()
 			bullet[i] = new Bullet();
 			//’e‚ÌƒxƒNƒgƒ‹‚Æ‚©À•W‚Æ‚©‚ðˆø”‚Æ‚µ‚Ä“n‚·
 			bullet[i]->Initialize(player->GetAim(), player->GetLocation(), 5.0f, 10, 10, 0);
+			PlaySoundMem(SoundManager::GetSE(0), DX_PLAYTYPE_BACK, TRUE);
 
 			return true;
 		}
@@ -403,7 +406,7 @@ bool GameMainScene::Enemy_SpawnBullet(Vector2D e_vec,Vector2D e_location,float s
 			bullet[i] = new Bullet();
 			//’e‚ÌƒxƒNƒgƒ‹‚Æ‚©À•W‚Æ‚©‚ðˆø”‚Æ‚µ‚Ä“n‚·
 			bullet[i]->Initialize(e_vec, e_location, speed, 10,damage, 1);
-
+			PlaySoundMem(SoundManager::GetSE(0), DX_PLAYTYPE_BACK, TRUE);
 			return true;
 		}
 	}

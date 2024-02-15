@@ -130,6 +130,7 @@ eSceneType GameMainScene::Update()
 			{
 				if (enemy[i]->Get_HP() <= 0)
 				{
+					enemy[i]->Voic();
 					Score += enemy[i]->Get_Score();
 					enemy[i]->Finalize();
 					delete enemy[i];
@@ -154,9 +155,17 @@ eSceneType GameMainScene::Update()
 		}
 		BulletManager();
 	}
-	// ”CˆÓ‚Ì“G‚ð“|‚µ‚½‚È‚çƒŠƒUƒ‹ƒg‚Öi¡‚ÍÅŒã‚Éo‚Ä‚­‚é“Gj
+			// ”CˆÓ‚Ì“G‚ð“|‚µ‚½‚È‚çƒŠƒUƒ‹ƒg‚Öi¡‚ÍÅŒã‚Éo‚Ä‚­‚é“Gj
 	if (enemy[Boss_Num] != nullptr) {
 		if (enemy[Boss_Num]->Get_HP() <= 0) {
+			// «‰½ŒÌ‚©‚±‚±‚É‘‚©‚È‚¢‚Æƒ{ƒX‚Ìˆ—‚ª”½‰f‚³‚ê‚È‚¢
+
+			static int a = 0;	// stop’†‚Ìƒ‹[ƒv‚Åˆ—‚ª˜A‘±‚·‚é‚Ì‚ð–h‚®—p
+			if (a == 0) { 
+			enemy[Boss_Num]->Voic(); 
+			Score += enemy[Boss_Num]->Get_Score();
+			a++;
+			}
 			stopFlg = true;
 			state = 2;
 			if (fps++ > 240) {
@@ -164,6 +173,7 @@ eSceneType GameMainScene::Update()
 			}
 		}
 	}
+
 	if (player->GetHp() < 0.0f)
 	{
 		stopFlg = true;

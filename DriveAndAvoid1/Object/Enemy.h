@@ -59,7 +59,7 @@ public:
 	float Get_HP();
 	bool Get_BossDown();		// ボスの死亡判定を取る
 	int Get_Score();			// スコアを取得する
-
+	void Voic();				// 死亡時のボイス
 	void Set_HP(float damege);				// HPセット
 
 private:

@@ -61,6 +61,7 @@ void HelpScene::Draw() const
 	DrawStringToHandle(900,412, "【照準の移動】", 0x4F3B20, FontManager::GetFont(7));
 	DrawStringToHandle(920,487, " 右カーソル", 0x4F3B20, FontManager::GetFont(7));
 
+	DrawStringToHandle(500, 680, "Bボタンでタイトルへ", 0x000000, FontManager::GetFont(8));
 }
 
 //終了処理

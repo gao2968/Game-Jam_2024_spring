@@ -28,7 +28,7 @@ SceneManager::~SceneManager()
 void SceneManager::Initialize()
 {
 	//ウィンドウのタイトルを設定
-	SetMainWindowText("Drive&Avoid");
+	SetMainWindowText("KAO-");
 
 	SetGraphMode(1280, 720, 32);
 
@@ -59,7 +59,7 @@ void SceneManager::Initialize()
 	SoundManager::Initialize();
 
 	//タイトルシーンから始める
-	ChangeScene(eSceneType::E_MAIN);
+	ChangeScene(eSceneType::E_TITLE);
 }
 
 //シーンマネージャー機能：更新処理

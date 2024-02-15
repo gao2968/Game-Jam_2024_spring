@@ -144,7 +144,7 @@ eSceneType GameMainScene::Update()
 			}
 		}
 
-		if (InputControl::GetButton(XINPUT_BUTTON_RIGHT_SHOULDER) && coolTime > 15) {
+		if (InputControl::GetButton(XINPUT_BUTTON_RIGHT_SHOULDER) && coolTime > 10) {
 			SpawnBullet();
 			coolTime = 0;
 		}
@@ -204,8 +204,8 @@ eSceneType GameMainScene::Update()
 	}
 
 	
-	if (coolTime++ > 15) {
-		coolTime = 15;
+	if (coolTime++ > 10) {
+		coolTime = 10;
 	}
 
 	if (enemy[Boss_Num] != nullptr) {

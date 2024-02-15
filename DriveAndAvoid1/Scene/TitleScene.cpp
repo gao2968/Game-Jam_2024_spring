@@ -194,23 +194,6 @@ eSceneType TitleScene::Update()
 		break;
 	}
 
-	/*if (type == 2) {
-		angle += 0.3;
-	}
-	else if (type == 3) {
-		angle += 0.1;
-	}
-	else if (type == 4) {
-		angle = DX_PI;
-	}
-	else {
-		angle = 0;
-	}
-
-	if (type == 3) {
-		vector.y += 0.1;
-	}*/
-
 	
 	//現在のシーンタイプを返す
 	return GetNowScene();

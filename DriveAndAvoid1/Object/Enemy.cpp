@@ -4,7 +4,7 @@
 #include"../Scene/GameMainScene.h"
 #include "../Resource/SoundManager.h"
 
-Enemy::Enemy(float _x, float _y, float _r, float _speed, float b_speed, int score, int _hp, int _E_num, int type, int handle, int hed_handle,int img_num) :type(type), image(handle)/*h_image(hed_handle)*/
+Enemy::Enemy(float _x, float _y, float _r, float _speed, float b_speed, int score, int _hp, int _E_num, int type, int handle, int hed_handle,int img_num,int max) :type(type), image(handle)/*h_image(hed_handle)*/
 {
 	head_images = hed_handle;
 	image_num = img_num;
@@ -20,7 +20,7 @@ Enemy::Enemy(float _x, float _y, float _r, float _speed, float b_speed, int scor
 	radius = _r;
 	bullet_Timing = 120;
 	y_speed = 3.0f;
-
+	enemy_num = max;
 	End = false;
 }
 
@@ -42,11 +42,12 @@ void Enemy::Initialize()
 void Enemy::Update(float _speed, GameMainScene* game, Vector2D player)// ƒ|ƒCƒ“ƒ^‚È‚Ì‚ÅGameMainScene‚ÌƒAƒhƒŒƒX‚ÉƒAƒNƒZƒX‚Å‚«‚é
 {
 	LateTime++;
+
 	b_vector[0].y = location.y;				// ^‚Á’¼‚®
 	b_vector[1].y = location.y - 300.0f;		// ŒX‚¯‚é
 	b_vector[2].y = location.y + 300.0f;		// ŒX‚¯‚é
 	// E_num‚ª”CˆÓ‚Ì”‚È‚çƒ{ƒX‚Ìˆ—
-	if (E_num == 11)
+	if (E_num == enemy_num)
 	{
 		Boss_System(game, player);
 	}
@@ -56,18 +57,32 @@ void Enemy::Update(float _speed, GameMainScene* game, Vector2D player)// ƒ|ƒCƒ“ƒ
 
 		if (LateTime % bullet_Timing == 0)
 		{
-			game->Enemy_SpawnBullet(b_vector[0] - location, location, bullet_speed, 10.0f);
+			game->Enemy_SpawnBullet(b_vector[0] - location, location, bullet_speed, 50.0f);
 		}
 	}
 	// ˆÊ’uî•ñ‚ÉˆÚ“®—Ê‚ð‰ÁŽZ‚·‚é
 	location.x -= speed;
+
+	// ƒ_ƒ[ƒWŽž‚ÌŠÇ—
+	if (hit == true) {
+		hit_reset_count++;
+	}
+	if (hit_reset_count >=5) {
+		hit = false;
+		hit_reset_count = 0;
+	}
 }
 
 void Enemy::Draw()const
 {
 
 	// “G‰æ‘œ•`‰æ
+
 	DrawRotaGraphF(location.x, location.y, 1.0, 0.0, image, TRUE);
+	// hitŽž‚ÉÔ‚­‚·‚é
+	if (hit) {
+		DrawBox(location.x - 50, location.y - 50, location.x + 50, location.y + 50, 0xff0000, TRUE);
+	}
 	switch (image_num)
 	{
 	case(0):
@@ -80,6 +95,8 @@ void Enemy::Draw()const
 		DrawRotaGraphF(location.x, location.y + 300, 4.5, 0.0, head_images, TRUE);	// ƒ{ƒX
 	break;
 	}
+
+
 }
 
 void Enemy::Finalize()
@@ -95,7 +112,7 @@ void Enemy::Boss_System(GameMainScene* game, Vector2D player)
 		if (location.y >= 600 || location.y <= 100)
 		{
 			y_speed = y_speed * -1.0f;		// ˆÚ“®•ûŒü‚Ì”½“]
-			game->Enemy_SpawnBullet(player - location, location, bullet_speed, 50.0f);
+			game->Enemy_SpawnBullet(player - location, location, bullet_speed, 60.0f);
 		}
 		if (LateTime % 30 == 0)
 		{
@@ -151,5 +168,6 @@ void Enemy::Voic()
 
 void Enemy::Set_HP(float damege)
 {
+	hit = true;
 	hp -= damege;
 }

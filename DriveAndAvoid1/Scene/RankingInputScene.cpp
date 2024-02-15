@@ -2,6 +2,7 @@
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
 #include "../Resource/FontManager.h"
+#include "../Resource/SoundManager.h"
 
 RankingInputScene::RankingInputScene() : background_image(NULL),
  score(0), name_num(0), cursor_x(0), cursor_y(0)
@@ -144,6 +145,7 @@ bool RankingInputScene::InputName()
 	// カーソル操作処理
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_LEFT))
 	{
+		PlaySoundMem(SoundManager::GetSE(6), DX_PLAYTYPE_BACK, TRUE);
 		if (cursor_x > 0)
 		{
 			cursor_x--;
@@ -156,6 +158,7 @@ bool RankingInputScene::InputName()
 
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_RIGHT))
 	{
+		PlaySoundMem(SoundManager::GetSE(6), DX_PLAYTYPE_BACK, TRUE);
 		if (cursor_x < 12)
 		{
 			cursor_x++;
@@ -168,6 +171,7 @@ bool RankingInputScene::InputName()
 
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_UP))
 	{
+		PlaySoundMem(SoundManager::GetSE(6), DX_PLAYTYPE_BACK, TRUE);
 		if (cursor_y > 0)
 		{
 			cursor_y--;
@@ -176,6 +180,7 @@ bool RankingInputScene::InputName()
 
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_DOWN))
 	{
+		PlaySoundMem(SoundManager::GetSE(6), DX_PLAYTYPE_BACK, TRUE);
 		if (cursor_y < 4)
 		{
 			cursor_y++;
@@ -189,6 +194,7 @@ bool RankingInputScene::InputName()
 	// カーソル位置の文字を決定する
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
+		PlaySoundMem(SoundManager::GetSE(7), DX_PLAYTYPE_BACK, TRUE);
 		if (name_num < 15) {
 			if (cursor_y < 2)
 			{

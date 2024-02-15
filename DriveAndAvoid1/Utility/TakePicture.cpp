@@ -1,7 +1,6 @@
 #include "TakePicture.h"
 #include "InputControl.h"
 
-
 TakePicture::TakePicture()
 {
 }

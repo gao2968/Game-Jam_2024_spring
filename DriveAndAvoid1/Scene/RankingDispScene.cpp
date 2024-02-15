@@ -2,6 +2,7 @@
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
 #include "../Resource/FontManager.h"
+#include "../Resource/SoundManager.h"
 
 RankingDispScene::RankingDispScene() : background_image(NULL)
 {
@@ -34,6 +35,7 @@ eSceneType RankingDispScene::Update()
     //Bボタンが押されたら、タイトルに戻る
     if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
     {
+        PlaySoundMem(SoundManager::GetSE(7), DX_PLAYTYPE_BACK, TRUE);
         return eSceneType::E_TITLE;
     }
 

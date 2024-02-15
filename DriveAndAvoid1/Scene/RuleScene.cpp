@@ -1,6 +1,7 @@
 #include "RuleScene.h"
 #include "DxLib.h"
 #include "../Resource/FontManager.h"
+#include "../Resource/SoundManager.h"
 #include "../Utility/TakePicture.h"
 #include "../Utility/InputControl.h"
 
@@ -22,18 +23,22 @@ void RuleScene::Initialize()
 eSceneType RuleScene::Update()
 {
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_LEFT)) {
+		PlaySoundMem(SoundManager::GetSE(6), DX_PLAYTYPE_BACK, TRUE);
 		cursor = 0;
 	}
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_RIGHT)) {
+		PlaySoundMem(SoundManager::GetSE(6), DX_PLAYTYPE_BACK, TRUE);
 		cursor = 1;
 	}
 
 	TakePicture p;
 	p.SeekNum();
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B) && cursor == 1) {
+		PlaySoundMem(SoundManager::GetSE(7), DX_PLAYTYPE_BACK, TRUE);
 		return eSceneType::E_RESULT;
 	}
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B) && cursor == 0) {
+		PlaySoundMem(SoundManager::GetSE(7), DX_PLAYTYPE_BACK, TRUE);
 		remove(p.GetPath().c_str());
 		return eSceneType::E_RESULT;
 	}

@@ -59,7 +59,7 @@ void SceneManager::Initialize()
 	SoundManager::Initialize();
 
 	//タイトルシーンから始める
-	ChangeScene(eSceneType::E_TITLE);
+	ChangeScene(eSceneType::E_MAIN);
 }
 
 //シーンマネージャー機能：更新処理

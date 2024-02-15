@@ -3,6 +3,7 @@
 #include "DxLib.h"
 #include "../Resource/FontManager.h"
 #include "../Resource/SoundManager.h"
+#include "../Utility/TakePicture.h"
 
 TitleScene::TitleScene() : background_image(NULL), menu_image(NULL),
 cursor_image(NULL), menu_cursor(0)
@@ -49,6 +50,28 @@ void TitleScene::Initialize()
 			PlaySoundMem(SoundManager::GetBGM(1), DX_PLAYTYPE_LOOP, FALSE);
 		}
 	}
+
+	back_img_num_all = 0;
+	TakePicture tmp;
+	std::string path;
+	tmp.SeekNum();
+	for (int i = 0; i < tmp.GetNum(); i++)
+	{
+		path = "Resource/images/img" + std::to_string(i) + ".png";
+		back_img[i] = LoadGraph(path.c_str());
+		if (back_img[i] != -1) {
+			back_img_num_all++;
+		}
+	}
+	back_img_num = 0;
+	fps = 500;
+	location = { -100,-100 };
+	vector = { 0,0 };
+	angle = 0;
+	rote = 1;
+	head_img[0] = LoadGraph("Resource/images/mob.png");
+	head_img[1] = LoadGraph("Resource/images/mob2.png");
+	head_type = 0;
 }
 
 eSceneType TitleScene::Update()
@@ -101,6 +124,39 @@ eSceneType TitleScene::Update()
 		
 	}
 
+	if (fps++ > 540 && (location.x < 0 || location.x > 1280 ||location.y < 0 || location.y > 720)) {
+		switch (GetRand(2))
+		{
+		case 0:
+			location = { -100,100 };
+			vector = { 5,0 };
+			break;
+
+		case 1:
+			location = { 1300,600 };
+			vector = { -5,0 };
+			break;
+
+		case 2:
+			location = { 1200,800 };
+			vector = { -5,-10 };
+			break;
+
+		default:
+			break;
+		}
+		head_type = GetRand(1);
+		back_img_num = GetRand(back_img_num_all - 1);
+		fps = 0;
+	}
+	location += vector;
+	if (vector.x == -5 && vector.y == -10) {
+		angle += 0.3;
+	}
+	else {
+		angle = 0;
+	}
+	
 	//現在のシーンタイプを返す
 	return GetNowScene();
 }
@@ -111,6 +167,21 @@ void TitleScene::Draw() const
 	////タイトル画像の描画
 	DrawGraph(0, 0, background_image, FALSE);
 
+	DrawRotaGraph(location.x, location.y, rote, angle , back_img[back_img_num], TRUE);
+	switch (head_type)
+	{
+	case 0:
+		DrawRotaGraphF(location.x + 3, location.y + 58, 1.80 * rote, 0.0 + angle, head_img[0], TRUE);	// 鬼
+		break;
+
+	case 1:
+		DrawRotaGraphF(location.x - 10, location.y - 20, 1.2 * rote, 0.3 + angle, head_img[1], TRUE);	// 鹿
+		break;
+
+	default:
+		break;
+	}
+
 	////メニュー画像の描画
 	//DrawGraph(120, 200, menu_image, TRUE);
 
@@ -119,13 +190,13 @@ void TitleScene::Draw() const
 
 	//DrawCircle(450, 280 + menu_cursor * 100, 3, 0x00ff00, TRUE);
 
-	DrawStringToHandle(206, 56, "kokonititle", 0x000000, FontManager::GetFont(4));
+	DrawStringToHandle(406, 56, "KAO-", 0x000000, FontManager::GetFont(4));
 	DrawStringToHandle(503, 253, "START", 0x000000, FontManager::GetFont(5));
 	DrawStringToHandle(503, 353, "RANKING", 0x000000, FontManager::GetFont(5));
 	DrawStringToHandle(503, 453, "HELP", 0x000000, FontManager::GetFont(5));
 	DrawStringToHandle(503, 553, "END", 0x000000, FontManager::GetFont(5));
 
-	DrawStringToHandle(200, 50, "kokonititle", 0xffffff, FontManager::GetFont(4));
+	DrawStringToHandle(400, 50, "KAO-", 0xffffff, FontManager::GetFont(4));
 	DrawStringToHandle(500, 250, "START", 0xffffff, FontManager::GetFont(5));
 	DrawStringToHandle(500, 350, "RANKING", 0xffffff, FontManager::GetFont(5));
 	DrawStringToHandle(500, 450, "HELP", 0xffffff, FontManager::GetFont(5));
@@ -141,6 +212,12 @@ void TitleScene::Finalize()
 	DeleteGraph(background_image);
 	DeleteGraph(menu_image);
 	DeleteGraph(cursor_image);
+	for (int i = 0; i < 32; i++){
+		DeleteGraph(back_img[i]);
+		if (i < 2) {
+			DeleteGraph(head_img[i]);
+		}
+	}
 }
 
 eSceneType TitleScene::GetNowScene() const

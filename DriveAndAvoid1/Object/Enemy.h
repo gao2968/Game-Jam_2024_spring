@@ -26,7 +26,6 @@ private:
 private:// csvファイル読み込みで使う変数
 	int E_num;
 	int point;
-	bool hit;
 	int color;
 	int WaitTime;
 	int Type;
@@ -40,10 +39,14 @@ private:
 	bool End;			// ボスを倒した判定
 
 	float y_speed;		// ボスがY座標移動するスピード
+
+	int enemy_num;		// エネミーの数
+	bool hit;			// プレイヤーの弾が当たったかどうか
+	int hit_reset_count;// hit時の表示時間調整用
 public:
 
 	// １.x座標　２.Y座標　３.半径　４.スピード　５.弾のスピード　６.倒した時のスコア数　７.HP　８.何番目の敵か見る用　９.画像ハンドル
-	Enemy(float _x, float _y, float _r, float _speed, float b_speed, int score, int hp, int E_num, int type, int handle,int hed_handle,int img_num);
+	Enemy(float _x, float _y, float _r, float _speed, float b_speed, int score, int hp, int E_num, int type, int handle,int hed_handle,int img_num,int max);
 	~Enemy();
 
 	void Initialize();			// 初期化処理用
@@ -60,8 +63,7 @@ public:
 	bool Get_BossDown();		// ボスの死亡判定を取る
 	int Get_Score();			// スコアを取得する
 	void Voic();				// 死亡時のボイス
-	void Set_HP(float damege);				// HPセット
-
+	void Set_HP(float damege);	// HPセット
 private:
 	void Boss_System(GameMainScene* game, Vector2D player);		// ボスの行動パターン
 };

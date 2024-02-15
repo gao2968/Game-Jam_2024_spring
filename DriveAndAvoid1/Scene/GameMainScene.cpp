@@ -110,7 +110,7 @@ eSceneType GameMainScene::Update()
 			if (enemy[i] != nullptr)
 			{
 				enemy[i]->Update(player->GetSpeed(), this, player->GetLocation());
-
+				
 				// 画面外に行ったら、敵を消去してスコア加算
 				if (enemy[i]->GetLocation().y >= 640.0f)
 				{
@@ -253,7 +253,7 @@ void GameMainScene::Draw() const
 	DrawStringToHandle(fx, fy, "PLAYER HP", GetColor(255, 255, 255), FontManager::GetFont(1));
 	int tmp;
 	tmp = player->GetHp();
-	if (tmp < 0) {
+	if (tmp <= 0) {
 		tmp = 0;
 	}
 	DrawBoxAA(fx, fy + 50.0f, fx + (tmp * 400 / 1000), fy +
@@ -442,6 +442,7 @@ void GameMainScene::BulletManager()
 						{
 							hit = true;
 							enemy[j]->Set_HP(bullet[i]->GetDamage());
+
 						}
 					}
 				}
@@ -498,9 +499,10 @@ void GameMainScene::spawn_Enemys()
 				, e_spawn->LoadEnemy(E_num).hp				// HP取得
 				, E_num										// 今何体目なのか
 				, 1											// エネミーのタイプ（消すかも）
-				, enemy_image[GetRand(enemy_image_num - 1)]								// エネミーの画像
-				,image
-				,img_num
+				, enemy_image[GetRand(enemy_image_num - 1)]	// エネミーの画像
+				, image
+				, img_num
+				, e_spawn->GetMaxEnemy()					// エネミーの数を返す
 			);
 			// エネミーの数がマックス値を超えていないなら
 			if (E_num <= e_spawn->GetMaxEnemy()) {

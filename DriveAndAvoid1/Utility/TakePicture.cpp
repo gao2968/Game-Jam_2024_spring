@@ -1,8 +1,32 @@
 #include "TakePicture.h"
 #include "InputControl.h"
 
+VideoCapture TakePicture::cap;
+Mat TakePicture::frame;
+CascadeClassifier TakePicture::cascade;
+vector<Rect> TakePicture::faces;
+Mat TakePicture::detection_frame;
+Rect TakePicture::roi;
+int TakePicture::detection_flag = 0;
+int TakePicture::x = 0, TakePicture::y = 0;
+int TakePicture::x_end = 0, TakePicture::y_end = 0;
+int TakePicture::basic_flag = 0;
+int TakePicture::x_basic = 0, TakePicture::y_basic = 0;
+Mat TakePicture::face;
+std::string TakePicture::path;
+int TakePicture::num;
+
 TakePicture::TakePicture()
 {
+	//if (!cap.isOpened()) {
+	//	cap.open(0); // USBカメラのオープン
+
+	//	if (!cap.isOpened()) //カメラが起動できなかった時のエラー処理
+	//	{
+	//		//throw("カメラが起動できませんでした");
+	//	}
+	//}
+	//cap.open(0); // USBカメラのオープン
 }
 
 TakePicture::~TakePicture()
@@ -11,13 +35,27 @@ TakePicture::~TakePicture()
 
 void TakePicture::Initialize()
 {
-	cap.open(0); // USBカメラのオープン
-	if (!cap.isOpened()) //カメラが起動できなかった時のエラー処理
-	{
-		throw("カメラが起動できませんでした");
-	}
+	
+	if (!cap.read(frame)) {
+		cap.open(0); // USBカメラのオープン
 
-	cascade.load("C:/opencv/sources/data/haarcascades/haarcascade_frontalface_alt.xml"); //正面顔情報が入っているカスケード
+		if (!cap.read(frame)) //カメラが起動できなかった時のエラー処理
+		{
+			//throw("カメラが起動できませんでした");
+		}
+	}
+	
+	
+	/*int a;
+	while (!cap.isOpened())
+	{
+		a = 0;
+		a = 0;
+	}*/
+
+
+	//cascade.load("C:/opencv/sources/data/haarcascades/haarcascade_frontalface_alt.xml"); //正面顔情報が入っているカスケード
+	cascade.load("haarcascade_frontalface_alt.xml"); //正面顔情報が入っているカスケード
 }
 
 void TakePicture::Update()
@@ -118,7 +156,7 @@ void TakePicture::Update()
 	
 }
 
-void TakePicture::Draw() const
+void TakePicture::Draw()
 {
 	imshow("window", frame);//画像を表示．
 	//rectangle(frame, Point(x - 50, y - 50), Point(x_end + 50, y_end + 50), Scalar(200, 0, 255), 3);
@@ -152,6 +190,7 @@ bool TakePicture::Take()
 		resize(face, face, cv::Size(), 100.0 / face.cols, 100.0 / face.rows);
 		imwrite(path, face);
 		destroyAllWindows();
+		
 
 		return true;
 	}
@@ -175,4 +214,10 @@ void TakePicture::SeekNum()
 		}
 		DeleteGraph(handle);
 	}
+}
+
+void TakePicture::init()
+{
+	vector<Rect> f;
+	faces = f;
 }

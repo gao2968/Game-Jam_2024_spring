@@ -41,9 +41,10 @@ void TitleScene::Initialize()
 	}
 
 	if (CheckSoundMem(SoundManager::GetBGM(1)) == 0) {
-		if (CheckSoundMem(SoundManager::GetBGM(0)) == 1 || CheckSoundMem(SoundManager::GetBGM(3)) == 1) {
+		if (CheckSoundMem(SoundManager::GetBGM(0)) == 1 || CheckSoundMem(SoundManager::GetBGM(3)) == 1 || CheckSoundMem(SoundManager::GetBGM(4)) == 1) {
 			StopSoundMem(SoundManager::GetBGM(0));
 			StopSoundMem(SoundManager::GetBGM(3));
+			StopSoundMem(SoundManager::GetBGM(4));
 			PlaySoundMem(SoundManager::GetBGM(1), DX_PLAYTYPE_LOOP, TRUE);
 		}
 		else {
@@ -52,10 +53,10 @@ void TitleScene::Initialize()
 	}
 
 	back_img_num_all = 0;
-	TakePicture tmp;
+	//TakePicture tmp;
 	std::string path;
-	tmp.SeekNum();
-	for (int i = 0; i < tmp.GetNum(); i++)
+	TakePicture::SeekNum();
+	for (int i = 0; i < TakePicture::GetNum(); i++)
 	{
 		path = "Resource/images/img" + std::to_string(i) + ".png";
 		back_img[i] = LoadGraph(path.c_str());

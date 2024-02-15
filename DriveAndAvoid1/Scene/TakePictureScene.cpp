@@ -9,7 +9,7 @@ TakePictureScene::TakePictureScene()
 	{
 		img[i] = 0;
 	}
-	picture.Initialize();
+	//picture.Initialize();
 	took_flg = false;
 	state = 0;
 	img_face[0] = LoadGraph("Resource/images/kao.png");
@@ -17,6 +17,7 @@ TakePictureScene::TakePictureScene()
 	cursor = 0;
 	background_img = LoadGraph("Resource/images/background.jpg");
 	aimingImg = LoadGraph("Resource/images/aiming.png");
+	TakePicture::init();
 }
 
 TakePictureScene::~TakePictureScene()
@@ -40,13 +41,14 @@ eSceneType TakePictureScene::Update()
 
 	case 1:
 		if (took_flg == false) {
-			picture.Update();
+			//picture.Update();
+			TakePicture::Update();
 		}
 
-		if (picture.Take() && took_flg == false) {
-			img[picture.GetNum()] = LoadGraph(picture.GetPath().c_str());
+		if (TakePicture::Take() && took_flg == false) {
+			img[TakePicture::GetNum()] = LoadGraph(TakePicture::GetPath().c_str());
 			took_flg = true;
-			num = picture.GetNum();
+			num = TakePicture::GetNum();
 			state = 2;
 			PlaySoundMem(SoundManager::GetSE(8), DX_PLAYTYPE_BACK, TRUE);
 
@@ -72,7 +74,7 @@ eSceneType TakePictureScene::Update()
 			PlaySoundMem(SoundManager::GetSE(7), DX_PLAYTYPE_BACK, TRUE);
 			state = 1;
 			took_flg = false;
-			remove(picture.GetPath().c_str());
+			remove(TakePicture::GetPath().c_str());
 		}
 
 		break;
@@ -84,7 +86,7 @@ eSceneType TakePictureScene::Update()
 
 	
 	if (took_flg == false) {
-		picture.Update();
+		TakePicture::Update();
 	}
 
 	return GetNowScene();
@@ -122,8 +124,10 @@ void TakePictureScene::Draw() const
 
 	case 2://写真これでいいですか？とか聞く
 		//DrawString(0, 0, "写真を撮りました", 0xffffff);
-		DrawStringToHandle(380, 50, "この写真でいいですか？", 0xffffff, FontManager::GetFont(6));
+		DrawStringToHandle(280, 50, "この写真でいいですか？", 0xffffff, FontManager::GetFont(6));
 		DrawRotaGraph(640, 360, 2.0f, 0.0f, img[num], TRUE);
+		DrawStringToHandle(403, 653, "いいえ", 0x000000, FontManager::GetFont(6));
+		DrawStringToHandle(803, 653, "はい", 0x000000, FontManager::GetFont(6));
 		DrawStringToHandle(400, 650, "いいえ", 0xffffff, FontManager::GetFont(6));
 		DrawStringToHandle(800, 650, "はい", 0xffffff, FontManager::GetFont(6));
 		//DrawCircle(400 + cursor * 400, 650, 30 ,0xffff00, TRUE);

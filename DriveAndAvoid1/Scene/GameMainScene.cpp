@@ -42,10 +42,10 @@ void GameMainScene::Initialize()
 	img_Background = LoadGraph("Resource/images/background.jpg");
 
 
-	TakePicture tmp;
+	//TakePicture tmp;
 	std::string path;
-	tmp.SeekNum();
-	for (int i = 0; i < tmp.GetNum(); i++)
+	//tmp.SeekNum();
+	for (int i = 0; i < TakePicture::GetNum(); i++)
 	{
 		path = "Resource/images/img" + std::to_string(i) + ".png";
 		enemy_image[i] = LoadGraph(path.c_str());

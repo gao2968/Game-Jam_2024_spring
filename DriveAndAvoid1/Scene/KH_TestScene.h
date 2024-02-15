@@ -5,7 +5,7 @@
 class KH_TestScene : public SceneBase
 {
 private:
-	TakePicture test;
+	//TakePicture test;
 
 public:
 	KH_TestScene();

@@ -31,15 +31,16 @@ eSceneType RuleScene::Update()
 		cursor = 1;
 	}
 
-	TakePicture p;
-	p.SeekNum();
+	//TakePicture p;
+	//p.SeekNum();
+	TakePicture::SeekNum();
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B) && cursor == 1) {
 		PlaySoundMem(SoundManager::GetSE(7), DX_PLAYTYPE_BACK, TRUE);
 		return eSceneType::E_RESULT;
 	}
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B) && cursor == 0) {
 		PlaySoundMem(SoundManager::GetSE(7), DX_PLAYTYPE_BACK, TRUE);
-		remove(p.GetPath().c_str());
+		remove(TakePicture::GetPath().c_str());
 		return eSceneType::E_RESULT;
 	}
 

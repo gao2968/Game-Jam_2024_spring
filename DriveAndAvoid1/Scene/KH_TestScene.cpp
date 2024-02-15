@@ -2,7 +2,7 @@
 
 KH_TestScene::KH_TestScene()
 {
-	test.Initialize();
+	//test.Initialize();
 }
 
 KH_TestScene::~KH_TestScene()
@@ -15,13 +15,13 @@ void KH_TestScene::Initialize()
 
 eSceneType KH_TestScene::Update()
 {
-	test.Update();
+	//test.Update();
 	return GetNowScene();
 }
 
 void KH_TestScene::Draw() const
 {
-	test.Draw();
+	//test.Draw();
 }
 
 void KH_TestScene::Finalize()

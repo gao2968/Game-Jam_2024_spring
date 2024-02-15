@@ -14,6 +14,7 @@
 #include "EndScene.h"
 #include "RuleScene.h"
 #include "../Resource/SoundManager.h"
+#include "../Utility/TakePicture.h"
 
 SceneManager::SceneManager() : current_scene(nullptr)
 {
@@ -57,6 +58,7 @@ void SceneManager::Initialize()
 	FontManager::Initialize();
 	RankingData::Initialize();
 	SoundManager::Initialize();
+	TakePicture::Initialize();
 
 	//タイトルシーンから始める
 	ChangeScene(eSceneType::E_TITLE);
@@ -126,6 +128,7 @@ void SceneManager::Finalize()
 	FontManager::Finalize();
 	RankingData::Finalize();
 	SoundManager::Finalize();
+	TakePicture::Finalize();
 
 	//DXライブラリの使用を終了する
 	DxLib_End();

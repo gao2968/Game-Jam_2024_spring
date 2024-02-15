@@ -13,45 +13,46 @@ using namespace std;
 class TakePicture
 {
 private:
-	VideoCapture cap;
-	Mat frame; //USBカメラから得た１フレームを格納する場所
-	CascadeClassifier cascade; //カスケード分類器格納場所
+	static VideoCapture cap;
+	static Mat frame; //USBカメラから得た１フレームを格納する場所
+	static CascadeClassifier cascade; //カスケード分類器格納場所
 	//cascade.load("C:/opencv/sources/data/haarcascades/haarcascade_frontalface_alt.xml"); //正面顔情報が入っているカスケード
-	vector<Rect> faces; //輪郭情報を格納場所
+	static vector<Rect> faces; //輪郭情報を格納場所
 
-	Mat detection_frame;//顔の検出範囲
-	Rect roi;
-	int detection_flag = 0;//直前に顔を検出したか(0:してない　1:した)
+	static Mat detection_frame;//顔の検出範囲
+	static Rect roi;
+	static int detection_flag;//直前に顔を検出したか(0:してない　1:した)
 
-	int x = 0;//顔座標の左上のx座標
-	int y = 0;//顔座標の左上のy座標
-	int x_end = 0;//顔座標の右下のx座標
-	int y_end = 0;//顔座標の右下のy座標
+	static int x;//顔座標の左上のx座標
+	static int y;//顔座標の左上のy座標
+	static int x_end;//顔座標の右下のx座標
+	static int y_end;//顔座標の右下のy座標
 
-	int basic_flag = 0;//連続で顔を検知しているかフラグ(0:いいえ(初めての検知)　1:はい(2連続以上の検知))
-	int x_basic = 0;//基準点のX座標
-	int y_basic = 0;//基準点のY座標
+	static int basic_flag;//連続で顔を検知しているかフラグ(0:いいえ(初めての検知)　1:はい(2連続以上の検知))
+	static int x_basic;//基準点のX座標
+	static int y_basic;//基準点のY座標
 
 	//ここからお試し
-	Mat face;
+	static Mat face;
 
-	std::string path; //画像の最新パス
-	int num; //画像が何枚保存されているか
+	static std::string path; //画像の最新パス
+	static int num; //画像が何枚保存されているか
 
 public:
 	TakePicture();
 	~TakePicture();
 
-	void Initialize(); //初期化処理
-	void Update(); //更新処理
-	void Draw() const;//描画処理
-	void Finalize();//終了処理
+	static void Initialize(); //初期化処理
+	static void Update(); //更新処理
+	static void Draw();//描画処理
+	static void Finalize();//終了処理
 
-	bool Take();
-	void SeekNum();
+	static bool Take();
+	static void SeekNum();
+	static void init();
 
-	std::string GetPath() { return path; }
-	int GetNum() { return num; }
+	static std::string GetPath() { return path; }
+	static int GetNum() { return num; }
 	
 };
 

@@ -1,8 +1,9 @@
 #include "HelpScene.h"
 #include "../utility/InputControl.h"
 #include "DxLib.h"
+#include"../Resource/FontManager.h"
 
-HelpScene::HelpScene() : background_image(NULL),help_img(NULL)
+HelpScene::HelpScene() : background_image(NULL),controller_img(NULL)
 {
 
 }
@@ -17,7 +18,7 @@ void HelpScene::Initialize()
 {
 	//画像の読み込み
 	background_image = LoadGraph("Resource/images/background.jpg");
-	help_img = LoadGraph("Resource/images/help.png");
+	controller_img = LoadGraph("Resource/images/help.png");
 	//エラーチェック
 	if (background_image == -1)
 	{
@@ -38,20 +39,26 @@ eSceneType HelpScene::Update()
 //描画処理
 void HelpScene::Draw() const
 {
+	
 	//背景の描画処理
 	DrawGraph(0, 0, background_image, FALSE);
-	DrawRotaGraph(200, 100, 2.0, 0,help_img,TRUE);
+	DrawRotaGraph(700, 410, 1.4, 0,controller_img,TRUE);
 
-	//ゲームの説明
-	SetFontSize(16);
-	DrawString(20, 120, "ヘルプ画面", 0xffffff, 0);
+	// ゲームの説明
 
-	DrawString(20, 160, "これは障害物を避けながら", 0xffffff, 0);
-	DrawString(20, 180, "走り続けるゲームです", 0xffffff, 0);
-	DrawString(20, 200, "燃料が尽きるか障害物に", 0xffffff, 0);
-	DrawString(20, 220, "数回当たるとゲームオーバーです", 0xffffff, 0);
+	DrawStringToHandle(520,71, "操作方法", 0xffffff, FontManager::GetFont(6));
+	DrawStringToHandle(98 ,240, "【上下の移動】", 0x393A52, FontManager::GetFont(7));
+	DrawStringToHandle(176,315, "十字キー", 0x393A52, FontManager::GetFont(7));
 
-	DrawString(150, 450, "---Bボタンを押してタイトルへ戻る---", 0xffffff, 0);
+	DrawStringToHandle(135,480, "【上下の移動】", 0x393A52, FontManager::GetFont(7));
+	DrawStringToHandle(195,549, "左カーソル", 0x393A52, FontManager::GetFont(7));
+
+	DrawStringToHandle(780, 165, "【弾の発射】", 0x523B3C, FontManager::GetFont(7));
+	DrawStringToHandle(770, 228, " RBボタン", 0x523B3C, FontManager::GetFont(7));
+
+	DrawStringToHandle(900,412, "【照準の移動】", 0x4F3B20, FontManager::GetFont(7));
+	DrawStringToHandle(920,487, " 右カーソル", 0x4F3B20, FontManager::GetFont(7));
+
 }
 
 //終了処理

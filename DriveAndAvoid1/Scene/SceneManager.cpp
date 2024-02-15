@@ -13,6 +13,7 @@
 #include "../Object/RankingData.h"
 #include "EndScene.h"
 #include "RuleScene.h"
+#include "../Resource/SoundManager.h"
 
 SceneManager::SceneManager() : current_scene(nullptr)
 {
@@ -55,6 +56,7 @@ void SceneManager::Initialize()
 
 	FontManager::Initialize();
 	RankingData::Initialize();
+	SoundManager::Initialize();
 
 	//タイトルシーンから始める
 	ChangeScene(eSceneType::E_TITLE);
@@ -123,6 +125,7 @@ void SceneManager::Finalize()
 	//フォント削除
 	FontManager::Finalize();
 	RankingData::Finalize();
+	SoundManager::Finalize();
 
 	//DXライブラリの使用を終了する
 	DxLib_End();

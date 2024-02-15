@@ -253,7 +253,7 @@ void GameMainScene::Draw() const
 	DrawStringToHandle(fx, fy, "PLAYER HP", GetColor(255, 255, 255), FontManager::GetFont(1));
 	int tmp;
 	tmp = player->GetHp();
-	if (tmp < 0) {
+	if (tmp <= 0) {
 		tmp = 0;
 	}
 	DrawBoxAA(fx, fy + 50.0f, fx + (tmp * 400 / 1000), fy +

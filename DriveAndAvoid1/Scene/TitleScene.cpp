@@ -126,7 +126,7 @@ eSceneType TitleScene::Update()
 	}
 
 	if (fps++ > 540 && (location.x < 0 || location.x > 1280 ||location.y < 0 || location.y > 720)) {
-		switch (GetRand(3))
+		switch (GetRand(4))
 		{
 		case 0:
 			location = { -100,100 };
@@ -152,6 +152,11 @@ eSceneType TitleScene::Update()
 			type = 3;
 			break;
 
+		case 4:
+			location = { 600,-100 };
+			vector = { 0,10 };
+			type = 4;
+			break;
 		default:
 			break;
 		}
@@ -159,19 +164,52 @@ eSceneType TitleScene::Update()
 		back_img_num = GetRand(back_img_num_all - 1);
 		fps = 0;
 	}
+
 	location += vector;
-	if (type == 2) {
+
+	switch (type)
+	{
+	case 0:
+		angle = 0;
+		break;
+
+	case 1:
+		angle = 0;
+		break;
+
+	case 2:
+		angle += 0.3;
+		break;
+
+	case 3:
+		angle += 0.1;
+		vector.y += 0.1;
+		break;
+
+	case 4:
+		angle = DX_PI;
+		break;
+
+	default:
+		break;
+	}
+
+	/*if (type == 2) {
 		angle += 0.3;
 	}
 	else if (type == 3) {
 		angle += 0.1;
 	}
+	else if (type == 4) {
+		angle = DX_PI;
+	}
 	else {
 		angle = 0;
 	}
+
 	if (type == 3) {
 		vector.y += 0.1;
-	}
+	}*/
 
 	
 	//現在のシーンタイプを返す

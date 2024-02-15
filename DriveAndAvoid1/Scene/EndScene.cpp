@@ -35,6 +35,7 @@ void EndScene::Draw() const
 	DrawStringToHandle(100, 350, "pixabay   https://pixabay.com/ja/", 0x0000aa, FontManager::GetFont(8));
 	DrawStringToHandle(100, 400, "イラストAC   https://www.ac-illust.com/", 0x0000aa, FontManager::GetFont(8));
 	DrawStringToHandle(100, 450, "効果音ラボ   https://soundeffect-lab.info/", 0x0000aa, FontManager::GetFont(8));
+	DrawStringToHandle(100, 500, "IKACHI   https://www.ikachi.org/index.html", 0x0000aa, FontManager::GetFont(8));
 
 	//素材確定したらこの下に書き込む
 }

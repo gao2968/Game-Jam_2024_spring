@@ -77,7 +77,6 @@ void RankingInputScene::Draw() const
 	DrawStringToHandle(150, 100, "ƒ‰ƒ“ƒLƒ“ƒO‚É“o˜^‚µ‚Ü‚·", GetColor(255, 255, 255), FontManager::GetFont(6));
 	//DrawFormatString(100, 220, GetColor(255, 255, 255), ">%s", name);
 	DrawFormatStringToHandle(100, 220, GetColor(255, 255, 255), FontManager::GetFont(1), ">%s", name);
-	DrawFormatStringToHandle(100, 0, GetColor(255, 255, 255), FontManager::GetFont(1), ">%d", name_num);
 	DrawLine(100, 260, 800, 260, 0xffffff);
 
 	// ‘I‘ð—p•¶Žš‚ð•`‰æ

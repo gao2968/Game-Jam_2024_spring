@@ -23,17 +23,17 @@ void ResultScene::Initialize()
 {
 	//画像の読み込み
 	back_ground = LoadGraph("Resource/images/background.jpg");
-	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
+	/*int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);*/
 
 	//エラーチェック
 	if (back_ground == -1) 
 	{
 		throw("Resource/images/back.bmpがありません\n");
 	}
-	if (result == -1) 
+	/*if (result == -1) 
 	{
 		throw("Resource/images/car.bmpがありません\n");
-	}
+	}*/
 
 	//ゲーム結果の読み込み
 	ReadResultData();

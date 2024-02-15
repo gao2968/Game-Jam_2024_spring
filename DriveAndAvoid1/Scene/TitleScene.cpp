@@ -22,7 +22,7 @@ void TitleScene::Initialize()
 	//画像の読み込み
 	background_image = LoadGraph("Resource/images/background.jpg");
 
-	menu_image = LoadGraph("Resource/images/menu.bmp");
+	/*menu_image = LoadGraph("Resource/images/menu.bmp");*/
 
 	cursor_image = LoadGraph("Resource/images/aiming.png");
 
@@ -31,10 +31,10 @@ void TitleScene::Initialize()
 	{
 		throw("Resource/images/Title.bmpがありません\n");
 	}
-	if (menu_image == -1)
+	/*if (menu_image == -1)
 	{
 		throw("Resource/images/menu.bmpがありません\n");
-	}
+	}*/
 	if (cursor_image == -1)
 	{
 		throw("Resource/images/cone.bmpがありません\n");
@@ -72,6 +72,7 @@ void TitleScene::Initialize()
 	head_img[0] = LoadGraph("Resource/images/mob.png");
 	head_img[1] = LoadGraph("Resource/images/mob2.png");
 	head_type = 0;
+	type = 0;
 }
 
 eSceneType TitleScene::Update()
@@ -125,21 +126,30 @@ eSceneType TitleScene::Update()
 	}
 
 	if (fps++ > 540 && (location.x < 0 || location.x > 1280 ||location.y < 0 || location.y > 720)) {
-		switch (GetRand(2))
+		switch (GetRand(3))
 		{
 		case 0:
 			location = { -100,100 };
 			vector = { 5,0 };
+			type = 0;
 			break;
 
 		case 1:
 			location = { 1300,600 };
 			vector = { -5,0 };
+			type = 1;
 			break;
 
 		case 2:
 			location = { 1200,800 };
 			vector = { -5,-10 };
+			type = 2;
+			break;
+
+		case 3:
+			location = { 30,800 };
+			vector = { 5,-10 };
+			type = 3;
 			break;
 
 		default:
@@ -150,12 +160,19 @@ eSceneType TitleScene::Update()
 		fps = 0;
 	}
 	location += vector;
-	if (vector.x == -5 && vector.y == -10) {
+	if (type == 2) {
 		angle += 0.3;
+	}
+	else if (type == 3) {
+		angle += 0.1;
 	}
 	else {
 		angle = 0;
 	}
+	if (type == 3) {
+		vector.y += 0.1;
+	}
+
 	
 	//現在のシーンタイプを返す
 	return GetNowScene();

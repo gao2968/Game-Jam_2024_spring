@@ -23,6 +23,7 @@ private:
 	float angle;
 	float rote;
 	int fps;
+	int type;
 	int head_img[2];
 	int head_type;
 

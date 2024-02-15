@@ -36,9 +36,9 @@ void GameMainScene::Initialize()
 	ReadHighScore();
 
 	// 画像の読み込み
-	back_ground = LoadGraph("Resource/images/back.bmp");
+	/*back_ground = LoadGraph("Resource/images/back.bmp");
 	barrier_image = LoadGraph("Resource/images/barrier.png");
-	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
+	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);*/
 	img_Background = LoadGraph("Resource/images/background.jpg");
 
 
@@ -59,7 +59,7 @@ void GameMainScene::Initialize()
 	boss_headimage = LoadGraph("Resource/images/ボス.png");
 
 	// エラーチェック
-	if (back_ground == -1) {
+	/*if (back_ground == -1) {
 		throw("画像back.bmpがありません\n");
 	}
 	if (result == -1) {
@@ -67,7 +67,7 @@ void GameMainScene::Initialize()
 	}
 	if (barrier_image == -1) {
 		throw("画像barrier_imageがありません\n");
-	}
+	}*/
 
 	// オブジェクトの生成
 	player = new Player;

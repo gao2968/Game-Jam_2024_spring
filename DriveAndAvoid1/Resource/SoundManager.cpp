@@ -26,6 +26,9 @@ void SoundManager::Initialize()
 	SE[3] = LoadSoundMem("Resource/sound/Vois/voic3.mp3");
 	SE[4] = LoadSoundMem("Resource/sound/Vois/voic4.mp3");
 	SE[5] = LoadSoundMem("Resource/sound/Vois/voic5.mp3");
+	SE[6] = LoadSoundMem("Resource/sound/cursor_move2.mp3");
+	SE[7] = LoadSoundMem("Resource/sound/cursor_pass2.mp3");
+	SE[8] = LoadSoundMem("Resource/sound/camera.mp3");
 
 }
 

@@ -7,6 +7,7 @@
 #include "../Utility/TakePicture.h"
 #include "../Resource/FontManager.h"
 #include "../Object/RankingData.h"
+#include "../Resource/SoundManager.h"
 
 GameMainScene::GameMainScene() :high_score(0), back_ground(NULL), barrier_image(NULL), Score(0), player(nullptr),
 enemy(nullptr) {
@@ -88,6 +89,10 @@ void GameMainScene::Initialize()
 	{
 		bullet[i] = nullptr;
 	}
+	if (CheckSoundMem(SoundManager::GetBGM(1)) == 1) {
+		StopSoundMem(SoundManager::GetBGM(1));
+	}
+	PlaySoundMem(SoundManager::GetBGM(4), DX_PLAYTYPE_LOOP, TRUE);
 }
 
 eSceneType GameMainScene::Update()
@@ -168,6 +173,10 @@ eSceneType GameMainScene::Update()
 			}
 			stopFlg = true;
 			state = 2;
+			if (CheckSoundMem(SoundManager::GetBGM(2)) == 1) {
+				StopSoundMem(SoundManager::GetBGM(2));
+				PlaySoundMem(SoundManager::GetBGM(3), DX_PLAYTYPE_LOOP, TRUE);
+			}
 			if (fps++ > 240) {
 				return eSceneType::E_RULE;
 			}
@@ -178,6 +187,11 @@ eSceneType GameMainScene::Update()
 	{
 		stopFlg = true;
 		state = 1;
+		if (CheckSoundMem(SoundManager::GetBGM(2)) == 1) {
+			StopSoundMem(SoundManager::GetBGM(2));
+			PlaySoundMem(SoundManager::GetBGM(0), DX_PLAYTYPE_LOOP, TRUE);
+		}
+
 		if (fps++ > 240) {
 			return eSceneType::E_RULE;
 		}
@@ -192,6 +206,13 @@ eSceneType GameMainScene::Update()
 	
 	if (coolTime++ > 10) {
 		coolTime = 10;
+	}
+
+	if (enemy[Boss_Num] != nullptr) {
+		if (CheckSoundMem(SoundManager::GetBGM(4)) == 1) {
+			StopSoundMem(SoundManager::GetBGM(4));
+			PlaySoundMem(SoundManager::GetBGM(2), DX_PLAYTYPE_LOOP, TRUE);
+		}
 	}
 
 	return GetNowScene();
@@ -376,6 +397,7 @@ bool GameMainScene::SpawnBullet()
 			bullet[i] = new Bullet();
 			//’e‚ÌƒxƒNƒgƒ‹‚Æ‚©À•W‚Æ‚©‚ðˆø”‚Æ‚µ‚Ä“n‚·
 			bullet[i]->Initialize(player->GetAim(), player->GetLocation(), 5.0f, 10, 10, 0);
+			PlaySoundMem(SoundManager::GetSE(0), DX_PLAYTYPE_BACK, TRUE);
 
 			return true;
 		}
@@ -394,7 +416,7 @@ bool GameMainScene::Enemy_SpawnBullet(Vector2D e_vec,Vector2D e_location,float s
 			bullet[i] = new Bullet();
 			//’e‚ÌƒxƒNƒgƒ‹‚Æ‚©À•W‚Æ‚©‚ðˆø”‚Æ‚µ‚Ä“n‚·
 			bullet[i]->Initialize(e_vec, e_location, speed, 10,damage, 1);
-
+			PlaySoundMem(SoundManager::GetSE(0), DX_PLAYTYPE_BACK, TRUE);
 			return true;
 		}
 	}

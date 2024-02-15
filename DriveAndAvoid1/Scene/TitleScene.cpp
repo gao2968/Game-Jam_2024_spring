@@ -39,7 +39,16 @@ void TitleScene::Initialize()
 		throw("Resource/images/cone.bmpがありません\n");
 	}
 
-	PlaySoundMem(SoundManager::GetBGM(1), DX_PLAYTYPE_LOOP, TRUE);
+	if (CheckSoundMem(SoundManager::GetBGM(1)) == 0) {
+		if (CheckSoundMem(SoundManager::GetBGM(0)) == 1 || CheckSoundMem(SoundManager::GetBGM(3)) == 1) {
+			StopSoundMem(SoundManager::GetBGM(0));
+			StopSoundMem(SoundManager::GetBGM(3));
+			PlaySoundMem(SoundManager::GetBGM(1), DX_PLAYTYPE_LOOP, TRUE);
+		}
+		else {
+			PlaySoundMem(SoundManager::GetBGM(1), DX_PLAYTYPE_LOOP, FALSE);
+		}
+	}
 }
 
 eSceneType TitleScene::Update()
@@ -53,6 +62,7 @@ eSceneType TitleScene::Update()
 		{
 			menu_cursor = 0;
 		}
+		PlaySoundMem(SoundManager::GetSE(6), DX_PLAYTYPE_BACK, TRUE);
 	}
 
 
@@ -65,11 +75,18 @@ eSceneType TitleScene::Update()
 		{
 			menu_cursor = 3;
 		}
+
+		if(PlaySoundMem(SoundManager::GetSE(6), DX_PLAYTYPE_BACK, TRUE) == -1){
+			throw("カーソル移動音が再生されませんでした");
+		}
+		
+	
 	}
 
 	//カーソル決定（決定した画面に遷移する）
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
+		PlaySoundMem(SoundManager::GetSE(7), DX_PLAYTYPE_BACK, TRUE);
 		switch (menu_cursor)
 		{
 		case 0:
@@ -81,6 +98,7 @@ eSceneType TitleScene::Update()
 		default:
 			return eSceneType::E_END1;
 		}
+		
 	}
 
 	//現在のシーンタイプを返す

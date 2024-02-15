@@ -2,6 +2,7 @@
 #include "../utility/InputControl.h"
 #include "DxLib.h"
 #include"../Resource/FontManager.h"
+#include"../Resource/SoundManager.h"
 
 HelpScene::HelpScene() : background_image(NULL),controller_img(NULL)
 {
@@ -31,6 +32,7 @@ eSceneType HelpScene::Update()
 	//Bボタンが押されたらタイトルに戻る
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
+		PlaySoundMem(SoundManager::GetSE(7), DX_PLAYTYPE_BACK, TRUE);
 		return eSceneType::E_TITLE;
 	}
 	return GetNowScene();

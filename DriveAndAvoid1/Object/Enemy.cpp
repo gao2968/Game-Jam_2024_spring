@@ -2,6 +2,7 @@
 #include"DxLib.h"
 // ヘッダーではなくcppでインクルードする
 #include"../Scene/GameMainScene.h"
+#include "../Resource/SoundManager.h"
 
 Enemy::Enemy(float _x, float _y, float _r, float _speed, float b_speed, int score, int _hp, int _E_num, int type, int handle, int hed_handle,int img_num) :type(type), image(handle)/*h_image(hed_handle)*/
 {
@@ -103,13 +104,8 @@ void Enemy::Boss_System(GameMainScene* game, Vector2D player)
 			game->Enemy_SpawnBullet(b_vector[0] - location, location, bullet_speed / 2, 50.0f);
 			game->Enemy_SpawnBullet(b_vector[1] - location, location, bullet_speed / 2, 50.0f);
 			game->Enemy_SpawnBullet(b_vector[2] - location, location, bullet_speed / 2, 50.0f);
-
 		}
 		location.y += y_speed;
-	}
-	// ボスのHPが0なら
-	if (hp <= 0) {
-		End = true;
 	}
 }
 
@@ -146,6 +142,11 @@ bool Enemy::Get_BossDown()
 int Enemy::Get_Score()
 {
 	return point;
+}
+
+void Enemy::Voic()
+{
+	PlaySoundMem(SoundManager::GetSE(GetRand(4) + 1), DX_PLAYTYPE_BACK);
 }
 
 void Enemy::Set_HP(float damege)

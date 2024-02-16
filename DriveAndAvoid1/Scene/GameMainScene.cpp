@@ -1,3 +1,4 @@
+//#include <afxwin.h>
 #include "GameMainScene.h"
 #include "../Object/RankingData.h"
 #include "DxLib.h"
@@ -8,6 +9,7 @@
 #include "../Resource/FontManager.h"
 #include "../Object/RankingData.h"
 #include "../Resource/SoundManager.h"
+
 
 GameMainScene::GameMainScene() :high_score(0), back_ground(NULL), barrier_image(NULL), Score(0), player(nullptr),
 enemy(nullptr) {

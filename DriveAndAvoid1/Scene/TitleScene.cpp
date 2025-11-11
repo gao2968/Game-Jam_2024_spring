@@ -56,7 +56,9 @@ void TitleScene::Initialize()
 	//TakePicture tmp;
 	std::string path;
 	TakePicture::SeekNum();
-	for (int i = 0; i < TakePicture::GetNum(); i++)
+	int all_pic = TakePicture::GetNum();
+	if (all_pic > 32) all_pic = 32;
+	for (int i = 0; i < all_pic; i++)
 	{
 		path = "Resource/images/img" + std::to_string(i) + ".png";
 		back_img[i] = LoadGraph(path.c_str());

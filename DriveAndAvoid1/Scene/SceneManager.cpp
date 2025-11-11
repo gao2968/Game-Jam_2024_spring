@@ -61,7 +61,7 @@ void SceneManager::Initialize()
 	TakePicture::Initialize();
 
 	//タイトルシーンから始める
-	ChangeScene(eSceneType::E_TITLE);
+	ChangeScene(eSceneType::E_TAKE_PICTURE);
 }
 
 //シーンマネージャー機能：更新処理

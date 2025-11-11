@@ -37,6 +37,7 @@ eSceneType TakePictureScene::Update()
 			PlaySoundMem(SoundManager::GetSE(7), DX_PLAYTYPE_BACK, TRUE);
 			state = 1;
 		}
+		state = 1;
 		break;
 
 	case 1:
